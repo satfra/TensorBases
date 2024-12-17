@@ -15,7 +15,7 @@ If you use the package for your research, please cite the corresponding publicat
 
 ```
 @article{TensorBases2024,
-    author = "Geißel, Andreas and Jens, Braun and Pawlowski, Jan M. and Sattler, Franz R.",
+    author = "Geißel, Andreas and Jens, Braun and Pawlowski, Jan M. and Sattler, Franz R. and Wink, Nicolas",
     title = "{Tensor bases and projectors in functional approaches}",
     eprint = "",
     archivePrefix = "",
