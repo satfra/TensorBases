@@ -15,12 +15,12 @@ If you use the package for your research, please cite the corresponding publicat
 
 ```
 @article{TensorBases2024,
-    author = "Geißel, Andreas and Jens, Braun and Pawlowski, Jan M. and Sattler, Franz R. and Wink, Nicolas",
-    title = "{Tensor bases and projectors in functional approaches}",
+    author = "Braun, Jens and Geißel, Andreas and Pawlowski, Jan M. and Sattler, Franz R. and Wink, Nicolas",
+    title = "{Juggling with Tensor bases in Functional Approaches}",
     eprint = "",
     archivePrefix = "",
     primaryClass = "",
-    month = "",
+    month = "01",
     year = "2024",
     journal = ""
 }
