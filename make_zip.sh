@@ -7,6 +7,7 @@ cp PacletInfo.m TensorBases
 cp LICENSE TensorBases
 cp README.md TensorBases
 cp -r cache TensorBases
+cp -r examples TensorBases
 cp -r bases TensorBases
 
 if [[ -e ./TensorBases.zip ]]; then

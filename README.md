@@ -14,14 +14,14 @@ The installer will automatically download the package and all basis definition f
 If you use the package for your research, please cite the corresponding publication:
 
 ```
-@article{TensorBases2024,
-    author = "Braun, Jens and Geißel, Andreas and Pawlowski, Jan M. and Sattler, Franz R. and Wink, Nicolas",
-    title = "{Juggling with Tensor bases in Functional Approaches}",
-    eprint = "",
-    archivePrefix = "",
-    primaryClass = "",
-    month = "01",
-    year = "2024",
-    journal = ""
+@article{Braun:2025gvq,
+    author = "Braun, Jens and Gei\ss{}el, Andreas and Pawlowski, Jan M. and Sattler, Franz R. and Wink, Nicolas",
+    title = "{Juggling with Tensor Bases in Functional Approaches}",
+    eprint = "2503.05580",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-th",
+    month = "3",
+    year = "2025"
 }
+
 ```

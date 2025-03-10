@@ -27,7 +27,7 @@ StyleBox[\"Authors\",\nFontWeight->\"Bold\"]\): Andreas Gei\[SZ]el, Franz Richar
 \!\(\*
 StyleBox[\"Version\",\nFontWeight->\"Bold\"]\): 1.0
 \!\(\*
-StyleBox[\"Year\",\nFontWeight->\"Bold\"]\): 2024
+StyleBox[\"Year\",\nFontWeight->\"Bold\"]\): 2025
 
 For a list of available bases, call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[]. For further information on a particular basis, call \!\(\*
@@ -46,6 +46,9 @@ StyleBox[\"usage\",\nFontColor->RGBColor[0, 0, 1]]\).
 
 To build or manipulate bases, please call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"BaseBuilder\"].
+
+To show information on the used notation, call \!\(\*
+StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Notation\"].
 "]
 
 
@@ -568,6 +571,12 @@ TensorBases defines additionally the following Lorentz tensors:
    sigma[\[Mu],\[Nu],\!\(\*SubscriptBox[\(d\), \(1\)]\),\!\(\*SubscriptBox[\(d\), \(2\)]\)] : \!\(\*FractionBox[\(\[ImaginaryI]\), \(2\)]\)[\!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\)]\),\!\(\*SubscriptBox[\(\[Gamma]\), \(\[Nu]\)]\)\!\(\*SubscriptBox[\(]\), \(\*SubscriptBox[\(d\), \(1\)] \*SubscriptBox[\(d\), \(2\)]\)]\)
    pdash[p,\!\(\*SubscriptBox[\(d\), \(1\)]\),\!\(\*SubscriptBox[\(d\), \(2\)]\)] : (\!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\(p\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\()\), \(\*SubscriptBox[\(d\), \(1\)] \*SubscriptBox[\(d\), \(2\)]\)]\)
    psdash[p,\!\(\*SubscriptBox[\(d\), \(1\)]\),\!\(\*SubscriptBox[\(d\), \(2\)]\)] : (\!\(\*SubscriptBox[\(\[Gamma]\), \(i\)]\)\!\(\*SubscriptBox[\(p\), \(i\)]\)\!\(\*SubscriptBox[\()\), \(\*SubscriptBox[\(d\), \(1\)] \*SubscriptBox[\(d\), \(2\)]\)]\)
+
+Further useful functions defined by TensorBases:
+\!\(\*
+StyleBox[\"UseLorentzLinearity\",\nFontColor->RGBColor[1, 0.5, 0]]\)[expr] expands all scalar products and vectors in expr (e.g. sp[p1,p2-p3] -> sp[p1,p2]-sp[p1,p3])
+\!\(\*
+StyleBox[\"AddFormTracerGroup\",\nFontColor->RGBColor[1, 0.5, 0]]\)[{name,kind,constant}] adds a group to FormTracer where name is an identifier, kind is one of {SUNfund, SONfund, SU3fundexplicit, SU2fundexplicit,SPNfund} (see also FormTracer`ShowGroupTemplates[]) and constant is the identifier for the group constant.
 "];
 ];
 
@@ -688,17 +697,58 @@ StyleBox[\"TBUnregister\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String]
 Remove an existing basis from internal memory. This does not delete or change any files on disk."
 
 
-TB3PToS0S1SPhi::usage="TB3PToS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]";
-TB3PFromS0S1SPhi::usage="TB3PFromS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]";
-TB3PToS0S1SPhiQk::usage="TB3PToS0S1SPhi[Q_Symbol,k_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]";
-TB3PFromS0S1SPhiQk::usage="TB3PFromS0S1SPhi[Q_Symbol,k_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]";
+TB3PToS0S1SPhi::usage="TB3PToS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]
+Given three momenta p1,p2,p3, obtain a function which transforms these to the representation in terms of S0,S1 and SPhi.
+Returns a function which takes one argument, the expression to be transformed.
 
-TB3PToS0as::usage="TB3PToS0as[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,a_Symbol,s_Symbol]";
-TB3PFromS0as::usage="TB3PFromS0as[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,a_Symbol,s_Symbol]";
+TB3PToS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,q_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]
+If an additional momentum q is supplied, it is included in the transformation. Currently this assumes that q is a four-dimensional vector and is described by
+q={cos1,\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)cos1,\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos1\), \(2\)]\)]\)\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)Cos[phi],\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos1\), \(2\)]\)]\)\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)Sin[phi]}
+";
 
-TBProjectToSymmetricPoint::usage="TBProjectToSymmetricPoint[expr_,q_Symbol,p_Symbol,momenta___Symbol]";
+TB3PFromS0S1SPhi::usage="TB3PFromS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]
+Given three momenta p1,p2,p3, obtain a function which transforms from the representation in terms of S0,S1 and SPhi back to the momenta p1,p2,p3.
+Returns a function which takes one argument, the expression to be transformed.
+";
 
-TBProjectToSymmetricPointSpatial::usage="TBProjectToSymmetricPointSpatial[expr_,q_Symbol,p_Symbol,momenta___Symbol]";
+TB3PToS0S1SPhiQk::usage="TB3PToS0S1SPhi[Q_Symbol,k_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]
+Given two momenta Q,k obtain a function which transforms these to the representation in terms of S0,S1 and SPhi.
+Returns a function which takes one argument, the expression to be transformed.
+
+TB3PToS0S1SPhi[Q_Symbol,k_Symbol,q_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]
+If an additional momentum q is supplied, it is included in the transformation. Currently this assumes that q is a four-dimensional vector and is described by
+q={cos1,\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)cos1,\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos1\), \(2\)]\)]\)\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)Cos[phi],\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos1\), \(2\)]\)]\)\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)Sin[phi]}
+";
+
+TB3PFromS0S1SPhiQk::usage="TB3PFromS0S1SPhi[Q_Symbol,k_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]
+Given two momenta Q,k, obtain a function which transforms from the representation in terms of S0,S1 and SPhi back to the momenta Q,k.
+Returns a function which takes one argument, the expression to be transformed.
+";
+
+TB3PToS0as::usage="TB3PToS0as[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,a_Symbol,s_Symbol]
+Given three momenta p1,p2,p3, obtain a function which transforms these to the representation in terms of S0, a and s.
+Returns a function which takes one argument, the expression to be transformed.
+
+TB3PToS0as[p1_Symbol,p2_Symbol,p3_Symbol,q_Symbol,S0_Symbol,a_Symbol,s_Symbol]
+If an additional momentum q is supplied, it is included in the transformation. Currently this assumes that q is a four-dimensional vector and is described by
+q={cos1,\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)cos1,\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos1\), \(2\)]\)]\)\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)Cos[phi],\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos1\), \(2\)]\)]\)\!\(\*SqrtBox[\(1 - \*SuperscriptBox[\(cos2\), \(2\)]\)]\)Sin[phi]}
+";
+
+TB3PFromS0as::usage="TB3PFromS0as[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,a_Symbol,s_Symbol]
+Given three momenta p1,p2,p3, obtain a function which transforms from the representation in terms of S0, a and s back to the momenta p1,p2,p3.
+Returns a function which takes one argument, the expression to be transformed.
+";
+
+TBProjectToSymmetricPoint::usage="TBProjectToSymmetricPoint[expr_,q_Symbol,p_Symbol,momenta___Symbol]
+Project an expression with internal loop momentum q to the symmetric point with average momentum p. The last arguments should be all involved momenta. 
+According to their number, the correct symmetric-point configuration is chosen.
+";
+
+TBProjectToSymmetricPointSpatial::usage="TBProjectToSymmetricPointSpatial[expr_,q_Symbol,p_Symbol,momenta___Symbol]
+Project an expression with internal loop momentum q to the symmetric point in the d-1 dimensional subspace with average momentum p.
+This is useful for applications at finite temperature, where the 0th component is discrete.
+The last arguments should be all involved momenta. According to their number, the correct symmetric-point configuration is chosen.
+";
 
 
 TBInfo["FormTracer"]:=Global`ShowFormTracerDefinitions[];
@@ -726,6 +776,16 @@ StyleBox[\" \",\nFontColor->RGBColor[1, 0.5, 0]]\)creates a new basis from a set
 \nFor usage help with the aforementioned functions, please call their usage messages, e.g. \!\(\*
 StyleBox[\"TBConstructBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)::\!\(\*
 StyleBox[\"usage\",\nFontColor->RGBColor[0, 0, 1]]\).
+"
+
+
+TBInfo["Notation"]:=Print@"\!\(\*
+StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\) uses the following conventions and notation:
+For a given group, \!\(\*SuperscriptBox[\(T\), \(a\)]\) denotes the generators of the group in the fundamental representation, \!\(\*SuperscriptBox[\(t\), \(a\)]\) denotes the generators in the adjoint representation.
+\!\(\*SubscriptBox[\(\[Epsilon]\), \(abc\)]\) is the fully anti-symmetric Levi-Civita symbol.
+The \!\(\*SuperscriptBox[\(T\), \(a\)]\) are normalised as 
+	tr[\!\(\*SuperscriptBox[\(T\), \(a\)]\)\!\(\*SuperscriptBox[\(T\), \(b\)]\)] = \!\(\*FractionBox[\(1\), \(2\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \(ab\)]\).
+The \!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\(\\\ \)\)]\)denote Euclidean gamma matrices and accordingly \!\(\*SubscriptBox[\(\[Gamma]\), \(5\(\\\ \)\)]\)= \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(1\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(2\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(3\)]\)
 "
 
 
@@ -1030,6 +1090,7 @@ If[Not@TBCheck[BasisName,"Vertex",StringQ],TBPrint[errorPrefix~~"Vertex definiti
 If[Not@TBCheck[BasisName,"VertexStructure",Head[#]=!=TBVertexStructure&],TBPrint[errorPrefix~~"Vertex structure missing!",0];Abort[]];
 If[Not@TBCheck[BasisName,"Comment",StringQ],TBPrint[errorPrefix~~"Comment definition missing!",2];TBComment[BasisName]=""];
 If[Not@TBCheck[BasisName,"Author",StringQ],TBPrint[errorPrefix~~"Author definition missing!",2];TBAuthor[BasisName]=""];
+If[Not@TBCheck[BasisName,"VertexBasis",BooleanQ],TBPrint[errorPrefix~~"VertexBasis setting missing!",2];TBVertexBasis[BasisName]=False];
 If[Not@TBCheck[BasisName,"MomentumConservation",ListQ],TBPrint[errorPrefix~~"Momentum conservation missing!",2];TBMomentumConservation[BasisName]={}];
 If[Not@TBCheck[BasisName,"Usage",Head[#]=!=TBUsage&],TBPrint[errorPrefix~~"Usage definition missing!",0];Abort[]];
 If[Not@TBCheck[BasisName,"Indices",ListQ],TBPrint[errorPrefix~~"Indices definition missing!",0];Abort[]];
@@ -1046,6 +1107,7 @@ If[Not@TBCheck[BasisName,"Vertex",StringQ],TBPrint[errorPrefix~~"Vertex definiti
 If[Not@TBCheck[BasisName,"Comment",StringQ],TBPrint[errorPrefix~~"Comment definition missing!",2];TBComment[BasisName]=""];
 If[Not@TBCheck[BasisName,"Author",StringQ],TBPrint[errorPrefix~~"Author definition missing!",2];TBAuthor[BasisName]=""];
 If[Not@TBCheck[BasisName,"MomentumConservation",ListQ],TBPrint[errorPrefix~~"Momentum conservation missing!",2];TBMomentumConservation[BasisName]={}];
+If[Not@TBCheck[BasisName,"VertexBasis",BooleanQ],TBPrint[errorPrefix~~"VertexBasis setting missing!",0];Abort[]];
 If[Not@TBCheck[BasisName,"Usage",Head[#]=!=TBUsage&],TBPrint[errorPrefix~~"Usage definition missing!",0];Abort[]];
 If[Not@TBCheck[BasisName,"Indices",ListQ],TBPrint[errorPrefix~~"Indices definition missing!",0];Abort[]];
 If[Not@TBCheck[BasisName,"Basis",ListQ],TBPrint[errorPrefix~~"Basis definition missing!",0];Abort[]];
@@ -1684,7 +1746,9 @@ TBAutoDefine[outBasisName]=TBAutoDefine[inBasisName];
 TBRequiredGroups[outBasisName]=TBRequiredGroups[inBasisName];
 TBVertex[outBasisName]=TBVertex[inBasisName];
 TBVertexStructure[outBasisName]=TBVertexStructure[inBasisName];
+TBVertexBasis[outBasisName]=TBVertexBasis[inBasisName];
 TBInnerProduct[outBasisName]=TBInnerProduct[inBasisName];
+TBCanonicalProduct[outBasisName]=TBCanonicalProduct[inBasisName];
 TBComment[outBasisName]=TBComment[inBasisName];
 TBAuthor[outBasisName]=TBAuthor[inBasisName];
 TBUsage[outBasisName]=TBUsage[inBasisName];
@@ -1771,6 +1835,8 @@ TBAutoDefine[\""<>BasisName<>"\"]="<>ToString[TBAutoDefine[BasisName],FormatType
 TBRequiredGroups[\""<>BasisName<>"\"]="<>ToString[TBRequiredGroups[BasisName],FormatType->InputForm]<>";
 
 TBVertex[\""<>BasisName<>"\"]="<>ToString[TBVertex[BasisName],FormatType->InputForm]<>";
+
+TBVertexBasis[\""<>BasisName<>"\"]=False;
 
 TBVertexStructure[\""<>BasisName<>"\"]="<>ToString[TBVertexStructure[BasisName],FormatType->InputForm]<>";
 
@@ -1912,7 +1978,15 @@ StyleBox[\" \",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\"functions\",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\":\",\nFontWeight->\"Bold\"]\)\n\!\(\*
 StyleBox[\"TB3PToS0S1SPhi\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
-StyleBox[\"TB3PToS0S1SPhi\",\nFontColor->RGBColor[1, 0.5, 0]]\)
+StyleBox[\"TB3PToS0S1SPhi\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\",\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\"TB3PFromS0as\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\",\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\"TB3PToS0as\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\",\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\"TB3PFromS0S1SPhiQk\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\",\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\"TB3PToS0S1SPhiQk\",\nFontColor->RGBColor[1, 0.5, 0]]\)
 "];
 Protect@TBInfo;
 
