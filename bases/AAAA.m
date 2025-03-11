@@ -52,14 +52,29 @@ TableForm[
 
 TBIndices["AAAA"]={{p1,mu,a1},{p2,nu,a2},{p3,rho,a3},{p4,sig,a4}};
 
-TBMomentumConservation["AAAA"]={(*p4->-p1-p2-p3*)};
+TBMomentumConservation["AAAA"]={p4->-p1-p2-p3};
 
 TBBasis["AAAA"]={
 	transProj[p1,mu,v1]transProj[p2,nu,v2]transProj[p3,rho,v3]transProj[p4,sig,v4]
 (ff[a1,a2,a3,a4](TBdeltaLorentz[v1,v3]TBdeltaLorentz[v2,v4]-TBdeltaLorentz[v1,v4]TBdeltaLorentz[v2,v3])
 +ff[a1,a3,a2,a4](TBdeltaLorentz[v1,v2]TBdeltaLorentz[v3,v4]-TBdeltaLorentz[v1,v4]TBdeltaLorentz[v2,v3])
 +ff[a1,a4,a2,a3](TBdeltaLorentz[v1,v2]TBdeltaLorentz[v3,v4]-TBdeltaLorentz[v1,v3]TBdeltaLorentz[v2,v4]))
-	(*T^(1)*)
+	(*T^(1)*),
+
+	transProj[p1,mu,v1]transProj[p2,nu,v2]longProj[p3,rho,v3]longProj[p4,sig,v4]
+(ff[a1,a2,a3,a4](TBdeltaLorentz[v1,v3]TBdeltaLorentz[v2,v4]-TBdeltaLorentz[v1,v4]TBdeltaLorentz[v2,v3])
++ff[a1,a3,a2,a4](TBdeltaLorentz[v1,v2]TBdeltaLorentz[v3,v4]-TBdeltaLorentz[v1,v4]TBdeltaLorentz[v2,v3])
++ff[a1,a4,a2,a3](TBdeltaLorentz[v1,v2]TBdeltaLorentz[v3,v4]-TBdeltaLorentz[v1,v3]TBdeltaLorentz[v2,v4]))
+	(*T^(2)*),
+
+	transProj[p1,mu,v1]transProj[p2,nu,v2]transProj[p3,rho,v3]longProj[p4,sig,v4]
+(ff[a1,a2,a3,a4](TBdeltaLorentz[v1,v3]TBdeltaLorentz[v2,v4]-TBdeltaLorentz[v1,v4]TBdeltaLorentz[v2,v3])
++ff[a1,a3,a2,a4](TBdeltaLorentz[v1,v2]TBdeltaLorentz[v3,v4]-TBdeltaLorentz[v1,v4]TBdeltaLorentz[v2,v3])
++ff[a1,a4,a2,a3](TBdeltaLorentz[v1,v2]TBdeltaLorentz[v3,v4]-TBdeltaLorentz[v1,v3]TBdeltaLorentz[v2,v4]))
+	(*T^(2)*)
 };
 
 TBCanonicalProduct["AAAA"]=Tensor1[1,2,3,4]Tensor2[1,2,3,4];
+
+
+

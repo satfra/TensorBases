@@ -185,6 +185,76 @@ alreadyPresent,
 ]
 
 
+RemoveGroupTensor[name_]:=Module[{alreadyPresent,obj},
+alreadyPresent=Map[GetFormTracerGroupList,FormTracer`Private`groupNames];
+obj=Select[alreadyPresent,MemberQ[#,name,Infinity]&];
+If[Length[obj]===0,Print["No group called "<>ToString[name]<>" present!"];Abort[]];
+DefineGroupTensors[
+DeleteCases[alreadyPresent,obj[[1]]]
+]
+];
+
+
+SetNf[3]:=Module[{},
+RemoveGroupTensor[flavor];
+
+Unprotect[Nf];
+ClearAll[Nf];
+Nf=3;
+Protect[Nf];
+
+AddGroupTensors[{FormTracer`SU3fundexplicit, {flavor,3}, deltaAdjFlav[a, b], FFlav[a, b, c], deltaFundFlav[a, b], TFlav[a, b, c], epsAdjFlav[a, b, c],epsFundFlav[a, b, c]}];
+]
+SetNf[2]:=Module[{},
+RemoveGroupTensor[flavor];
+
+Unprotect[Nf];
+ClearAll[Nf];
+Nf=2;
+Protect[Nf];
+
+AddGroupTensors[{FormTracer`SU2fundexplicit, {flavor,2}, deltaAdjFlav[a, b], FFlav[a, b, c], deltaFundFlav[a, b], TFlav[a, b, c], epsAdjFlav[a, b, c],epsFundFlav[a, b, c]}];
+]
+SetNf[]:=Module[{},
+RemoveGroupTensor[flavor];
+ClearAll[Nf];
+AddFormTracerGroup[{flavor,SUNfund,Nf}];
+]
+SetNf[i_]:=Print["Can only set flavor group number to 2 or 3; to set it to Nf, use SetNf[]"]
+
+
+SetNc[3]:=Module[{},
+RemoveGroupTensor[color];
+
+Unprotect[Nc];
+ClearAll[Nc];
+Nc=3;
+Protect[Nc];
+
+AddGroupTensors[{FormTracer`SU3fundexplicit, {color,3}, deltaAdjCol[a, b], FCol[a, b, c], deltaFundCol[a, b], TCol[a, b, c],epsAdjCol[a, b, c], epsFundCol[a, b, c]}];
+]
+SetNc[2]:=Module[{},
+RemoveGroupTensor[color];
+
+Unprotect[Nc];
+ClearAll[Nc];
+Nc=2;
+Protect[Nc];
+
+AddGroupTensors[{FormTracer`SU2fundexplicit, {color,2}, deltaAdjCol[a, b], FCol[a, b, c], deltaFundCol[a, b], TCol[a, b, c],epsAdjCol[a, b, c], epsFundCol[a, b, c]}];
+]
+SetNc[]:=Module[{},
+RemoveGroupTensor[color];
+
+Unprotect[Nc];
+ClearAll[Nc];
+Protect[Nc];
+
+AddFormTracerGroup[{color,SUNfund,Nc}];
+]
+SetNc[i_]:=Print["Can only set color group number to 2 or 3; to set it to Nc, use SetNc[]"]
+
+
 GetFormTracerGroupConstants[]:=Module[{},
 Return[FormTracer`Private`groupConstantsTable[[All,1]]];
 ];
@@ -577,6 +647,16 @@ Further useful functions defined by TensorBases:
 StyleBox[\"UseLorentzLinearity\",\nFontColor->RGBColor[1, 0.5, 0]]\)[expr] expands all scalar products and vectors in expr (e.g. sp[p1,p2-p3] -> sp[p1,p2]-sp[p1,p3])
 \!\(\*
 StyleBox[\"AddFormTracerGroup\",\nFontColor->RGBColor[1, 0.5, 0]]\)[{name,kind,constant}] adds a group to FormTracer where name is an identifier, kind is one of {SUNfund, SONfund, SU3fundexplicit, SU2fundexplicit,SPNfund} (see also FormTracer`ShowGroupTemplates[]) and constant is the identifier for the group constant.
+\!\(\*
+StyleBox[\"RemoveFormTracerGroup\",\nFontColor->RGBColor[1, 0.5, 0]]\)[name] removes a group from FormTracer where name is an identifier.
+\!\(\*
+StyleBox[\"SetNf\",\nFontColor->RGBColor[1, 0.5, 0]]\)[3],\!\(\*
+StyleBox[\"SetNf\",\nFontColor->RGBColor[1, 0.5, 0]]\)[2],\!\(\*
+StyleBox[\"SetNf\",\nFontColor->RGBColor[1, 0.5, 0]]\)[] sets the flavor number to 3, 2 or the general Nf.
+\!\(\*
+StyleBox[\"SetNc\",\nFontColor->RGBColor[1, 0.5, 0]]\)[3],\!\(\*
+StyleBox[\"SetNc\",\nFontColor->RGBColor[1, 0.5, 0]]\)[2],\!\(\*
+StyleBox[\"SetNc\",\nFontColor->RGBColor[1, 0.5, 0]]\)[] sets the color number to 3, 2 or the general Nc.
 "];
 ];
 
@@ -822,14 +902,14 @@ FormTracerNaming[]:=Module[
 privateOutputRulesLorentzTensors,privateOutputRulesGroupTensors,privateOutputRules},
 
 outputRulesLorentzTensors=Normal[FormTracer`Private`lorentzTensorReplacementRulesOutput]/.{(a_[c___]:>b_):>(Symbol["TB"~~StringSplit[ToString[a],"FTx"][[-1]]][c])};
-outputRulesGroupTensors=Normal[FormTracer`Private`groupTensorReplacementRulesOutput]/.{(a_[c___]:>b_):>(Symbol["TB"~~StringSplit[ToString[a],"FTx"][[-1]]][c])};
+outputRulesGroupTensors=Normal[FormTracer`Private`groupTensorRep:qlacementRulesOutput]/.{(a_[c___]:>b_):>(Symbol["TB"~~StringSplit[ToString[a],"FTx"][[-1]]][c])};
 outputRules=Join[outputRulesLorentzTensors,outputRulesGroupTensors];
 
 Print["Lorentz group:   ",outputRulesLorentzTensors//TableForm];
 Print[""];
-Print["color group:     ",Select[outputRulesGroupTensors,MemberQ[#,Global`color,Infinity]&]//TableForm];
+Print["color group:     ",Select[outputRulesGroupTensors,MemberQ[#,color,Infinity]&]//TableForm];
 Print[""];
-Print["flavor group:    ",Select[outputRulesGroupTensors,MemberQ[#,Global`flavor,Infinity]&]//TableForm];
+Print["flavor group:    ",Select[outputRulesGroupTensors,MemberQ[#,flavor,Infinity]&]//TableForm];
 ];
 
 
@@ -865,7 +945,7 @@ TensorBases`Private`transProjMagnetic:>Global`transProjMagnetic,
 TensorBases`Private`transProjElectric:>Global`transProjElectric
 };
 
-Return[expr//.groups//.outputRules//.privateOutputRules//.otherRules/.a_Symbol/;Context[a]=="TensorBases`Private`":>Symbol["Global`"~~SymbolName[a]]];
+Return[expr//.groups//.outputRules//.privateOutputRules//.otherRules/.a_Symbol/;Context[a]=="TensorBases`Private`":>Symbol["Global`"<>SymbolName[a]]];
 ];
 
 
@@ -1192,6 +1272,7 @@ vertices=ParallelMap[
 FullSimplify[vertices/.Tensor[indices___]:>TBEvaluateBasisElement[BasisName,#,indices]]&,
 Table[i,{i,1,TBInternal[BasisName,"Length"]}]
 ];
+
 
 Return[vertices];
 ];

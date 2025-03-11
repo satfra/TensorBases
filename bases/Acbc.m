@@ -47,10 +47,10 @@ TableForm[
 
 TBIndices["Acbc"]={{p1,mu,a1},{p2,a2},{p3,a3}};
 
-TBMomentumConservation["Acbc"]={p1->-p2-p3};
+TBMomentumConservation["Acbc"]={p3->-p1-p2};
 
 TBBasis["Acbc"]={
-	I TBF[color,a1,a2,a3] vec[p2,mu] 
+	I TBF[color,a1,a2,a3] transProj[p1,mu,nu]vec[p2,nu] 
 	(*T^(1)*),
 
 	I TBF[color,a1,a2,a3] vec[p1,mu] 
