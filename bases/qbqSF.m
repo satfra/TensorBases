@@ -24,7 +24,7 @@ TBAutoDefine["qbqSF"]=True;
 
 TBRequiredGroups["qbqSF"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
-TBVertex["qbqSF"]="qbqSF";
+TBVertex["qbqSF"]={qb,q};
 
 TBVertexStructure["qbqSF"]=Tensor[1,2];
 

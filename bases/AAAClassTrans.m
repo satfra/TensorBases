@@ -24,7 +24,7 @@ TBAutoDefine["AAAClassTrans"]=True;
 
 TBRequiredGroups["AAAClassTrans"]={{color,SUNfund,Nc}};
 
-TBVertex["AAAClassTrans"]="AAAClassTrans";
+TBVertex["AAAClassTrans"]={A,A,A};
 
 TBVertexBasis["AAAClassTrans"]=True;
 

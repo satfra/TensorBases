@@ -44,6 +44,14 @@ For closer explanations, please call their usage messages, e.g. \!\(\*
 StyleBox[\"TBGetProjector\",\nFontColor->RGBColor[1, 0.5, 0]]\)::\!\(\*
 StyleBox[\"usage\",\nFontColor->RGBColor[0, 0, 1]]\).
 
+Other useful tools include \!\(\*
+StyleBox[\"TBGetIdentityMatrix\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
+StyleBox[\"TBGetBasisSize\",\nFontColor->RGBColor[1, 0.5, 0]]\),\!\(\*
+StyleBox[\" \",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\"TBGetIndexSet\",\nFontColor->RGBColor[1, 0.5, 0]]\),\!\(\*
+StyleBox[\" \",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\"TBMakePropagator\",\nFontColor->RGBColor[1, 0.5, 0]]\).
+
 To build or manipulate bases, please call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"BaseBuilder\"].
 
@@ -88,7 +96,11 @@ StyleBox[\"FormTracer\",\nFontWeight->\"Bold\"]\) package loaded. "];,
 Print["Error: Could not load \!\(\*
 StyleBox[\"FormTracer\",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\" \",\nFontWeight->\"Bold\"]\)package."];Abort[];
-];
+],
+Print["\!\(\*
+StyleBox[\"FormTracer\",\nFontWeight->\"Bold\"]\) package already loaded. "];
+Print["Clearing all extra variables for compatibility!\n"];
+FormTracer`DefineExtraVars[];
 ];
 
 Block[{Print},FiniteT[True];]
@@ -105,6 +117,11 @@ StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\" \",\nFontWeight->\"Bold\"]\)extends \!\(\*
 StyleBox[\"FormTracer\",\nFontWeight->\"Bold\"]\). To see all extensions, call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Extensions\"]"];
+
+
+Print["\nTo see all momentum transformations that can be performed by \!\(\*
+StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\), call \!\(\*
+StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Momenta\"].\n"];
 
 
 GetFormTracerGroups::usage="GetFormTracerGroups[]";
@@ -709,6 +726,10 @@ TBGetInverseMetric::usage = "\!\(\*
 StyleBox[\"TBGetInverseMetric\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String]
 Returns the inverse of the metric of the specified basis, i.e. the matrix \!\(\*SuperscriptBox[SubscriptBox[\(g\), \(ij\)], \(-1\)]\) = (<\!\(\*SubscriptBox[\(e\), \(i\)]\),\!\(\*SubscriptBox[\(e\), \(j\)]\)>\!\(\*SuperscriptBox[\()\), \(-1\)]\), where the \!\(\*SubscriptBox[\(e\), \(i\)]\) are the basis elements of the basis.";
 
+TBGetBasisFields::usage = "\!\(\*
+StyleBox[\"TBGetBasisFields\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String]
+Returns the field content in the order as used for the indices of the basis.";
+
 TBGetProjector::usage = "\!\(\*
 StyleBox[\"TBGetBasisProjector\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,n_Integer,indices___]
 Returns the n-th projector, which is defined by \!\(\*SuperscriptBox[SubscriptBox[\(g\), \(nj\)], \(-1\)]\)\!\(\*SubscriptBox[\(e\), \(j\)]\). The given indices must match the ones specified by the basis, see TBInfo[]. 
@@ -738,15 +759,15 @@ StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\) package.";
 
 TBImportBasis::usage = "\!\(\*
 StyleBox[\"TBImportBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisDefinitionFile_String,CacheDirectory_String:\"./TBCache\"]
-Import a custom basis definition file. The optional argument CacheDirectory can be set to choose a specific location where the intermediate files from processing the basis are stored."
+Import a custom basis definition file. The optional argument CacheDirectory can be set to choose a specific location where the intermediate files from processing the basis are stored.";
 
 TBExportBasis::usage = "\!\(\*
 StyleBox[\"TBExportBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,folder_String:\"./\"]
-Export a basis definition file. The basis with the name BasisName has to be loaded in memory. If the optional argument folder is given, this will be the location where the exported basis definition will be placed."
+Export a basis definition file. The basis with the name BasisName has to be loaded in memory. If the optional argument folder is given, this will be the location where the exported basis definition will be placed.";
 
 TBRestrictBasis::usage = "\!\(\*
 StyleBox[\"TBRestrictBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[inBasisName_String, outBasisName_String, {indices__Integer}, CacheDirectory_String:\"./TBCache\"]
-Restrict an existing basis. The new basis will be called outBasisName and only contain the basis elements specified by the given indices."
+Restrict an existing basis. The new basis will be called outBasisName and only contain the basis elements specified by the given indices.";
 
 TBConstructBasis::usage = "\!\(\*
 StyleBox[\"TBConstructBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[
@@ -764,17 +785,43 @@ StyleBox[\"TBConstructBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[
 	CacheDirectory_String:\"./TBCache\"
   ]
 
-Construct a new basis from a given set of Tensors.
-"
+Construct a new basis from a given set of Tensors.";
 
 TBExportCache::usage = "\!\(\*
 StyleBox[\"TBExportCache\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,CacheFolder_String:\"./TBCache\"]
-Exports everything in memory of the Basis BasisName onto disk in the folder CacheFolder.
-"
+Exports everything in memory of the Basis BasisName onto disk in the folder CacheFolder.";
 
 TBUnregister::usage = "\!\(\*
 StyleBox[\"TBUnregister\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String]
-Remove an existing basis from internal memory. This does not delete or change any files on disk."
+Remove an existing basis from internal memory. This does not delete or change any files on disk.";
+
+
+TBGetIdentityMatrix::usage = "\!\(\*
+StyleBox[\"TBGetIdentityMatrix\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,indices___]
+Returns an identity matrix for the given two-point function BasisName. Works only for two-point functions.
+If no indices are given, the standard indices specified by the basis are used.";
+
+TBGetBasisSize::usage = "\!\(\*
+StyleBox[\"TBGetBasisSize\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String]
+Get the size of a basis of with name \"BasisName\".";
+
+TBGetIndexSet::usage = "\!\(\*
+StyleBox[\"TBGetIndexSet\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,id_Integer,p_Symbol]
+Get a unique index set for particle id in the Basis \"BasisName\" with momentum p.
+TBGetIndexSet[set_List,p_]
+Change the momentum of an index set to p.
+";
+
+TBGetBasis::usage= "\!\(\*
+StyleBox[\"TBGetBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,indices___]
+Returns a list with all basis elements.
+If no indices are given, the standard indices specified by the basis are used.";
+
+TBMakePropagator::usage = "\!\(\*
+StyleBox[\"TBMakePropagator\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,InvProp_List]
+For a two-point basis \"BasisName\", obtain a propagator for a given inverse propagator.
+InvProp should be a list of basis element coefficients making up the inverse propagator.
+For example, {\[ImaginaryI], Mq[p]} for the Basis \"qbq\" for the standard quark propagator in vacuum.";
 
 
 TB3PToS0S1SPhi::usage="TB3PToS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]
@@ -856,7 +903,7 @@ StyleBox[\" \",\nFontColor->RGBColor[1, 0.5, 0]]\)creates a new basis from a set
 \nFor usage help with the aforementioned functions, please call their usage messages, e.g. \!\(\*
 StyleBox[\"TBConstructBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)::\!\(\*
 StyleBox[\"usage\",\nFontColor->RGBColor[0, 0, 1]]\).
-"
+";
 
 
 TBInfo["Notation"]:=Print@"\!\(\*
@@ -866,7 +913,7 @@ For a given group, \!\(\*SuperscriptBox[\(T\), \(a\)]\) denotes the generators o
 The \!\(\*SuperscriptBox[\(T\), \(a\)]\) are normalised as 
 	tr[\!\(\*SuperscriptBox[\(T\), \(a\)]\)\!\(\*SuperscriptBox[\(T\), \(b\)]\)] = \!\(\*FractionBox[\(1\), \(2\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \(ab\)]\).
 The \!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\(\\\ \)\)]\)denote Euclidean gamma matrices and accordingly \!\(\*SubscriptBox[\(\[Gamma]\), \(5\(\\\ \)\)]\)= \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(1\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(2\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(3\)]\)
-"
+";
 
 
 Begin["`Private`"];
@@ -1166,7 +1213,7 @@ TBCheck[BasisName_String,Trait_String,f_]:=f[Symbol["TB"~~Trait][BasisName]];
 TBCheckBasisDefinitions[BasisName_String]:=Module[{errorPrefix},
 errorPrefix="AutoDefineBasis:"~~BasisName~~": ";
 If[Not@TBCheck[BasisName,"AutoDefine",#===True&],Return[False];];
-If[Not@TBCheck[BasisName,"Vertex",StringQ],TBPrint[errorPrefix~~"Vertex definition missing!",0];Abort[]];
+If[Not@TBCheck[BasisName,"Vertex",ListQ],TBPrint[errorPrefix~~"Vertex definition missing!",0];Abort[]];
 If[Not@TBCheck[BasisName,"VertexStructure",Head[#]=!=TBVertexStructure&],TBPrint[errorPrefix~~"Vertex structure missing!",0];Abort[]];
 If[Not@TBCheck[BasisName,"Comment",StringQ],TBPrint[errorPrefix~~"Comment definition missing!",2];TBComment[BasisName]=""];
 If[Not@TBCheck[BasisName,"Author",StringQ],TBPrint[errorPrefix~~"Author definition missing!",2];TBAuthor[BasisName]=""];
@@ -1183,7 +1230,7 @@ Return[True];
 TBCheckVertexBasisDefinitions[BasisName_String]:=Module[{errorPrefix},
 errorPrefix="AutoDefineBasis:"~~BasisName~~": ";
 If[Not@TBCheck[BasisName,"AutoDefine",#===True&],Return[False];];
-If[Not@TBCheck[BasisName,"Vertex",StringQ],TBPrint[errorPrefix~~"Vertex definition missing!",0];Abort[]];
+If[Not@TBCheck[BasisName,"Vertex",ListQ],TBPrint[errorPrefix~~"Vertex definition missing!",0];Abort[]];
 If[Not@TBCheck[BasisName,"Comment",StringQ],TBPrint[errorPrefix~~"Comment definition missing!",2];TBComment[BasisName]=""];
 If[Not@TBCheck[BasisName,"Author",StringQ],TBPrint[errorPrefix~~"Author definition missing!",2];TBAuthor[BasisName]=""];
 If[Not@TBCheck[BasisName,"MomentumConservation",ListQ],TBPrint[errorPrefix~~"Momentum conservation missing!",2];TBMomentumConservation[BasisName]={}];
@@ -1536,7 +1583,7 @@ TBAvailableBasisNames=Append[TBAvailableBasisNames,BasisName];
 TBBasisDocs=Append[TBBasisDocs,
 <|
 "Name"->BasisName,
-"Vertex"->TBVertex[BasisName],
+"Vertex"->InsertOutputNaming@TBVertex[BasisName],
 "Indices"->TBInternal[BasisName,"Indices"],
 "Groups"->Map[toString,TBRequiredGroups[BasisName],{2}],
 "InnerProduct"->Style[GlobalContext[StringReplace[ToString[InsertOutputNaming[TBInnerProduct[BasisName]]],{a:DigitCharacter~~" "~~b:LetterCharacter:>a~~" "~~b," "->"","]"->"] "}]],FontSize->10],
@@ -1739,14 +1786,71 @@ Return[tensors[[basisElements]]//Global`UseLorentzLinearity//Simplify];
 ]
 
 
-TBConstructBasis[___]:=Module[{},Print["Please use the correct pattern for Basis construction: \n",TBConstructBasis::usage];Abort[];
+(*TBConstructBasis[___]:=Module[{},Print["Please use the correct pattern for Basis construction: \n",TBConstructBasis::usage];Abort[];
+];*)
+
+
+Options[TBConstructBasis]={
+"Name"->"",
+"RequiredGroups"->{{}},
+"Vertex"->"",
+"VertexStructure"->Tensor,
+"InnerProduct"->Tensor1*Tensor2,
+"Indices"->{{}},
+"MomentumConservation"->{},
+"Tensors"->{{}},
+"Replacements"->{},
+"Comment"->"",
+"Author"->"User",
+"Usage"->"",
+"CacheDirectory"->"./TBCache"
+};
+
+TBConstructBasis::invalid="The argument \"`1`\" is invalid."
+
+TBConstructBasis[OptionsPattern[]]:=Module[
+{BasisName,RequiredGroups,Vertex,VertexStructure,InnerProduct,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory},
+
+BasisName=OptionValue["Name"];
+If[Head@BasisName=!=String||BasisName==="",Message[TBConstructBasis::invalid,"Name"];Abort[]];
+
+RequiredGroups=OptionValue["RequiredGroups"];
+If[Head@RequiredGroups=!=List&&AnyTrue[RequiredGroups,Head[#]=!=List&],Message[TBConstructBasis::invalid,"RequiredGroups"];Abort[]];
+
+Vertex=OptionValue["Vertex"];
+If[Head@Vertex=!=List||AnyTrue[Vertex,Head[#]=!=Symbol&],Message[TBConstructBasis::invalid,"Vertex"];Abort[]];
+
+VertexStructure=OptionValue["VertexStructure"];
+If[Head@VertexStructure===List||FreeQ[VertexStructure,Global`Tensor,Infinity],Message[TBConstructBasis::invalid,"VertexStructure"];Abort[]];
+
+InnerProduct=OptionValue["InnerProduct"];
+If[Head@InnerProduct===List||FreeQ[InnerProduct,Global`Tensor1,Infinity]||FreeQ[InnerProduct,Global`Tensor2,Infinity],Message[TBConstructBasis::invalid,"InnerProduct"];Abort[]];
+
+Indices=OptionValue["Indices"];
+If[Head@Indices=!=List||AnyTrue[Indices,Head[#]=!=List&],Message[TBConstructBasis::invalid,"Indices"];Abort[]];
+
+MomentumConservation=OptionValue["MomentumConservation"];
+If[Head@MomentumConservation=!=List,Message[TBConstructBasis::invalid,"MomentumConservation"];Abort[]];
+
+Tensors=OptionValue["Tensors"];
+If[Head@Tensors=!=List&&AnyTrue[Tensors,Head[#]=!=List&],Message[TBConstructBasis::invalid,"Tensors"];Abort[]];
+
+Replacements=OptionValue["Replacements"];
+If[Head@Replacements=!=List||AnyTrue[Replacements,(Head[#]=!=Rule&&Head[#]=!=RuleDelayed)&],Message[TBConstructBasis::invalid,"Replacements"];Abort[]];
+
+Author=OptionValue["Author"];
+Usage=OptionValue["Usage"];
+Comment=OptionValue["Comment"];
+CacheDirectory=OptionValue["CacheDirectory"];
+
+TBConstructBasis[BasisName,RequiredGroups,Vertex,VertexStructure,InnerProduct,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory]
 ];
 
 
 TBConstructBasis[
 	BasisName_String,
-    {RequiredGroups___List},
-	VertexName_String,
+{RequiredGroups___List},
+	Vertex_List,
 	VertexStructure_,
 	InnerProduct_,
 	Comment_String,
@@ -1766,7 +1870,7 @@ If[MemberQ[TBAvailableBasisNames,BasisName],Print["Basis \""~~BasisName~~"\" has
 TBReplacements[BasisName]=Replacements;
 TBIndices[BasisName]={Indices};
 TBMomentumConservation[BasisName]=MomentumConservation;
-TBVertex[BasisName]=VertexName;
+TBVertex[BasisName]=Vertex;
 TBVertexBasis[BasisName]=False;
 TBAuthor[BasisName]=Author;
 TBComment[BasisName]=Comment;
@@ -2037,9 +2141,170 @@ ProcessBases[]
 ];
 
 
-Print["\nTo see all momentum transformations that can be performed by \!\(\*
-StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\), call \!\(\*
-StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Momenta\"].\n"];
+TBGetIdentityMatrix[BasisName_String]:=Module[{},
+If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
+
+Return[
+(TBGetIdentityMatrix[BasisName,##]&)@@TBInternal[BasisName,"Indices"]
+];
+];
+
+
+TBGetIndexSet[BasisName_String,id_Integer,p_]:=Module[{indices},
+If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
+If[id>Length[TBInternal[BasisName,"Indices"]],Print["Basis \""~~BasisName~~"\" has only "~~ToString[Length[TBInternal[BasisName,"Indices"]]]~~" elements!";]Abort[]];
+indices=TBInternal[BasisName,"Indices"][[id]];
+Return[
+Join[{p},
+Map[Unique[SymbolName[#]]&,indices[[2;;]]]
+]
+];
+];
+TBGetIndexSet[set_List,p_]:=Module[{},
+Return[Join[{p},set[[2;;]]]];
+];
+
+
+TBGetIdentityMatrix[BasisName_String,indices___]:=Module[
+{groups,diracIndices,lorentzIndices,fundIndices,adjIndices,
+idxList,originalIndices,newIndices,replacements,
+chooseDelta,deltas},
+If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
+If[Length[TBInternal[BasisName,"Indices"]]=!=2,
+Print["Can only create an identity matrix for two-point functions!"];Abort[]
+];
+
+groups=Map[Symbol[SymbolName[#]]&,TBRequiredGroups[BasisName][[All,1]]];
+
+diracIndices=FormTracer`GetOpenDiracIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]]];
+lorentzIndices=FormTracer`GetOpenLorentzIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]]];
+fundIndices=Map[FormTracer`GetOpenFundGroupIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]],#]&,groups];
+adjIndices=Map[FormTracer`GetOpenAdjGroupIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]],#]&,groups];
+
+chooseDelta[i_,j_]:=Module[{idx},
+If[MemberQ[diracIndices,i],
+Return[TBdeltaDirac[i,j]];
+];
+If[MemberQ[lorentzIndices,i],
+Return[TBdeltaLorentz[i,j]];
+];
+For[idx=1,idx<=Length[groups],idx++,
+If[MemberQ[fundIndices[[idx]],i],
+Return[TBdeltaFund[groups[[idx]],i,j]];
+];
+];
+For[idx=1,idx<=Length[groups],idx++,
+If[MemberQ[adjIndices[[idx]],i],
+Return[TBdeltaAdj[groups[[idx]],i,j]];
+];
+];
+];
+
+originalIndices=TBInternal[BasisName,"Indices"];
+idxList=MakeIndexList[TBInternal[BasisName,"Indices"]//Length,indices];
+newIndices=Flatten[idxList];
+replacements=Thread[Flatten[originalIndices]->newIndices];
+
+deltas=Map[chooseDelta[#[[1]],#[[2]]]&,Transpose[originalIndices][[2;;]]];
+Return[
+Times@@deltas/.replacements//InsertOutputNaming
+];
+];
+
+
+TBGetBasisSize[BasisName_String]:=Module[{},
+If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
+Return[Length[TBInternal[BasisName,"Vertices"]]];
+];
+
+
+TBGetBasisFields[BasisName_String]:=Module[{},
+If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
+Return[InsertOutputNaming@TBVertex[BasisName]];
+];
+
+
+exclusions[a_]:=And@@{a=!=List,a=!=Complex,a=!=Plus,a=!=Power}
+GetAllSymbols[expr_]:=DeleteDuplicates@Cases[Flatten[{expr}//.Times[a_,b__]:>{a,b}/.a_Symbol[b__]/;exclusions[a]:>{a,b}],_Symbol,Infinity]
+
+
+GetIdentityVector[BasisName_]:=Module[{idxSet1,idxSet2},
+idxSet1=TBGetIndexSet[BasisName,1,p];
+idxSet2=TBGetIndexSet[BasisName,1,p];
+Table[
+TBFormTrace[
+TBGetProjector[BasisName,i,idxSet2,idxSet1]TBGetIdentityMatrix[BasisName,idxSet1,idxSet2]
+]//FullSimplify,
+{i,1,TBGetBasisSize[BasisName]}
+]//Return;
+];
+
+
+TBGetBasis[BasisName_String]:=Module[{},
+Return[
+TBGetBasis[BasisName,##]&@@TBInternal[BasisName,"Indices"]
+];
+];
+
+TBGetBasis[BasisName_String,indices___]:=Module[{
+idxList,originalIndices,newIndices,replacements,
+rawBasis,fixIndices
+},
+
+fixIndices[expr_]:=Module[{closedIndices,IndexReplacements},
+closedIndices=FormTracer`GetClosedIndices[InsertOutputNaming@expr];
+IndexReplacements:=Thread[closedIndices->Map[TBUnique,closedIndices]];
+Return[expr//.IndexReplacements];
+];
+
+originalIndices=TBInternal[BasisName,"Indices"];
+idxList=MakeIndexList[TBInternal[BasisName,"Indices"]//Length,indices];
+newIndices=Flatten[idxList];
+replacements=Thread[Flatten[originalIndices]->newIndices];
+
+rawBasis=Map[fixIndices,InsertOutputNaming@TBInternal[BasisName,"Basis"]];
+
+Return[rawBasis//.replacements]
+];
+
+
+TBMakePropagator[BasisName_String,InvProp_List]:=Module[{
+idxSet1,idxSet2,idxSet3,invPropR,
+Prop,T2,T3,
+projections,idvec,identities,solution,
+makeList,b,A
+},
+
+idxSet1=TBGetIndexSet[BasisName,1,p];
+idxSet2=TBGetIndexSet[BasisName,1,p];
+idxSet3=TBGetIndexSet[BasisName,1,p];
+
+invPropR=Map[Unique["a"]&,InvProp];
+
+Prop=Table[Unique["v"<>ToString[i]],{i,1,TBGetBasisSize[BasisName]}];
+FormTracer`AddExtraVars@@(GetAllSymbols[Prop]\[Union]GetAllSymbols[invPropR]);
+
+T2=Table[TBGetVertex[BasisName,i,{p,idxSet2[[2;;]]},{-p,idxSet3[[2;;]]}],{i,1,TBGetBasisSize[BasisName]}];
+T3=Table[TBGetVertex[BasisName,i,{-p,idxSet3[[2;;]]},{p,idxSet1[[2;;]]}],{i,1,TBGetBasisSize[BasisName]}];
+
+idvec=GetIdentityVector[BasisName];
+
+projections=Table[
+TBFormTrace[
+TBGetProjector[BasisName,i,{p,idxSet1[[2;;]]},{-p,idxSet2[[2;;]]}](Prop . T2) (invPropR . T3)//InsertInputNaming
+]//FullSimplify
+,{i,1,TBGetBasisSize[BasisName]}
+];
+
+makeList[expr_]:=If[Head[expr]===Plus,List@@expr,{expr}];
+
+identities=Map[(#[[1]]==#[[2]])&,Transpose[{projections,idvec}]];
+{b,A}=CoefficientArrays[identities,Prop];
+
+solution=LinearSolve[A,-b];
+
+Return[solution/.Thread[invPropR->InvProp]];
+];
 
 
 Unprotect@TBInfo;

@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    125609,       2994]
-NotebookOptionsPosition[    123803,       2955]
-NotebookOutlinePosition[    124272,       2973]
-CellTagsIndexPosition[    124229,       2970]
+NotebookDataLength[    125619,       2993]
+NotebookOptionsPosition[    123805,       2954]
+NotebookOutlinePosition[    124275,       2972]
+CellTagsIndexPosition[    124232,       2969]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1833,7 +1833,7 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"TBAutoDefine", "[", "\"\<FierzCompleteNf2p1Nc3\>\"", "]"}], "=", 
-    "True"}], ";"}], "\[IndentingNewLine]"}], "\n", 
+    "True"}], ";"}], "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -1845,13 +1845,14 @@ Cell[BoxData[{
        RowBox[{"color", ",", "SUNfund", ",", "Nc"}], "}"}], ",", 
       RowBox[{"{", 
        RowBox[{"flavor", ",", "SUNfund", ",", "Nf"}], "}"}]}], "}"}]}], ";"}],
-   "\n"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBVertex", "[", "\"\<FierzCompleteNf2p1Nc3\>\"", "]"}], "=", 
-    "\"\<\!\(\*OverscriptBox[\(q\), \(_\)]\)q\!\(\*OverscriptBox[\(q\), \
-\(_\)]\)q\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"qb", ",", "q", ",", "qb", ",", "q"}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -1906,7 +1907,7 @@ strucures correspond to the following channels:    \>\"", ",",
           RowBox[{"{", 
            RowBox[{
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), SubscriptBox[\((V + \
-A)\), \(\[LeftDoubleBracketingBar]\(,\)\(l\)\)]]\)\>\"", ",", 
+A)\), \(\[LeftDoubleBracketingBar], \(l\)\)]]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
 \[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(1\), \(l\)]\) q\!\(\*SuperscriptBox[\
 \()\), \(2\)]\) + (\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(i\
@@ -1916,7 +1917,7 @@ A)\), \(\[LeftDoubleBracketingBar]\(,\)\(l\)\)]]\)\>\"", ",",
           RowBox[{"{", 
            RowBox[{
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), SubscriptBox[\((V + \
-A)\), \(\(\[Perpendicular]\)\(\(,\)\(l\)\)\)]]\)\>\"", ",", 
+A)\), \( \[Perpendicular] \(, \(l\)\)\)]]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
 \[Gamma]\), \(i\)]\)\!\(\*SubscriptBox[\(1\), \(l\)]\) q\!\(\*SuperscriptBox[\
 \()\), \(2\)]\) + (\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(i\
@@ -1926,7 +1927,7 @@ A)\), \(\(\[Perpendicular]\)\(\(,\)\(l\)\)\)]]\)\>\"", ",",
           RowBox[{"{", 
            RowBox[{
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), SubscriptBox[\((V - \
-A)\), \(\[LeftDoubleBracketingBar]\(,\)\(l\)\)]]\)\>\"", ",", 
+A)\), \(\[LeftDoubleBracketingBar], \(l\)\)]]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
 \[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(1\), \(l\)]\) q\!\(\*SuperscriptBox[\
 \()\), \(2\)]\) - (\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(i\
@@ -2132,9 +2133,8 @@ q\!\(\*SuperscriptBox[\()\), \(2\)]\) - (\!\(\*OverscriptBox[\(q\), \(_\)]\) \
            RowBox[{
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \
 SubsuperscriptBox[\((V - A)\), \(\[Perpendicular]\), \(\[Dagger]\)]]\)\>\"", 
-            ",", 
-            "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
-\[Gamma]\), \(i\)]\)\!\(\*SuperscriptBox[\(T\), \(a\)]\) \
+            ",", "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \
+\!\(\*SubscriptBox[\(\[Gamma]\), \(i\)]\)\!\(\*SuperscriptBox[\(T\), \(a\)]\) \
 q\!\(\*SuperscriptBox[\()\), \(2\)]\) - (\!\(\*OverscriptBox[\(q\), \(_\)]\) \
 \!\(\*SubscriptBox[\(i\[Gamma]\), \(i\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \
 \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(a\)]\) q\!\(\*SuperscriptBox[\()\), \(2\
@@ -2170,8 +2170,8 @@ q\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\""}], "}"}], ",",
           RowBox[{"{", 
            RowBox[{
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), SubscriptBox[\(T\), \
-\(\(\[Perpendicular]\)\(-\[LeftDoubleBracketingBar]\(,\)\(\\\ \)\(1 + \\\ ISO\
-\)\)\)]]\)\>\"", ",", 
+\( \[Perpendicular] \(-\[LeftDoubleBracketingBar], \(\\\ \)\(1 + \\\ \
+ISO\)\)\)]]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
 \[Sigma]\), \(ij\)]\) q\!\(\*SuperscriptBox[\()\), \(2\)]\) - \
 2(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Sigma]\), \(0  i\
@@ -2186,9 +2186,8 @@ q\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\""}], "}"}], ",",
           RowBox[{"{", 
            RowBox[{
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \
-SubsuperscriptBox[\(T\), \
-\(\(\[Perpendicular]\)\(-\[LeftDoubleBracketingBar]\(,\)\(\\\ \)\(1 + \\\ ISO\
-\)\)\), \(\[Dagger]\)]]\)\>\"", ",", 
+SubsuperscriptBox[\(T\), \( \[Perpendicular] \(-\[LeftDoubleBracketingBar], \
+\(\\\ \)\(1 + \\\ ISO\)\)\), \(\[Dagger]\)]]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
 \[Sigma]\), \(ij\)]\)\!\(\*SuperscriptBox[\(T\), \(a\)]\) \
 q\!\(\*SuperscriptBox[\()\), \(2\)]\) - 2(\!\(\*OverscriptBox[\(q\), \(_\)]\) \
@@ -2948,16 +2947,16 @@ SubscriptBox[\(F\), \(l\)]]\)\!\(\*SubscriptBox[\(\[Sigma]\), \(0  i\)]\)\!\(\
    3.9476535760741873`*^9}, {3.947653609114743*^9, 3.94765361070046*^9}, {
    3.9476536745663843`*^9, 3.9476542696238813`*^9}, {3.947654328122559*^9, 
    3.947654349215806*^9}, {3.948947420301196*^9, 3.948947424478297*^9}, {
-   3.9489474867029877`*^9, 
-   3.948947503570374*^9}},ExpressionUUID->"fb41c690-768a-4d38-bc18-\
+   3.9489474867029877`*^9, 3.948947503570374*^9}, {3.952954124682721*^9, 
+   3.9529541272366133`*^9}},ExpressionUUID->"fb41c690-768a-4d38-bc18-\
 2bd3dbf3b602"]
 }, Open  ]]
 },
 AutoGeneratedPackage->"FierzCompleteNf2p1Nc3.m",
-WindowSize->{1200, 750},
-WindowMargins->{{0, Automatic}, {Automatic, 48}},
+WindowSize->{588.75, 711},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 Magnification:>1.2 Inherited,
-FrontEndVersion->"12.3 for Linux x86 (64-bit) (June 19, 2021)",
+FrontEndVersion->"14.1 for Linux x86 (64-bit) (July 16, 2024)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"c8b853d4-e186-4e46-93bf-6804fc99cab5"
 ]
@@ -2972,28 +2971,28 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 633, 13, 36, "Input",ExpressionUUID->"b2b1053a-818e-4283-955b-1989cb1b5799"],
+Cell[558, 20, 633, 13, 65, "Input",ExpressionUUID->"b2b1053a-818e-4283-955b-1989cb1b5799"],
 Cell[CellGroupData[{
-Cell[1216, 37, 223, 4, 65, "Subsection",ExpressionUUID->"aaea94ad-61ec-4ed5-b04e-4de2da4e7b19"],
-Cell[1442, 43, 11931, 312, 686, "Input",ExpressionUUID->"b0a597de-9e21-488e-812a-2152b654712a",
+Cell[1216, 37, 223, 4, 63, "Subsection",ExpressionUUID->"aaea94ad-61ec-4ed5-b04e-4de2da4e7b19"],
+Cell[1442, 43, 11931, 312, 1627, "Input",ExpressionUUID->"b0a597de-9e21-488e-812a-2152b654712a",
  InitializationCell->True],
-Cell[13376, 357, 9686, 247, 528, "Input",ExpressionUUID->"e51f0bc7-c78e-474b-a551-ba7e4424cd44",
+Cell[13376, 357, 9686, 247, 1272, "Input",ExpressionUUID->"e51f0bc7-c78e-474b-a551-ba7e4424cd44",
  InitializationCell->True],
-Cell[23065, 606, 9646, 246, 528, "Input",ExpressionUUID->"67de149a-cea2-4cff-824b-a57817c30474",
+Cell[23065, 606, 9646, 246, 1272, "Input",ExpressionUUID->"67de149a-cea2-4cff-824b-a57817c30474",
  InitializationCell->True],
-Cell[32714, 854, 10061, 293, 792, "Input",ExpressionUUID->"95853adc-3758-4708-b2e4-09e64dd468e3",
+Cell[32714, 854, 10061, 293, 1785, "Input",ExpressionUUID->"95853adc-3758-4708-b2e4-09e64dd468e3",
  InitializationCell->True],
-Cell[42778, 1149, 7395, 217, 578, "Input",ExpressionUUID->"533fa635-ebcd-44ff-bb3c-9207c81bd06c",
+Cell[42778, 1149, 7395, 217, 1371, "Input",ExpressionUUID->"533fa635-ebcd-44ff-bb3c-9207c81bd06c",
  InitializationCell->True],
-Cell[50176, 1368, 7445, 218, 578, "Input",ExpressionUUID->"a9f66afc-3297-4fae-9bfd-b1886350dffb",
+Cell[50176, 1368, 7445, 218, 1371, "Input",ExpressionUUID->"a9f66afc-3297-4fae-9bfd-b1886350dffb",
  InitializationCell->True],
-Cell[57624, 1588, 1221, 30, 82, "Input",ExpressionUUID->"0d0bd8f7-c300-4b54-9b5b-d3a16f34596d",
+Cell[57624, 1588, 1221, 30, 222, "Input",ExpressionUUID->"0d0bd8f7-c300-4b54-9b5b-d3a16f34596d",
  InitializationCell->True],
-Cell[58848, 1620, 4154, 72, 107, "Input",ExpressionUUID->"b18c235c-acf6-4ecf-99fd-dd6d776d2624",
+Cell[58848, 1620, 4154, 72, 219, "Input",ExpressionUUID->"b18c235c-acf6-4ecf-99fd-dd6d776d2624",
  InitializationCell->True],
-Cell[63005, 1694, 6907, 134, 325, "Input",ExpressionUUID->"fce5a6b4-7cb3-497b-86a3-2d6e78766896",
+Cell[63005, 1694, 6907, 134, 663, "Input",ExpressionUUID->"fce5a6b4-7cb3-497b-86a3-2d6e78766896",
  InitializationCell->True],
-Cell[69915, 1830, 53872, 1122, 4127, "Input",ExpressionUUID->"fb41c690-768a-4d38-bc18-2bd3dbf3b602",
+Cell[69915, 1830, 53874, 1121, 7989, "Input",ExpressionUUID->"fb41c690-768a-4d38-bc18-2bd3dbf3b602",
  InitializationCell->True]
 }, Open  ]]
 }

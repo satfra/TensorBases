@@ -24,7 +24,7 @@ TBAutoDefine["transAAqbqMinimal"]=True;
 
 TBRequiredGroups["transAAqbqMinimal"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
-TBVertex["transAAqbqMinimal"]="AA\!\(\*OverscriptBox[\(q\), \(_\)]\)q";
+TBVertex["transAAqbqMinimal"]={A,A,qb,q};
 
 TBVertexStructure["transAAqbqMinimal"]=Tensor[1,2,3,4]+Tensor[2,1,3,4];
 

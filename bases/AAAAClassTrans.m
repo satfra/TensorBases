@@ -28,7 +28,7 @@ TBAutoDefine["AAAAClassTrans"]=True;
 
 TBRequiredGroups["AAAAClassTrans"]={{color,SUNfund,Nc}};
 
-TBVertex["AAAAClassTrans"]="AAAAClassTrans";
+TBVertex["AAAAClassTrans"]={A,A,A,A};
 
 TBVertexBasis["AAAAClassTrans"]=True;
 
@@ -51,7 +51,7 @@ TableForm[
 },TableHeadings->{{1}, {"Tensor"}},TableSpacing->{3, 3}]
 };
 
-TBIndices["AAAAClassTrans"]={{p1,v1,a1},{p2,v2,a2},{p3,v3,a3},{p4,v4,a4}};
+TBIndices["AAAAClassTrans"]={{p1,mu,a1},{p2,nu,a2},{p3,rho,a3},{p4,sig,a4}};
 
 TBMomentumConservation["AAAAClassTrans"]={(*p4->-p1-p2-p3*)};
 

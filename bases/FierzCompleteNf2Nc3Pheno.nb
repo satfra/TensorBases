@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     19209,        466]
-NotebookOptionsPosition[     18571,        447]
-NotebookOutlinePosition[     19016,        464]
-CellTagsIndexPosition[     18973,        461]
+NotebookDataLength[     19213,        468]
+NotebookOptionsPosition[     18577,        449]
+NotebookOutlinePosition[     19020,        466]
+CellTagsIndexPosition[     18977,        463]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -41,7 +41,7 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"TBAutoDefine", "[", "\"\<FierzCompleteNf2Nc3Pheno\>\"", "]"}], 
-    "=", "True"}], ";"}], "\n"}], "\[IndentingNewLine]", 
+    "=", "True"}], ";"}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -53,13 +53,14 @@ Cell[BoxData[{
        RowBox[{"color", ",", "SUNfund", ",", "Nc"}], "}"}], ",", 
       RowBox[{"{", 
        RowBox[{"flavor", ",", "SUNfund", ",", "Nf"}], "}"}]}], "}"}]}], ";"}],
-   "\[IndentingNewLine]"}], "\n", 
+   "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBVertex", "[", "\"\<FierzCompleteNf2Nc3Pheno\>\"", "]"}], "=", 
-    "\"\<\!\(\*OverscriptBox[\(q\), \(_\)]\)q\!\(\*OverscriptBox[\(q\), \
-\(_\)]\)q\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"qb", ",", "q", ",", "qb", ",", "q"}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -117,7 +118,7 @@ strucures correspond to the following channels:    \>\"", ",",
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Pi] - \
 \[Sigma])\)]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \
-\!\(\*SuperscriptBox[\(T\), \(\(0\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \
+\!\(\*SuperscriptBox[\(T\), \(0\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \
 \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \
 \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \
 \(F\)]\)q)\>\""}], "}"}], ",", "\[IndentingNewLine]", 
@@ -126,30 +127,30 @@ strucures correspond to the following channels:    \>\"", ",",
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \
 \((\[Eta]')\)]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \
-\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \
+\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \
 \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \
 \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \
 \(0\)]\)q)\>\""}], "}"}], ",", "\[IndentingNewLine]", 
           RowBox[{"{", 
            RowBox[{
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((csc)\)]\)\>\"", 
-            ",", 
-            "\"\<(\!\(\*SuperscriptBox[\(q\), \(T\)]\)\!\(\*SubscriptBox[\(\
-\[Epsilon]\), \(F\)]\)\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\(A\)\(\\\ \)\)]\
-\)\!\(\*SubscriptBox[\(C\[Gamma]\), \(5\)]\)q)(\!\(\*OverscriptBox[\(q\), \(_\
-\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(C\
-\[Epsilon]\), \(\(A\)\(\\\ \)\)]\)\!\(\*SuperscriptBox[SubscriptBox[\(\
-\[Epsilon]\), \(F\)], \(\\\ \)]\)\!\(\*SuperscriptBox[OverscriptBox[\(q\), \
-\(_\)], \(T\)]\))\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+            ",", "\"\<(\!\(\*SuperscriptBox[\(q\), \
+\(T\)]\)\!\(\*SubscriptBox[\(\[Epsilon]\), \(F\)]\)\!\(\*SuperscriptBox[\(\
+\[Epsilon]\), \(A\(\\\ \)\)]\)\!\(\*SubscriptBox[\(C\[Gamma]\), \(5\)]\)q)(\!\
+\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\
+\(\*SuperscriptBox[\(C\[Epsilon]\), \(A\(\\\ \
+\)\)]\)\!\(\*SuperscriptBox[SubscriptBox[\(\[Epsilon]\), \(F\)], \(\\\ \
+\)]\)\!\(\*SuperscriptBox[OverscriptBox[\(q\), \(_\)], \(T\)]\))\>\""}], 
+           "}"}], ",", "\[IndentingNewLine]", 
           RowBox[{"{", 
            RowBox[{
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \
 \((\*SubscriptBox[\(\[Omega]\), \(0\)])\)]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
-\[Gamma]\), \(0\)]\)\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \
+\[Gamma]\), \(0\)]\)\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \
 \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)+(\!\(\*OverscriptBox[\(q\), \
 \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\
-\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \
+\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \
 \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\""}], "}"}], ",", 
           "\[IndentingNewLine]", 
           RowBox[{"{", 
@@ -157,10 +158,10 @@ strucures correspond to the following channels:    \>\"", ",",
            "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \
 \((\*SubscriptBox[\(\[Omega]\), \(i\)])\)]\)\>\"", ",", 
             "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
-\[Gamma]\), \(i\)]\)\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \
+\[Gamma]\), \(i\)]\)\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \
 \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)+(\!\(\*OverscriptBox[\(q\), \
 \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(i\)]\)\!\(\*SubscriptBox[\(\
-\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \
+\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \
 \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\""}], "}"}], ",", 
           "\[IndentingNewLine]", 
           RowBox[{"{", 
@@ -441,14 +442,15 @@ strucures correspond to the following channels:    \>\"", ",",
    3.93395973742824*^9, 3.933959793657877*^9}, {3.933995489221192*^9, 
    3.933995498047952*^9}, {3.933995532323388*^9, 3.93399553248854*^9}, {
    3.933995579528049*^9, 3.9339956451180162`*^9}, {3.93434829798213*^9, 
-   3.934348302368742*^9}, {3.935820655443301*^9, 
-   3.935820658111562*^9}},ExpressionUUID->"fb41c690-768a-4d38-bc18-\
+   3.934348302368742*^9}, {3.935820655443301*^9, 3.935820658111562*^9}, {
+   3.95295408507819*^9, 
+   3.952954087337243*^9}},ExpressionUUID->"fb41c690-768a-4d38-bc18-\
 2bd3dbf3b602"]
 },
 AutoGeneratedPackage->"FierzCompleteNf2Nc3Pheno.m",
-WindowSize->{1524, 810},
+WindowSize->{588.75, 711},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-FrontEndVersion->"14.0 for Linux x86 (64-bit) (December 12, 2023)",
+FrontEndVersion->"14.1 for Linux x86 (64-bit) (July 16, 2024)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"629cf85d-91ac-4169-8846-6d3314e7f4a3"
 ]
@@ -463,10 +465,10 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 429, 9, 29, "Input",ExpressionUUID->"b2b1053a-818e-4283-955b-1989cb1b5799"],
-Cell[990, 31, 240, 5, 45, "Input",ExpressionUUID->"1622b523-b6ea-4613-995d-1108521c71b8",
+Cell[558, 20, 429, 9, 53, "Input",ExpressionUUID->"b2b1053a-818e-4283-955b-1989cb1b5799"],
+Cell[990, 31, 240, 5, 46, "Input",ExpressionUUID->"1622b523-b6ea-4613-995d-1108521c71b8",
  InitializationCell->True],
-Cell[1233, 38, 17334, 407, 1663, "Input",ExpressionUUID->"fb41c690-768a-4d38-bc18-2bd3dbf3b602",
+Cell[1233, 38, 17340, 409, 2244, "Input",ExpressionUUID->"fb41c690-768a-4d38-bc18-2bd3dbf3b602",
  InitializationCell->True]
 }
 ]

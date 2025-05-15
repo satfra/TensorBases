@@ -20,43 +20,47 @@
 
 
 (* ::Input::Initialization:: *)
-TBAutoDefine["qbq"]=True;
+TBAutoDefine["qbqSFFT"]=True;
 
-TBRequiredGroups["qbq"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
+TBRequiredGroups["qbqSFFT"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
-TBVertex["qbq"]={qb,q};
+TBVertex["qbqSFFT"]={qb,q};
 
-TBVertexStructure["qbq"]=Tensor[1,2];
+TBVertexStructure["qbqSFFT"]=Tensor[1,2];
 
-TBInnerProduct["qbq"]=Tensor1[1,2]Tensor2[2,1];
+TBInnerProduct["qbqSFFT"]=Tensor1[1,2]Tensor2[2,1];
 
-TBComment["qbq"]="Quark propagator basis";
+TBComment["qbqSFFT"]="Quark propagator basis (single flavor)";
 
-TBAuthor["qbq"]="FR Sattler";
+TBAuthor["qbqSFFT"]="FR Sattler";
 
-TBUsage["qbq"]={"Indices:
-	\!\(\*OverscriptBox[\(q\), \(_\)]\): {\!\(\*SubscriptBox[\(p\), \(1\)]\),\!\(\*SubscriptBox[\(d\), \(1\)]\),\!\(\*SubscriptBox[\(A\), \(1\)]\),\!\(\*SubscriptBox[\(F\), \(1\)]\)}
-	q: {\!\(\*SubscriptBox[\(p\), \(2\)]\),\!\(\*SubscriptBox[\(d\), \(2\)]\),\!\(\*SubscriptBox[\(A\), \(2\)]\),\!\(\*SubscriptBox[\(F\), \(2\)]\)}
+TBUsage["qbqSFFT"]={"Indices:
+	\!\(\*OverscriptBox[\(q\), \(_\)]\): {\!\(\*SubscriptBox[\(p\), \(1\)]\),\!\(\*SubscriptBox[\(d\), \(1\)]\),\!\(\*SubscriptBox[\(A\), \(1\)]\)}
+	q: {\!\(\*SubscriptBox[\(p\), \(2\)]\),\!\(\*SubscriptBox[\(d\), \(2\)]\),\!\(\*SubscriptBox[\(A\), \(2\)]\)}
 We use the general form 
 	\[ScriptCapitalL] = (2\[Pi]\!\(\*SuperscriptBox[\()\), \(d\)]\)\[Delta](\!\(\*SubscriptBox[\(p\), \(1\)]\)+\!\(\*SubscriptBox[\(p\), \(2\)]\))\!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\)
 and the \!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\) are listed in the following:    ",
 TableForm[
 {
-{"\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(A\), \(1\)] \*SubscriptBox[\(A\), \(2\)]\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(F\), \(1\)] \*SubscriptBox[\(F\), \(2\)]\)]\)\[ImaginaryI](\!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\(p\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\()\), \(\*SubscriptBox[\(d\), \(1\)] \*SubscriptBox[\(d\), \(2\)]\)]\)"},
-{"\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(A\), \(1\)] \*SubscriptBox[\(A\), \(2\)]\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(F\), \(1\)] \*SubscriptBox[\(F\), \(2\)]\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(d\), \(1\)] \*SubscriptBox[\(d\), \(2\)]\)]\)"}
+{"\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(A\), \(1\)] \*SubscriptBox[\(A\), \(2\)]\)]\)\[ImaginaryI](\!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\()\), \(\*SubscriptBox[\(d\), \(1\)] \*SubscriptBox[\(d\), \(2\)]\)]\)"},
+{"\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(A\), \(1\)] \*SubscriptBox[\(A\), \(2\)]\)]\)\[ImaginaryI](\!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\(p\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\()\), \(\*SubscriptBox[\(d\), \(1\)] \*SubscriptBox[\(d\), \(2\)]\)]\)"},
+{"\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(A\), \(1\)] \*SubscriptBox[\(A\), \(2\)]\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \(\*SubscriptBox[\(d\), \(1\)] \*SubscriptBox[\(d\), \(2\)]\)]\)"}
 },TableHeadings->{{1,2}, {"Tensor"}},TableSpacing->{3, 3}]
 };
 
-TBIndices["qbq"]={{p1,d1,A1,F1},{p2,d2,A2,F2}};
+TBIndices["qbqSFFT"]={{p1,d1,A1},{p2,d2,A2}};
 
-TBMomentumConservation["qbq"]={p2->-p1};
+TBMomentumConservation["qbqSFFT"]={p2->-p1};
 
-TBBasis["qbq"]={
-	TBdeltaFund[color,A1,A2]TBdeltaFund[flavor,F1,F2]( I pdash[p1,d1,d2] ),
+TBBasis["qbqSFFT"]={
+	TBdeltaFund[color,A1,A2]( I gamma[0,d1,d2] ),
 	(*T^(1)*)
 
-	TBdeltaFund[color,A1,A2]TBdeltaFund[flavor,F1,F2](TBdeltaDirac[d1,d2])
+	TBdeltaFund[color,A1,A2]( I psdash[p1,d1,d2] ),
 	(*T^(2)*)
+
+	TBdeltaFund[color,A1,A2](TBdeltaDirac[d1,d2])
+	(*T^(3)*)
 };
 
 

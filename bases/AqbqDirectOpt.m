@@ -20,7 +20,7 @@
 
 
 (* ::Input::Initialization:: *)
-AqbqOptPreFacS0=(1/Sqrt[3](\[Sqrt](TBsp[p1,p1]+TBsp[p2,p2]+TBsp[p3,p3])))^-1
+AqbqOptPreFacS0=(1/Sqrt[3] (\[Sqrt](TBsp[p1,p1]+TBsp[p2,p2]+TBsp[p3,p3])))^-1
 
 
 (* ::Input::Initialization:: *)
@@ -28,7 +28,7 @@ TBAutoDefine["AqbqDirectOpt"]=True;
 
 TBRequiredGroups["AqbqDirectOpt"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
-TBVertex["AqbqDirectOpt"]="A\!\(\*OverscriptBox[\(q\), \(_\)]\)q";
+TBVertex["AqbqDirectOpt"]={A,qb,q};
 
 TBVertexStructure["AqbqDirectOpt"]=Tensor[1,2,3];
 

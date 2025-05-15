@@ -28,7 +28,7 @@ TBAutoDefine["FierzCompleteNf2Nc34D"]=True;
 
 TBRequiredGroups["FierzCompleteNf2Nc34D"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
-TBVertex["FierzCompleteNf2Nc34D"]="\!\(\*OverscriptBox[\(q\), \(_\)]\)q\!\(\*OverscriptBox[\(q\), \(_\)]\)q";
+TBVertex["FierzCompleteNf2Nc34D"]={qb,q,qb,q};
 
 TBVertexStructure["FierzCompleteNf2Nc34D"]=2Tensor[1,2,3,4]-2Tensor[3,2,1,4];
 
@@ -45,8 +45,8 @@ We suppress the momentum-conservation delta (2\[Pi]\!\(\*SuperscriptBox[\()\), \
 The implemented tensor strucures correspond to the following channels:    ",
 TableForm[
 {
-{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Pi] - \[Sigma])\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SuperscriptBox[\(T\), \(\(0\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(F\)]\)q)"},
-{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Eta]')\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(0\)]\)q)"},
+{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Pi] - \[Sigma])\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SuperscriptBox[\(T\), \(0\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(F\)]\)q)"},
+{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Eta]')\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SuperscriptBox[\(T\), \(F\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(0\)]\)q)"},
 {"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), SubsuperscriptBox[\((S + P)\), \(-\), \(adj\)]]\)",""},
 {"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((V - A)\)]\)",""},
 {"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((V + A)\)]\)",""},

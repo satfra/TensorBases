@@ -28,7 +28,7 @@ TBAutoDefine["FierzCompleteNf2Nc3Pheno"]=True;
 
 TBRequiredGroups["FierzCompleteNf2Nc3Pheno"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
-TBVertex["FierzCompleteNf2Nc3Pheno"]="\!\(\*OverscriptBox[\(q\), \(_\)]\)q\!\(\*OverscriptBox[\(q\), \(_\)]\)q";
+TBVertex["FierzCompleteNf2Nc3Pheno"]={qb,q,qb,q};
 
 TBVertexStructure["FierzCompleteNf2Nc3Pheno"]=2Tensor[1,2,3,4]-2Tensor[3,2,1,4];
 
@@ -45,11 +45,11 @@ We suppress the momentum-conservation delta (2\[Pi]\!\(\*SuperscriptBox[\()\), \
 The implemented tensor strucures correspond to the following channels:    ",
 TableForm[
 {
-{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Pi] - \[Sigma])\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SuperscriptBox[\(T\), \(\(0\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(F\)]\)q)"},
-{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Eta]')\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(0\)]\)q)"},
-{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((csc)\)]\)","(\!\(\*SuperscriptBox[\(q\), \(T\)]\)\!\(\*SubscriptBox[\(\[Epsilon]\), \(F\)]\)\!\(\*SuperscriptBox[\(\[Epsilon]\), \(\(A\)\(\\\ \)\)]\)\!\(\*SubscriptBox[\(C\[Gamma]\), \(5\)]\)q)(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(C\[Epsilon]\), \(\(A\)\(\\\ \)\)]\)\!\(\*SuperscriptBox[SubscriptBox[\(\[Epsilon]\), \(F\)], \(\\\ \)]\)\!\(\*SuperscriptBox[OverscriptBox[\(q\), \(_\)], \(T\)]\))"},
-{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\*SubscriptBox[\(\[Omega]\), \(0\)])\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)+(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)"},
-{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\*SubscriptBox[\(\[Omega]\), \(i\)])\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(i\)]\)\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)+(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(i\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(\(F\)\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)"},
+{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Pi] - \[Sigma])\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SuperscriptBox[\(T\), \(0\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(F\)]\)q)"},
+{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\[Eta]')\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SuperscriptBox[\(T\), \(F\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)-(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(0\)]\)q)"},
+{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((csc)\)]\)","(\!\(\*SuperscriptBox[\(q\), \(T\)]\)\!\(\*SubscriptBox[\(\[Epsilon]\), \(F\)]\)\!\(\*SuperscriptBox[\(\[Epsilon]\), \(A\(\\\ \)\)]\)\!\(\*SubscriptBox[\(C\[Gamma]\), \(5\)]\)q)(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(C\[Epsilon]\), \(A\(\\\ \)\)]\)\!\(\*SuperscriptBox[SubscriptBox[\(\[Epsilon]\), \(F\)], \(\\\ \)]\)\!\(\*SuperscriptBox[OverscriptBox[\(q\), \(_\)], \(T\)]\))"},
+{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\*SubscriptBox[\(\[Omega]\), \(0\)])\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)+(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)"},
+{"\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \((\*SubscriptBox[\(\[Omega]\), \(i\)])\)]\)","(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(i\)]\)\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)+(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(i\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(F\(\\\ \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)"},
 {"",""},
 {"",""},
 {"",""},

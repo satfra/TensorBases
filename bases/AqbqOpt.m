@@ -30,7 +30,7 @@ TBAutoDefine["AqbqOpt"]=True;
 
 TBRequiredGroups["AqbqOpt"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
-TBVertex["AqbqOpt"]="A\!\(\*OverscriptBox[\(q\), \(_\)]\)q";
+TBVertex["AqbqOpt"]={A,qb,q};
 
 TBComment["AqbqOpt"]="Quark-gluon vertex basis";
 

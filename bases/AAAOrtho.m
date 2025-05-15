@@ -24,7 +24,7 @@ TBAutoDefine["AAAOrtho"]=True;
 
 TBRequiredGroups["AAAOrtho"]={{color,SUNfund,Nc}};
 
-TBVertex["AAAOrtho"]="AAAOrtho";
+TBVertex["AAAOrtho"]={A,A,A};
 
 TBVertexBasis["AAAOrtho"]=True;
 
