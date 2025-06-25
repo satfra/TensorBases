@@ -715,8 +715,8 @@ It can be called as \!\(\*
 StyleBox[\"\[ScriptCapitalO]\",\nFontColor->RGBColor[0.5, 0, 0.5]]\)[Tensor1, n, Tensor2, m], where Tensor1 and Tensor2 are functions with signatures Tensor[BasisName_String, n_Integer, indices___].
 For example, \!\(\*
 StyleBox[\"\[ScriptCapitalO]\",\nFontColor->RGBColor[0.5, 0, 0.5]]\)[\!\(\*
-StyleBox[\"TBGetBasisElement\",\nFontColor->RGBColor[1, 0.5, 0]]\), 1, \!\(\*
-StyleBox[\"TBGetBasisElement\",\nFontColor->RGBColor[1, 0.5, 0]]\), 1] returns <\!\(\*SubscriptBox[\(e\), \(i\)]\),\!\(\*SubscriptBox[\(e\), \(j\)]\)>.";
+StyleBox[\"TBGetBasisElement\",\nFontColor->RGBColor[1, 0.5, 0]]\), 2, \!\(\*
+StyleBox[\"TBGetBasisElement\",\nFontColor->RGBColor[1, 0.5, 0]]\), 1] returns <\!\(\*SubscriptBox[\(e\), \(2\)]\),\!\(\*SubscriptBox[\(e\), \(1\)]\)>.";
 
 TBGetMetric::usage = "\!\(\*
 StyleBox[\"TBGetMetric\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String]
@@ -770,22 +770,14 @@ StyleBox[\"TBRestrictBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[inBasisName_Str
 Restrict an existing basis. The new basis will be called outBasisName and only contain the basis elements specified by the given indices.";
 
 TBConstructBasis::usage = "\!\(\*
-StyleBox[\"TBConstructBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[
-	BasisName_String,\[IndentingNewLine]    {RequiredGroups___List},
-	VertexName_String,
-	VertexStructure_,
-	InnerProduct_,
-	Comment_String,
-	Author_String,
-	Usage_,
-	{Indices__List},
-	MomentumConservation_List,
-	{Tensors__List},
-	Replacements_List,
-	CacheDirectory_String:\"./TBCache\"
-  ]
+StyleBox[\"TBConstructBasis\",\nFontColor->RGBColor[1, 0.5, 0]]\)[options...]
 
-Construct a new basis from a given set of Tensors.";
+Construct a new basis from a given set of Tensors.
+Example call:
+TBConstructBasis[\[IndentingNewLine]\"Name\"->\"FourFermionBasis\",\[IndentingNewLine]\"Vertex\"->{psibar,psi,psibar,psi},\[IndentingNewLine]\"VertexStructure\"->2(Tensor[1,2,3,4]-Tensor[1,4,3,2]),\[IndentingNewLine]\"InnerProduct\"->2Tensor1[1,2,3,4](Tensor2[2,1,4,3]-Tensor2[4,1,2,3]),\[IndentingNewLine]\"Indices\"->{{p1,d1},{p2,d2},{p3,d3},{p4,d4}},\[IndentingNewLine]\"Tensors\"->{{deltaDirac[d1,d2]deltaDirac[d3,d4],gamma[mu,d1,d2]gamma[mu,d3,d4],gamma5[d1,d2]gamma5[d3,d4],gamma[mu,d1,dint1]gamma5[dint1,d2]gamma[mu,d3,d3int]gamma5[d3int,d4],sigma[mu,nu,d1,d2]sigma[mu,nu,d3,d4]\[IndentingNewLine]}}\[IndentingNewLine]]
+For all possible options, see Options[TBConstructBasis]
+
+";
 
 TBExportCache::usage = "\!\(\*
 StyleBox[\"TBExportCache\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,CacheFolder_String:\"./TBCache\"]
@@ -1806,37 +1798,40 @@ Options[TBConstructBasis]={
 "CacheDirectory"->"./TBCache"
 };
 
-TBConstructBasis::invalid="The argument \"`1`\" is invalid."
+TBConstructBasis::invalid="The argument \"`1`\" with value \"`2`\" is invalid."
+
+TBConstructBasis::InvalidArgument="TBConstructBasis takes only named arguments, see TBConstructBasis::usage";
+TBConstructBasis[___]:=(Message[TBConstructBasis::InvalidArgument];Abort[]);
 
 TBConstructBasis[OptionsPattern[]]:=Module[
 {BasisName,RequiredGroups,Vertex,VertexStructure,InnerProduct,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory},
 
 BasisName=OptionValue["Name"];
-If[Head@BasisName=!=String||BasisName==="",Message[TBConstructBasis::invalid,"Name"];Abort[]];
+If[Head@BasisName=!=String||BasisName==="",Message[TBConstructBasis::invalid,"Name",BasisName];Abort[]];
 
 RequiredGroups=OptionValue["RequiredGroups"];
-If[Head@RequiredGroups=!=List&&AnyTrue[RequiredGroups,Head[#]=!=List&],Message[TBConstructBasis::invalid,"RequiredGroups"];Abort[]];
+If[Head@RequiredGroups=!=List&&AnyTrue[RequiredGroups,Head[#]=!=List&],Message[TBConstructBasis::invalid,"RequiredGroups",RequiredGroups];Abort[]];
 
 Vertex=OptionValue["Vertex"];
-If[Head@Vertex=!=List||AnyTrue[Vertex,Head[#]=!=Symbol&],Message[TBConstructBasis::invalid,"Vertex"];Abort[]];
+If[Head@Vertex=!=List||AnyTrue[Vertex,Head[#]=!=Symbol&],Message[TBConstructBasis::invalid,"Vertex",Vertex];Abort[]];
 
 VertexStructure=OptionValue["VertexStructure"];
-If[Head@VertexStructure===List||FreeQ[VertexStructure,Global`Tensor,Infinity],Message[TBConstructBasis::invalid,"VertexStructure"];Abort[]];
+If[Head@VertexStructure===List||FreeQ[VertexStructure,Global`Tensor,Infinity],Message[TBConstructBasis::invalid,"VertexStructure",VertexStructure];Abort[]];
 
 InnerProduct=OptionValue["InnerProduct"];
-If[Head@InnerProduct===List||FreeQ[InnerProduct,Global`Tensor1,Infinity]||FreeQ[InnerProduct,Global`Tensor2,Infinity],Message[TBConstructBasis::invalid,"InnerProduct"];Abort[]];
+If[Head@InnerProduct===List||FreeQ[InnerProduct,Global`Tensor1,Infinity]||FreeQ[InnerProduct,Global`Tensor2,Infinity],Message[TBConstructBasis::invalid,"InnerProduct",InnerProduct];Abort[]];
 
 Indices=OptionValue["Indices"];
-If[Head@Indices=!=List||AnyTrue[Indices,Head[#]=!=List&],Message[TBConstructBasis::invalid,"Indices"];Abort[]];
+If[Head@Indices=!=List||AnyTrue[Indices,Head[#]=!=List&],Message[TBConstructBasis::invalid,"Indices",Indices];Abort[]];
 
 MomentumConservation=OptionValue["MomentumConservation"];
-If[Head@MomentumConservation=!=List,Message[TBConstructBasis::invalid,"MomentumConservation"];Abort[]];
+If[Head@MomentumConservation=!=List,Message[TBConstructBasis::invalid,"MomentumConservation",MomentumConservation];Abort[]];
 
 Tensors=OptionValue["Tensors"];
-If[Head@Tensors=!=List&&AnyTrue[Tensors,Head[#]=!=List&],Message[TBConstructBasis::invalid,"Tensors"];Abort[]];
+If[Head@Tensors=!=List&&AnyTrue[Tensors,Head[#]=!=List&],Message[TBConstructBasis::invalid,"Tensors",Tensors];Abort[]];
 
 Replacements=OptionValue["Replacements"];
-If[Head@Replacements=!=List||AnyTrue[Replacements,(Head[#]=!=Rule&&Head[#]=!=RuleDelayed)&],Message[TBConstructBasis::invalid,"Replacements"];Abort[]];
+If[Head@Replacements=!=List||AnyTrue[Replacements,(Head[#]=!=Rule&&Head[#]=!=RuleDelayed)&],Message[TBConstructBasis::invalid,"Replacements",Replacements];Abort[]];
 
 Author=OptionValue["Author"];
 Usage=OptionValue["Usage"];
