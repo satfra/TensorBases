@@ -1,0 +1,15 @@
+(* Created with the Wolfram Language : www.wolfram.com *)
+{{(Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+ {0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+ {0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+ {0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+ {0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+ {0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0, 0, 0, 0}, 
+ {0, 0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0, 0, 0}, 
+ {0, 0, 0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0, 0}, 
+ {0, 0, 0, 0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0, 0}, 
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0, 0}, 
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0, 0}, 
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0, 0}, 
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1), 0}, 
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (Global`Nc - Global`Nc^3)^(-1)}}
