@@ -787,6 +787,14 @@ TBUnregister::usage = "\!\(\*
 StyleBox[\"TBUnregister\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String]
 Remove an existing basis from internal memory. This does not delete or change any files on disk.";
 
+TBBasisExists::usage = "\!\(\*
+StyleBox[\"TBBasisExists\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String]
+Returns True or False, depending if the given Basis exists in memory.";
+
+TBList::usage = "\!\(\*
+StyleBox[\"TBList\",\nFontColor->RGBColor[1, 0.5, 0]]\)[]
+Returns as a list all basis names in memory.";
+
 
 TBGetIdentityMatrix::usage = "\!\(\*
 StyleBox[\"TBGetIdentityMatrix\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,indices___]
@@ -1586,6 +1594,10 @@ TBBasisDocs=Append[TBBasisDocs,
 ];
 
 
+TBList[]:=TBAvailableBasisNames;
+TBBasisExists[BasisName_]:=MemberQ[TBAvailableBasisNames,BasisName];
+
+
 TBAutoDefineTensorBasis[BasisName_String,folderPrefix_String:TBDirectory<>"cache"]:=Module[
 {errorPrefix,check},
 TBPrint["\n-------------------------------\n",1];
@@ -2223,7 +2235,7 @@ exclusions[a_]:=And@@{a=!=List,a=!=Complex,a=!=Plus,a=!=Power}
 GetAllSymbols[expr_]:=DeleteDuplicates@Cases[Flatten[{expr}//.Times[a_,b__]:>{a,b}/.a_Symbol[b__]/;exclusions[a]:>{a,b}],_Symbol,Infinity]
 
 
-GetIdentityVector[BasisName_]:=Module[{idxSet1,idxSet2},
+GetIdentityVector[BasisName_,p_]:=Module[{idxSet1,idxSet2},
 idxSet1=TBGetIndexSet[BasisName,1,p];
 idxSet2=TBGetIndexSet[BasisName,1,p];
 Table[
@@ -2267,8 +2279,10 @@ TBMakePropagator[BasisName_String,InvProp_List]:=Module[{
 idxSet1,idxSet2,idxSet3,invPropR,
 Prop,T2,T3,
 projections,idvec,identities,solution,
-makeList,b,A
+makeList,b,A,p
 },
+
+p=TBInternal[BasisName,"Indices"][[1,1]];
 
 idxSet1=TBGetIndexSet[BasisName,1,p];
 idxSet2=TBGetIndexSet[BasisName,1,p];
@@ -2282,7 +2296,7 @@ FormTracer`AddExtraVars@@(GetAllSymbols[Prop]\[Union]GetAllSymbols[invPropR]);
 T2=Table[TBGetVertex[BasisName,i,{p,idxSet2[[2;;]]},{-p,idxSet3[[2;;]]}],{i,1,TBGetBasisSize[BasisName]}];
 T3=Table[TBGetVertex[BasisName,i,{-p,idxSet3[[2;;]]},{p,idxSet1[[2;;]]}],{i,1,TBGetBasisSize[BasisName]}];
 
-idvec=GetIdentityVector[BasisName];
+idvec=GetIdentityVector[BasisName,p];
 
 projections=Table[
 TBFormTrace[
