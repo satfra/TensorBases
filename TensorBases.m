@@ -1052,9 +1052,7 @@ TBvecs[-1 p_,mu_]:= -TBvecs[p,mu];
 TBvecs[n_?NumericQ a_,mu_]:=n TBvecs[a,mu];
 
 
-Unprotect[TBPrint];
 TBPrint[thing_,level_Integer]:=If[IntegerQ[Global`TBVerbose]&&Global`TBVerbose>=level,Print[thing]];TBPrint[thing_List,level_Integer]:=If[IntegerQ[Global`TBVerbose]&&Global`TBVerbose>=level,Print@@thing];
-Protect[TBPrint];
 
 
 AlreadyUnique[x_Symbol]:=Module[{split,tailNumbers},
