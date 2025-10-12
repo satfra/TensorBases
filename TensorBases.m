@@ -689,6 +689,11 @@ If[Head[$DistributedContexts]=!=List,$DistributedContexts={}];
 $DistributedContexts=$DistributedContexts\[Union]{$Context,"TensorBases`Private`","TensorBases`","FormTracer`","FormTracer`Private`"}
 
 
+Tensor::usage="";
+Tensor1::usage="";
+Tensor2::usage="";
+
+
 TBGetBasisElement::usage = "\!\(\*
 StyleBox[\"TBGetBasisElement\",\nFontColor->RGBColor[1, 0.5, 0]]\)[BasisName_String,n_Integer,indices___]
 Obtains the n-th element of the specified basis. The given indices must match the ones specified by the basis, see TBInfo[].
@@ -1749,7 +1754,7 @@ product[t1_,t2_]:=Module[{ten1,ten2,res},
 ten1[indices__]:=fixIndices[t1]/.Thread[Flatten[IndicesList]->Flatten[{indices}]];
 ten2[indices__]:=fixIndices[t2]/.Thread[Flatten[IndicesList]->Flatten[{indices}]];
 
-res=innerProduct/.Global`Tensor1[a__]:>Tensor1@@Map[IndicesList[[#]]&,{a}]/.Global`Tensor2[a__]:>Tensor2@@Map[IndicesList[[#]]&,{a}];
+res=innerProduct/.Tensor1[a__]:>Tensor1@@Map[IndicesList[[#]]&,{a}]/.Tensor2[a__]:>Tensor2@@Map[IndicesList[[#]]&,{a}];
 res=res/.Tensor1:>ten1/.Tensor2:>ten2;
 
 Return[res];
@@ -1826,10 +1831,10 @@ Vertex=OptionValue["Vertex"];
 If[Head@Vertex=!=List||AnyTrue[Vertex,Head[#]=!=Symbol&],Message[TBConstructBasis::invalid,"Vertex",Vertex];Abort[]];
 
 VertexStructure=OptionValue["VertexStructure"];
-If[Head@VertexStructure===List||FreeQ[VertexStructure,Global`Tensor,Infinity],Message[TBConstructBasis::invalid,"VertexStructure",VertexStructure];Abort[]];
+If[Head@VertexStructure===List||FreeQ[VertexStructure,Tensor,Infinity],Message[TBConstructBasis::invalid,"VertexStructure",VertexStructure];Abort[]];
 
 InnerProduct=OptionValue["InnerProduct"];
-If[Head@InnerProduct===List||FreeQ[InnerProduct,Global`Tensor1,Infinity]||FreeQ[InnerProduct,Global`Tensor2,Infinity],Message[TBConstructBasis::invalid,"InnerProduct",InnerProduct];Abort[]];
+If[Head@InnerProduct===List||FreeQ[InnerProduct,Tensor1,Infinity]||FreeQ[InnerProduct,Tensor2,Infinity],Message[TBConstructBasis::invalid,"InnerProduct",InnerProduct];Abort[]];
 
 Indices=OptionValue["Indices"];
 If[Head@Indices=!=List||AnyTrue[Indices,Head[#]=!=List&],Message[TBConstructBasis::invalid,"Indices",Indices];Abort[]];
@@ -1884,15 +1889,13 @@ TBRequiredGroups[BasisName]={RequiredGroups};
 
 TBCheckRequirements[BasisName];
 
-(*First, reduce the tensor bases by themselves*)
-reducedTensors=Map[ReduceTensorList[#,InnerProduct,{Indices}]&,{Tensors}//.MomentumConservation];
 (*Build a maximal set by doing the tensor product*)
-maximalSet=Flatten[TensorProduct@@reducedTensors];
-(*If still necessary, reduce it again*)
+maximalSet=Flatten[TensorProduct@@{Tensors}]//.MomentumConservation;
+(*If necessary, reduce it*)
 TBBasis[BasisName]=ReduceTensorList[maximalSet,InnerProduct,{Indices}]//InsertInputNaming;
 
-TBInnerProduct[BasisName]=InnerProduct//.{Global`Tensor1:>Tensor1,Global`Tensor2:>Tensor2};
-TBVertexStructure[BasisName]=VertexStructure//.{Global`Tensor:>Tensor};
+TBInnerProduct[BasisName]=InnerProduct;
+TBVertexStructure[BasisName]=VertexStructure;
 
 TBInternal[BasisName,"Indices"]=InsertOutputNaming[{Indices}];
 TBInternal[BasisName,"Replacements"]=Replacements;

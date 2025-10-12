@@ -33,8 +33,7 @@ URLDownload=URLSave
 
 
 (* ::Input::Initialization:: *)
-TensorBasesRepositoryAddress="https://raw.githubusercontent.com/satfra/TensorBases/main/";
-TensorBasesZipLocation=TensorBasesRepositoryAddress<>"TensorBases.zip";
+TensorBasesZipLocation="https://github.com/satfra/TensorBases/archive/refs/heads/main.zip";
 TensorBasesInstallDir=FileNameJoin[{$UserBaseDirectory,"Applications"}];
 
 
@@ -76,6 +75,7 @@ Print["TensorBases installation aborted."];,
 (*install TensorBases*)
 installationSuccess=Check[
 ExtractArchive[TensorBasesArchive,TensorBasesInstallDir];
+RenameDirectory[TensorBasesInstallDir~~"/TensorBases-main",TensorBasesInstallDir~~"/TensorBases"];
 Get["TensorBases`"]
 ,$Failed];
 If[installationSuccess===$Failed,
