@@ -50,13 +50,13 @@ If[tmpTensorBasesImport==="{\"error\":\"Not Found\"}"||tmpTensorBasesImport==="4
 Message[TensorBasesInstaller::zipdownloadfailed];Abort[];
 ];
 
-newVersionString=(List@@Import[TensorBasesArchive,FileNameJoin[{"TensorBases","PacletInfo.m"}]])[[1]]["Version"];
+newVersionString=(List@@Import[TensorBasesArchive,FileNameJoin[{"TensorBases-main","PacletInfo.m"}]])[[1]]["Version"];
 
 TensorBasesFiles=FileNameJoin[{TensorBasesInstallDir,#}]&/@Import[TensorBasesArchive];
 TensorBasesFilesExist=FileExistsQ/@TensorBasesFiles;
 TensorBasesExistingInstallation=Or@@TensorBasesFilesExist;
-TensorBasesExistingPacletInfo=FileNameJoin[{TensorBasesInstallDir,"TensorBases","PacletInfo.m"}];
-TensorBasesExistingVersionString=If[FileExistsQ[TensorBasesExistingPacletInfo],(List@@Import[TensorBasesArchive,FileNameJoin[{"TensorBases","PacletInfo.m"}]])[[1]]["Version"],"unknown"];
+TensorBasesExistingPacletInfo=FileNameJoin[{TensorBasesInstallDir,"TensorBases-main","PacletInfo.m"}];
+TensorBasesExistingVersionString=If[FileExistsQ[TensorBasesExistingPacletInfo],(List@@Import[TensorBasesArchive,FileNameJoin[{"TensorBases-main","PacletInfo.m"}]])[[1]]["Version"],"unknown"];
 
 
 (* ::Input::Initialization:: *)
