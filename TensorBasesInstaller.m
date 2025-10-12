@@ -55,7 +55,7 @@ newVersionString=(List@@Import[TensorBasesArchive,FileNameJoin[{"TensorBases-mai
 TensorBasesFiles=FileNameJoin[{TensorBasesInstallDir,#}]&/@Import[TensorBasesArchive];
 TensorBasesFilesExist=FileExistsQ/@TensorBasesFiles;
 TensorBasesExistingInstallation=Or@@TensorBasesFilesExist;
-TensorBasesExistingPacletInfo=FileNameJoin[{TensorBasesInstallDir,"TensorBases-main","PacletInfo.m"}];
+TensorBasesExistingPacletInfo=FileNameJoin[{TensorBasesInstallDir,"TensorBases","PacletInfo.m"}];
 TensorBasesExistingVersionString=If[FileExistsQ[TensorBasesExistingPacletInfo],(List@@Import[TensorBasesArchive,FileNameJoin[{"TensorBases-main","PacletInfo.m"}]])[[1]]["Version"],"unknown"];
 
 
@@ -75,6 +75,9 @@ Print["TensorBases installation aborted."];,
 (*install TensorBases*)
 installationSuccess=Check[
 ExtractArchive[TensorBasesArchive,TensorBasesInstallDir];
+If[DirectoryQ[TensorBasesInstallDir~~"/TensorBases"],
+DeleteDirectory[TensorBasesInstallDir~~"/TensorBases",DeleteContents->True];
+];
 RenameDirectory[TensorBasesInstallDir~~"/TensorBases-main",TensorBasesInstallDir~~"/TensorBases"];
 Get["TensorBases`"]
 ,$Failed];
