@@ -1,3 +1,5 @@
+[![arXiv](https://img.shields.io/badge/arXiv-2412.13043-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/2503.05580)
+
 # TensorBases
 
 TensorBases is a Mathematica package which provides common interaction bases used in functional computations, with a specific focus on QCD-related interactions.
@@ -16,7 +18,7 @@ The installer will automatically download the package and all basis definition f
 
 To see how to use the package, you can open the example notebook [`examples/Showcase.nb`](https://github.com/satfra/TensorBases/raw/refs/heads/main/examples/Showcase.nb) included in the package.
 
-Furthermore, you can always access 
+For more details and backgrounds, see also the corresponding [publication](https://arxiv.org/abs/2503.05580).
 
 ## Citing
 
