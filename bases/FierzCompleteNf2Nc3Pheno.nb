@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     19617,        480]
-NotebookOptionsPosition[     18978,        461]
-NotebookOutlinePosition[     19424,        478]
-CellTagsIndexPosition[     19381,        475]
+NotebookDataLength[     22423,        524]
+NotebookOptionsPosition[     21759,        504]
+NotebookOutlinePosition[     22230,        522]
+CellTagsIndexPosition[     22187,        519]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -41,7 +41,7 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"TBAutoDefine", "[", "\"\<FierzCompleteNf2Nc3Pheno\>\"", "]"}], 
-    "=", "True"}], ";"}], "\n"}], "\[IndentingNewLine]", 
+    "=", "True"}], ";"}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -53,7 +53,7 @@ Cell[BoxData[{
        RowBox[{"color", ",", "SUNfund", ",", "Nc"}], "}"}], ",", 
       RowBox[{"{", 
        RowBox[{"flavor", ",", "SUNfund", ",", "Nf"}], "}"}]}], "}"}]}], ";"}],
-   "\[IndentingNewLine]"}], "\n", 
+   "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -165,19 +165,61 @@ strucures correspond to the following channels:    \>\"", ",",
 \)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\""}], "}"}], ",", 
           "\[IndentingNewLine]", 
           RowBox[{"{", 
-           RowBox[{"\"\<\>\"", ",", "\"\<\>\""}], "}"}], ",", 
+           RowBox[{
+           "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), SubscriptBox[\((V + \
+A)\), \(\[Perpendicular]\)]]\)\>\"", ",", 
+            "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
+\[Gamma]\), \(i\)]\)\!\(\*SuperscriptBox[\(T\), \(0\(\\\ \
+\)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\) + (\!\(\*OverscriptBox[\(q\), \
+\(_\)]\) \!\(\*SubscriptBox[\(i\[Gamma]\), \(i\)]\)\!\(\*SubscriptBox[\(\
+\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(0\(\\\ \
+\)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\""}], "}"}], ",", 
           "\[IndentingNewLine]", 
           RowBox[{"{", 
-           RowBox[{"\"\<\>\"", ",", "\"\<\>\""}], "}"}], ",", 
+           RowBox[{
+           "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), SubscriptBox[\((V - \
+A)\), \(\[LeftDoubleBracketingBar]\)]]\)\>\"", ",", 
+            "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
+\[Gamma]\), \(0\)]\)\!\(\*SuperscriptBox[\(T\), \(0\(\\\ \
+\)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\) - (\!\(\*OverscriptBox[\(q\), \
+\(_\)]\) \!\(\*SubscriptBox[\(i\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\
+\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \(0\(\\\ \
+\)\)]\)q\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\""}], "}"}], ",", 
           "\[IndentingNewLine]", 
           RowBox[{"{", 
-           RowBox[{"\"\<\>\"", ",", "\"\<\>\""}], "}"}], ",", 
-          "\[IndentingNewLine]", 
+           RowBox[{
+           "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \
+SubsuperscriptBox[\((V + A)\), \(\[LeftDoubleBracketingBar]\), \
+\(\[Dagger]\)]]\)\>\"", ",", 
+            "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\
+\[Gamma]\), \(0\)]\)\!\(\*SuperscriptBox[\(T\), \(a\)]\) \
+q\!\(\*SuperscriptBox[\()\), \(2\)]\) + (\!\(\*OverscriptBox[\(q\), \(_\)]\) \
+\!\(\*SubscriptBox[\(i\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \
+\(5\)]\)\!\(\*SuperscriptBox[\(T\), \(a\)]\) q\!\(\*SuperscriptBox[\()\), \(2\
+\)]\)\>\""}], "}"}], ",", "\[IndentingNewLine]", 
           RowBox[{"{", 
-           RowBox[{"\"\<\>\"", ",", "\"\<\>\""}], "}"}], ",", 
-          "\[IndentingNewLine]", 
+           RowBox[{
+           "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \
+SubsuperscriptBox[\((V - A)\), \(\[Perpendicular]\), \(\[Dagger]\)]]\)\>\"", 
+            ",", "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \
+\!\(\*SubscriptBox[\(\[Gamma]\), \(i\)]\)\!\(\*SuperscriptBox[\(T\), \(a\)]\) \
+q\!\(\*SuperscriptBox[\()\), \(2\)]\) - (\!\(\*OverscriptBox[\(q\), \(_\)]\) \
+\!\(\*SubscriptBox[\(i\[Gamma]\), \(i\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \
+\(5\)]\)\!\(\*SuperscriptBox[\(T\), \(a\)]\) q\!\(\*SuperscriptBox[\()\), \(2\
+\)]\)\>\""}], "}"}], ",", "\[IndentingNewLine]", 
           RowBox[{"{", 
-           RowBox[{"\"\<\>\"", ",", "\"\<\>\""}], "}"}]}], 
+           RowBox[{
+           "\"\<\!\(\*SubscriptBox[\(\[ScriptCapitalL]\), \
+SubsuperscriptBox[\((S - P)\), \(-\), \(\[Dagger]\)]]\)\>\"", ",", 
+            "\"\<(\!\(\*OverscriptBox[\(q\), \(_\)]\) \
+\!\(\*SuperscriptBox[\(T\), \(a\)]\) q\!\(\*SuperscriptBox[\()\), \(2\)]\) + \
+(\!\(\*OverscriptBox[\(q\), \(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \
+\(5\)]\)\!\(\*SuperscriptBox[\(T\), \(f\)]\)\!\(\*SuperscriptBox[\(T\), \
+\(a\)]\) q\!\(\*SuperscriptBox[\()\), \(2\)]\) - (\!\(\*OverscriptBox[\(q\), \
+\(_\)]\) \!\(\*SubscriptBox[\(\[Gamma]\), \(5\)]\)\!\(\*SuperscriptBox[\(T\), \
+\(a\)]\) q\!\(\*SuperscriptBox[\()\), \(2\)]\) - (\!\(\*OverscriptBox[\(q\), \
+\(_\)]\) \!\(\*SuperscriptBox[\(T\), \(f\)]\)\!\(\*SuperscriptBox[\(T\), \
+\(a\)]\) q\!\(\*SuperscriptBox[\()\), \(2\)]\)\>\""}], "}"}]}], 
          "\[IndentingNewLine]", "}"}], ",", 
         RowBox[{"TableHeadings", "\[Rule]", 
          RowBox[{"{", 
@@ -456,12 +498,14 @@ strucures correspond to the following channels:    \>\"", ",",
    3.933995579528049*^9, 3.9339956451180162`*^9}, {3.93434829798213*^9, 
    3.934348302368742*^9}, {3.935820655443301*^9, 3.935820658111562*^9}, {
    3.95295408507819*^9, 3.952954087337243*^9}, {3.969349415084058*^9, 
-   3.96934941795409*^9}},ExpressionUUID->"fb41c690-768a-4d38-bc18-\
+   3.96934941795409*^9}, {3.9694226559484043`*^9, 
+   3.9694228117707033`*^9}},ExpressionUUID->"fb41c690-768a-4d38-bc18-\
 2bd3dbf3b602"]
 },
 AutoGeneratedPackage->"FierzCompleteNf2Nc3Pheno.m",
-WindowSize->{588.75, 351.75},
+WindowSize->{1200, 750},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>0.8 Inherited,
 FrontEndVersion->"14.1 for Linux x86 (64-bit) (July 16, 2024)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"629cf85d-91ac-4169-8846-6d3314e7f4a3"
@@ -477,10 +521,10 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 429, 9, 53, "Input",ExpressionUUID->"b2b1053a-818e-4283-955b-1989cb1b5799"],
-Cell[990, 31, 240, 5, 46, "Input",ExpressionUUID->"1622b523-b6ea-4613-995d-1108521c71b8",
+Cell[558, 20, 429, 9, 25, "Input",ExpressionUUID->"b2b1053a-818e-4283-955b-1989cb1b5799"],
+Cell[990, 31, 240, 5, 37, "Input",ExpressionUUID->"1622b523-b6ea-4613-995d-1108521c71b8",
  InitializationCell->True],
-Cell[1233, 38, 17741, 421, 2308, "Input",ExpressionUUID->"fb41c690-768a-4d38-bc18-2bd3dbf3b602",
+Cell[1233, 38, 20522, 464, 1607, "Input",ExpressionUUID->"fb41c690-768a-4d38-bc18-2bd3dbf3b602",
  InitializationCell->True]
 }
 ]
