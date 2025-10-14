@@ -19,6 +19,30 @@
 
 
 
+If["AllowInternetUse" /. SystemInformation["Network"],
+Module[{TBCurPacletAddr,TBCurPaclet,TBCurVersion,
+TBInstalledPaclet,TBInstalledVersion},
+
+TBCurPacletAddr="https://github.com/satfra/TensorBases/raw/refs/heads/main/PacletInfo.m";
+TBCurPaclet=(List@@Import[TBCurPacletAddr])[[1]];
+TBCurVersion=TBCurPaclet["Version"];
+
+TBInstalledPaclet=(List@@Import[FileNameJoin[{$UserBaseDirectory,"Applications","TensorBases","PacletInfo.m"}]])[[1]];
+TBInstalledVersion=TBInstalledPaclet["Version"];
+
+If[TBCurVersion=!=TBInstalledVersion,
+If[ChoiceDialog[
+TemplateApply["There is a newer TensorBases version on the internet. 
+The installed version is `a`, whereas `b` is available. Do you want to install it?",<|"a"->TBInstalledVersion,"b"->TBCurVersion|>]
+,WindowTitle->"Update TensorBases",WindowSize->{Medium,All}],
+Import["https://raw.githubusercontent.com/satfra/TensorBases/main/TensorBasesInstaller.m"];Abort[],
+Print["Consider updating the TensorBases package for bugfixes and new features!"];
+];
+];
+];
+];
+
+
 Print["Mathematica package \!\(\*
 StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\" \",\nFontWeight->\"Bold\"]\)loaded
