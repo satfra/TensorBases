@@ -30,7 +30,9 @@ TBVertexBasis["AAAOrtho"]=True;
 
 TBComment["AAAOrtho"]="Orthonormal three-gluon vertex basis";
 
-TBAuthor["AAAOrtho"]="";
+TBAuthor["AAAOrtho"]="FR Sattler";
+
+TBReplacements["AAA"]={};
 
 TBUsage["AAAOrtho"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
@@ -39,7 +41,8 @@ TBUsage["AAAOrtho"]={"Indices:
 This basis is taken from arXiv:1402.1365[hep-ph]
 We use the general form 
 	\[ScriptCapitalL] = (2\[Pi]\!\(\*SuperscriptBox[\()\), \(d\)]\)\[Delta](\!\(\*SubscriptBox[\(p\), \(1\)]\)+\!\(\*SubscriptBox[\(p\), \(2\)]\)+\!\(\*SubscriptBox[\(p\), \(3\)]\))\!\(\*SuperscriptBox[\(f\), \(\*SubscriptBox[\(a\), \(1\)] \*SubscriptBox[\(a\), \(2\)] \*SubscriptBox[\(a\), \(3\)]\)]\)\!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\)
-and the \!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\) can be found in Appendix A of arXiv:1402.1365[hep-ph]."
+and the \!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\) can be found in Appendix A of arXiv:1402.1365[hep-ph].
+Note that the first four elements are fully transversal, while the remaining elements have at least partially longitudinal legs."
 };
 
 TBIndices["AAAOrtho"]={{p1,mu,a1},{p2,nu,a2},{p3,rho,a3}};

@@ -36,7 +36,11 @@ TBComment["AqbqOpt"]="Quark-gluon vertex basis";
 
 TBVertexStructure["AqbqOpt"]=Tensor[1,2,3];
 
+TBVertexBasis["AqbqOpt"]=False;
+
 TBAuthor["AqbqOpt"]="FR Sattler";
+
+TBReplacements["AqbqOpt"]={};
 
 TBUsage["AqbqOpt"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
@@ -112,6 +116,8 @@ AqbqOptPreFacS0 TBT[color,a1,A2,A3]TBdeltaFund[flavor,F2,F3]longProj[p1,mu,rho] 
 };
 
 TBInnerProduct["AqbqOpt"]=Tensor1[1,2,3]Tensor2[1,3,2];
+
+TBCanonicalProduct["AqbqOpt"]=Tensor1[1,2,3]Tensor2[1,3,2];
 
 
 

@@ -36,6 +36,8 @@ TBComment["AAAA"]="Four-gluon vertex basis";
 
 TBAuthor["AAAA"]="FR Sattler";
 
+TBReplacements["AAAA"]={};
+
 TBUsage["AAAA"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
 	A: {\!\(\*SubscriptBox[\(p\), \(2\)]\),\[Nu],\!\(\*SubscriptBox[\(a\), \(2\)]\)}

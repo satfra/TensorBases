@@ -26,11 +26,15 @@ TBRequiredGroups["Acbc"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
 TBVertex["Acbc"]={A,cb,c};
 
+TBVertexBasis["Acbc"]=False;
+
 TBVertexStructure["Acbc"]=Tensor[1,2,3];
 
 TBComment["Acbc"]="Ghost-gluon vertex basis";
 
 TBAuthor["Acbc"]="FR Sattler";
+
+TBReplacements["AAA"]={};
 
 TBUsage["Acbc"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
@@ -58,6 +62,8 @@ TBBasis["Acbc"]={
 };
 
 TBInnerProduct["Acbc"]=Tensor1[1,2,3]Tensor2[1,3,2];
+
+TBCanonicalProduct["Acbc"]=Tensor1[1,2,3]Tensor2[1,2,3];
 
 
 

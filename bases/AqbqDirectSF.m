@@ -26,11 +26,15 @@ TBRequiredGroups["AqbqDirectSF"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
 TBVertex["AqbqDirectSF"]={A,qb,q};
 
+TBVertexBasis["AqbqDirectSF"]=False;
+
 TBVertexStructure["AqbqDirectSF"]=Tensor[1,2,3];
 
 TBComment["AqbqDirectSF"]="Quark-gluon vertex basis, directly from (\!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)\!\(\*SuperscriptBox[\()\), \(n\)]\)";
 
 TBAuthor["AqbqDirectSF"]="FR Sattler";
+
+TBReplacements["AqbqDirectSF"]={};
 
 TBUsage["AqbqDirectSF"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
@@ -101,3 +105,5 @@ TBT[color,a1,A2,A3]longProj[p1,mu,rho] 1/2 ( pdash[p2,d2,md1]pdash[p3,md1,d3]-pd
 };
 
 TBInnerProduct["AqbqDirectSF"]=Tensor1[1,2,3]Tensor2[1,3,2];
+
+TBCanonicalProduct["AqbqDirectSF"]=Tensor1[1,2,3]Tensor2[1,3,2];

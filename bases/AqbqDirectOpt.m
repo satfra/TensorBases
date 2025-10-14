@@ -30,11 +30,15 @@ TBRequiredGroups["AqbqDirectOpt"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
 TBVertex["AqbqDirectOpt"]={A,qb,q};
 
+TBVertexBasis["AqbqDirectOpt"]=False;
+
 TBVertexStructure["AqbqDirectOpt"]=Tensor[1,2,3];
 
 TBComment["AqbqDirectOpt"]="Quark-gluon vertex basis, directly from (\!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)\!\(\*SuperscriptBox[\()\), \(n\)]\)";
 
 TBAuthor["AqbqDirectOpt"]="FR Sattler";
+
+TBReplacements["AqbqDirectOpt"]={};
 
 TBUsage["AqbqDirectOpt"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
@@ -106,6 +110,8 @@ TBT[color,a1,A2,A3]TBdeltaFund[flavor,F2,F3]longProj[p1,mu,rho] 1/2 ( pdash[p2,d
 };
 
 TBInnerProduct["AqbqDirectOpt"]=Tensor1[1,2,3]Tensor2[1,3,2];
+
+TBCanonicalProduct["AqbqDirectOpt"]=Tensor1[1,2,3]Tensor2[1,3,2];
 
 
 

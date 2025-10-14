@@ -26,6 +26,8 @@ TBRequiredGroups["AqbqSimple"]={{color,SUNfund,Nc},{flavor,SUNfund,Nf}};
 
 TBVertex["AqbqSimple"]={A,qb,q};
 
+TBVertexBasis["AqbqSimple"]=False;
+
 TBVertexStructure["AqbqSimple"]=Tensor[1,2,3];
 
 TBComment["AqbqSimple"]="Quark-gluon vertex basis, directly from (\!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\)]\)\!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)\!\(\*SuperscriptBox[\()\), \(n\)]\)";
@@ -99,3 +101,5 @@ TBT[color,a1,A2,A3]TBdeltaFund[flavor,F2,F3]longProj[p1,mu,rho] 1/2 ( pdash[p2,d
 };
 
 TBInnerProduct["AqbqSimple"]=Tensor1[1,2,3]Tensor2[1,3,2];
+
+TBCanonicalProduct["AqbqSimple"]=Tensor1[1,2,3]Tensor2[1,3,2];

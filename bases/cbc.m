@@ -26,13 +26,19 @@ TBRequiredGroups["cbc"]={{color,SUNfund,Nc}};
 
 TBVertex["cbc"]={cb,c};
 
+TBVertexBasis["cbc"]=False;
+
 TBVertexStructure["cbc"]=Tensor[1,2];
 
 TBInnerProduct["cbc"]=Tensor1[1,2]Tensor2[2,1];
 
+TBCanonicalProduct["cbc"]=Tensor1[1,2]Tensor2[2,1];
+
 TBComment["cbc"]="Ghost propagator basis";
 
 TBAuthor["cbc"]="FR Sattler";
+
+TBReplacements["cbc"]={};
 
 TBUsage["cbc"]={"Indices:
 	\!\(\*OverscriptBox[\(c\), \(_\)]\): {\!\(\*SubscriptBox[\(p\), \(1\)]\),\!\(\*SubscriptBox[\(c\), \(1\)]\)}

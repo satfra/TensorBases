@@ -98,3 +98,5 @@ T0Ta[i1,i2,a]T0Ta[i3,i4,a]+\[Gamma]5TfTa[i1,i2,f,a]\[Gamma]5TfTa[i3,i4,f,a]-\[Ga
 }//.Thread[{i1,i2,i3,i4}->Map[#[[2;;]]&,TBIndices["FierzCompleteNf2Nc3Pheno"]]];
 
 TBInnerProduct["FierzCompleteNf2Nc3Pheno"]=(2Tensor1[1,2,3,4]Tensor2[2,1,4,3]-2Tensor1[1,2,3,4]Tensor2[2,3,4,1]);
+
+TBCanonicalProduct["FierzCompleteNf2Nc3Pheno"]=Tensor1[1,2,3,4]Tensor2[2,1,4,3];

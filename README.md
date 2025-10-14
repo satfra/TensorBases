@@ -20,6 +20,10 @@ To see how to use the package, you can open the example notebook [`examples/Show
 
 For more details and backgrounds, see also the corresponding [publication](https://arxiv.org/abs/2503.05580).
 
+## Future updates
+
+
+
 ## Citing
 
 If you use the package for your research, please cite the corresponding publication:

@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[    516042,      11881]
-NotebookOptionsPosition[    497901,      11600]
-NotebookOutlinePosition[    498691,      11626]
-CellTagsIndexPosition[    498648,      11623]
+NotebookDataLength[    543203,      12535]
+NotebookOptionsPosition[    524520,      12247]
+NotebookOutlinePosition[    525308,      12273]
+CellTagsIndexPosition[    525265,      12270]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -64,6 +64,8 @@ tensor basis available.\nFor closer explanations, please call their usage \
 messages, e.g. \!\(\*StyleBox[\"TBGetProjector\",FontColor->RGBColor[1, 0.5, \
 0]]\)::\!\(\*StyleBox[\"usage\",FontColor->RGBColor[0, 0, 1]]\).\n\nOther \
 useful tools include \
+\!\(\*StyleBox[\"TBBasisTransformation\",FontColor->RGBColor[1, 0.5, 0]]\), \
+\!\(\*StyleBox[\"TBVertexTransformation\",FontColor->RGBColor[1, 0.5, 0]]\), \
 \!\(\*StyleBox[\"TBGetIdentityMatrix\",FontColor->RGBColor[1, 0.5, 0]]\), \
 \!\(\*StyleBox[\"TBGetBasisSize\",FontColor->RGBColor[1, 0.5, \
 0]]\),\!\(\*StyleBox[\" \",FontColor->RGBColor[1, 0.5, \
@@ -84,8 +86,8 @@ useful tools include \
    3.933996927267945*^9}, {3.94122064029466*^9, 3.9412206791818523`*^9}, {
    3.949680491293685*^9, 3.9496805095854893`*^9}, {3.949681114089796*^9, 
    3.949681114201562*^9}, {3.950776424506304*^9, 3.9507764276738043`*^9}, {
-   3.950784274930175*^9, 
-   3.9507843217808533`*^9}},ExpressionUUID->"cff12a64-b8f4-41c0-bf5f-\
+   3.950784274930175*^9, 3.9507843217808533`*^9}, {3.969415191956509*^9, 
+   3.969415210095763*^9}},ExpressionUUID->"cff12a64-b8f4-41c0-bf5f-\
 6bed048747c5"],
 
 Cell[BoxData["\<\"Mathematica package \
@@ -2801,7 +2803,7 @@ Cell[BoxData[
  CellChangeTimes->{3.941524047682692*^9},
  CellLabel->"Out[66]=",ExpressionUUID->"acf014db-5c6c-4a08-841b-375e4eee33e7"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -2813,17 +2815,22 @@ Cell["Exports", "Section",
 Cell[BoxData[{
  RowBox[{
   RowBox[{
-   RowBox[{"Tensor", "::", "usage"}], "=", "\"\<\>\""}], 
+   RowBox[{"Tensor", "::", "usage"}], "=", 
+   "\"\<Symbol used by TensorBases to express vertex structures\>\""}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"Tensor1", "::", "usage"}], "=", "\"\<\>\""}], 
-  ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Tensor1", "::", "usage"}], "=", 
+   "\"\<Symbol used by TensorBases to express inner & canonical \
+products\>\""}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"Tensor2", "::", "usage"}], "=", "\"\<\>\""}], ";"}]}], "Input",
- CellChangeTimes->{{3.969257059918023*^9, 
-  3.969257077217906*^9}},ExpressionUUID->"4d3f01e4-537a-4ee6-883b-\
+   RowBox[{"Tensor2", "::", "usage"}], "=", 
+   "\"\<Symbol used by TensorBases to express inner & canonical \
+products\>\""}], ";"}]}], "Input",
+ CellChangeTimes->{{3.969257059918023*^9, 3.969257077217906*^9}, {
+  3.969415091827717*^9, 
+  3.9694151187953253`*^9}},ExpressionUUID->"4d3f01e4-537a-4ee6-883b-\
 ac7809cb4485"],
 
 Cell[BoxData[{
@@ -2831,144 +2838,135 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"TBGetBasisElement", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetBasisElement\",FontColor->RGBColor[1, 0.5, 0]]\
-\)[BasisName_String,n_Integer,indices___]\nObtains the n-th element of the \
-specified basis. The given indices must match the ones specified by the \
-basis, see TBInfo[].\nIf no indices are given, the standard indices specified \
-by the basis are used.\n\
-\!\(\*StyleBox[\"TBGetBasisElement\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,All,indices___]\nReturns a list with all elements of \
-the specified basis. The given indices must match the ones specified by the \
-basis, see TBInfo[].\nIf no indices are given, the standard indices specified \
-by the basis are used.\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBGetBasisElement[BasisName_String,n_Integer,indices___]\nObtains \
+the n-th element of the specified basis. The given indices must match the \
+ones specified by the basis, see TBInfo[].\nIf no indices are given, the \
+standard indices specified by the basis are used.\n\
+TBGetBasisElement[BasisName_String,All,indices___]\nReturns a list with all \
+elements of the specified basis. The given indices must match the ones \
+specified by the basis, see TBInfo[].\nIf no indices are given, the standard \
+indices specified by the basis are used.\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBGetVertex", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetVertex\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,n_Integer,indices___]\nObtains the n-th vertex of the \
-specified basis. The given indices must match the ones specified by the \
-basis, see TBInfo[].\nIf no indices are given, the standard indices specified \
-by the basis are used.\n\!\(\*StyleBox[\"TBGetVertex\",FontColor->RGBColor[1, \
-0.5, 0]]\)[BasisName_String,All,indices___]\nReturns a list with all vertices \
-of the specified basis. The given indices must match the ones specified by \
-the basis, see TBInfo[].\nIf no indices are given, the standard indices \
-specified by the basis are used.\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBGetVertex[BasisName_String,n_Integer,indices___]\nObtains the n-th \
+vertex of the specified basis. The given indices must match the ones \
+specified by the basis, see TBInfo[].\nIf no indices are given, the standard \
+indices specified by the basis are used.\n\
+TBGetVertex[BasisName_String,All,indices___]\nReturns a list with all \
+vertices of the specified basis. The given indices must match the ones \
+specified by the basis, see TBInfo[].\nIf no indices are given, the standard \
+indices specified by the basis are used.\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBGetInnerProduct", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetInnerProduct\",FontColor->RGBColor[1, 0.5, 0]]\
-\)[BasisName_String]\nReturns the bilinear operator \!\(\*StyleBox[\"\
-\[ScriptCapitalO]\",FontColor->RGBColor[0.5, 0, 0.5]]\) that represents the \
-inner product of the specified basis. \nIt can be called as \!\(\*StyleBox[\"\
-\[ScriptCapitalO]\",FontColor->RGBColor[0.5, 0, 0.5]]\)[Tensor1, n, Tensor2, \
-m], where Tensor1 and Tensor2 are functions with signatures \
-Tensor[BasisName_String, n_Integer, indices___].\nFor example, \
-\!\(\*StyleBox[\"\[ScriptCapitalO]\",FontColor->RGBColor[0.5, 0, 0.5]]\)[\!\(\
-\*StyleBox[\"TBGetBasisElement\",FontColor->RGBColor[1, 0.5, 0]]\), 2, \
-\!\(\*StyleBox[\"TBGetBasisElement\",FontColor->RGBColor[1, 0.5, 0]]\), 1] \
+    "\"\<TBGetInnerProduct[BasisName_String]\nReturns the bilinear operator \
+\[ScriptCapitalO] that represents the inner product of the specified basis. \n\
+It can be called as \[ScriptCapitalO][Tensor1, n, Tensor2, m], where Tensor1 \
+and Tensor2 are functions with signatures Tensor[BasisName_String, n_Integer, \
+indices___].\nFor example, \[ScriptCapitalO][TBGetBasisElement, 2, \
+TBGetBasisElement, 1] returns <\!\(\*SubscriptBox[\(e\), \
+\(2\)]\),\!\(\*SubscriptBox[\(e\), \(1\)]\)>.\>\""}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"TBGetCanonicalProduct", "::", "usage"}], " ", "=", " ", 
+    "\"\<TBGetCanonicalProduct[BasisName_String]\nReturns the bilinear \
+operator \[ScriptCapitalO] that represents the canonical product (i.e. the \
+euclidean inner product) of the specified basis. \nIt can be called as \
+\[ScriptCapitalO][Tensor1, n, Tensor2, m], where Tensor1 and Tensor2 are \
+functions with signatures Tensor[BasisName_String, n_Integer, indices___].\n\
+For example, \[ScriptCapitalO][TBGetBasisElement, 2, TBGetBasisElement, 1] \
 returns <\!\(\*SubscriptBox[\(e\), \(2\)]\),\!\(\*SubscriptBox[\(e\), \
-\(1\)]\)>.\>\""}], ";"}], "\n"}], "\n", 
+\(1\)]\)\!\(\*SubscriptBox[\(>\), \(can\)]\).\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBGetMetric", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetMetric\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String]\nReturns the metric of the specified basis, i.e. the \
-matrix \!\(\*SubscriptBox[\(g\), \(ij\)]\) = <\!\(\*SubscriptBox[\(e\), \
-\(i\)]\),\!\(\*SubscriptBox[\(e\), \(j\)]\)>, where the \
-\!\(\*SubscriptBox[\(e\), \(i\)]\) are the basis elements of the \
+    "\"\<TBGetMetric[BasisName_String]\nReturns the metric of the specified \
+basis, i.e. the matrix \!\(\*SubscriptBox[\(g\), \(ij\)]\) = \
+<\!\(\*SubscriptBox[\(e\), \(i\)]\),\!\(\*SubscriptBox[\(e\), \(j\)]\)>, \
+where the \!\(\*SubscriptBox[\(e\), \(i\)]\) are the basis elements of the \
 basis.\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBGetInverseMetric", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetInverseMetric\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String]\nReturns the inverse of the metric of the specified \
-basis, i.e. the matrix \!\(\*SuperscriptBox[SubscriptBox[\(g\), \(ij\)], \(-1\
-\)]\) = (<\!\(\*SubscriptBox[\(e\), \(i\)]\),\!\(\*SubscriptBox[\(e\), \(j\)]\
-\)>\!\(\*SuperscriptBox[\()\), \(-1\)]\), where the \!\(\*SubscriptBox[\(e\), \
-\(i\)]\) are the basis elements of the basis.\>\""}], ";"}], "\n"}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"TBGetBasisFields", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetBasisFields\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String]\nReturns the field content in the order as used for \
-the indices of the basis.\>\""}], ";"}], "\n"}], "\n", 
- RowBox[{
-  RowBox[{
-   RowBox[{
-    RowBox[{"TBGetProjector", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetBasisProjector\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,n_Integer,indices___]\nReturns the n-th projector, \
-which is defined by \!\(\*SuperscriptBox[SubscriptBox[\(g\), \(nj\)], \(-1\)]\
-\)\!\(\*SubscriptBox[\(e\), \(j\)]\). The given indices must match the ones \
-specified by the basis, see TBInfo[]. \nIf no indices are given, the standard \
-indices specified by the basis are used.\n\
-\!\(\*StyleBox[\"TBGetVertex\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,All,indices___]\nReturns a list with all projectors of \
-the specified basis, defined by \!\(\*SuperscriptBox[SubscriptBox[\(g\), \(nj\
-\)], \(-1\)]\)\!\(\*SubscriptBox[\(e\), \(j\)]\). The given indices must \
-match the ones specified by the basis, see TBInfo[].\nIf no indices are \
-given, the standard indices specified by the basis are used.\>\""}], ";"}], 
+    "\"\<TBGetInverseMetric[BasisName_String]\nReturns the inverse of the \
+metric of the specified basis, i.e. the matrix \
+\!\(\*SuperscriptBox[SubscriptBox[\(g\), \(ij\)], \(-1\)]\) = \
+(<\!\(\*SubscriptBox[\(e\), \(i\)]\),\!\(\*SubscriptBox[\(e\), \
+\(j\)]\)>\!\(\*SuperscriptBox[\()\), \(-1\)]\), where the \!\(\*SubscriptBox[\
+\(e\), \(i\)]\) are the basis elements of the basis.\>\""}], ";"}], 
   "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
+    RowBox[{"TBGetBasisFields", "::", "usage"}], " ", "=", " ", 
+    "\"\<TBGetBasisFields[BasisName_String]\nReturns the field content in the \
+order as used for the indices of the basis.\>\""}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"TBGetProjector", "::", "usage"}], " ", "=", " ", 
+    "\"\<TBGetBasisProjector[BasisName_String,n_Integer,indices___]\nReturns \
+the n-th projector, which is defined by \!\(\*SuperscriptBox[SubscriptBox[\(g\
+\), \(nj\)], \(-1\)]\)\!\(\*SubscriptBox[\(e\), \(j\)]\). The given indices \
+must match the ones specified by the basis, see TBInfo[]. \nIf no indices are \
+given, the standard indices specified by the basis are used.\n\
+TBGetVertex[BasisName_String,All,indices___]\nReturns a list with all \
+projectors of the specified basis, defined by \
+\!\(\*SuperscriptBox[SubscriptBox[\(g\), \(nj\)], \
+\(-1\)]\)\!\(\*SubscriptBox[\(e\), \(j\)]\). The given indices must match the \
+ones specified by the basis, see TBInfo[].\nIf no indices are given, the \
+standard indices specified by the basis are used.\>\""}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
     RowBox[{"TBInfo", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBInfo\",FontColor->RGBColor[1, 0.5, 0]]\)[_String]\
-\nReturn information on a given object. \n\
-\!\(\*StyleBox[\"TBInfo\",FontColor->RGBColor[1, 0.5, 0]]\)[] prints all \
-available bases with some usage information. \n\
-\!\(\*StyleBox[\"TBInfo\",FontColor->RGBColor[1, 0.5, 0]]\)[BasisName] prints \
-detailed information provided by this basis.\n\
-\!\(\*StyleBox[\"TBInfo\",FontColor->RGBColor[1, 0.5, \
-0]]\)[\\\"FormTracer\\\"] prints all defined groups and identites which \
-\!\(\*StyleBox[\"FormTracer\",FontWeight->\"Bold\"]\) currently knows.\n\
-\!\(\*StyleBox[\"TBInfo\",FontColor->RGBColor[1, 0.5, \
-0]]\)[\\\"Extensions\\\"] prints all extensions to \
-\!\(\*StyleBox[\"FormTracer\",FontWeight->\"Bold\"]\), defined by the \
-\!\(\*StyleBox[\"TensorBases\",FontWeight->\"Bold\"]\) package.\n\
-\!\(\*StyleBox[\"TBInfo\",FontColor->RGBColor[1, 0.5, 0]]\)[\\\"Momenta\\\"] \
-prints all momentum transformations that can be performed by the \
-\!\(\*StyleBox[\"TensorBases\",FontWeight->\"Bold\"]\) package.\>\""}], ";"}],
-   "\n"}], "\n", 
+    "\"\<TBInfo[_String]\nReturn information on a given object. \nTBInfo[] \
+prints all available bases with some usage information. \nTBInfo[BasisName] \
+prints detailed information provided by this basis.\n\
+TBInfo[\\\"FormTracer\\\"] prints all defined groups and identites which \
+FormTracer currently knows.\nTBInfo[\\\"Extensions\\\"] prints all extensions \
+to FormTracer, defined by the TensorBases package.\nTBInfo[\\\"Momenta\\\"] \
+prints all momentum transformations that can be performed by the TensorBases \
+package.\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBImportBasis", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBImportBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisDefinitionFile_String,CacheDirectory_String:\\\"./TBCache\\\"]\n\
-Import a custom basis definition file. The optional argument CacheDirectory \
-can be set to choose a specific location where the intermediate files from \
-processing the basis are stored.\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBImportBasis[BasisDefinitionFile_String,CacheDirectory_String:\\\"./\
+TBCache\\\"]\nImport a custom basis definition file. The optional argument \
+CacheDirectory can be set to choose a specific location where the \
+intermediate files from processing the basis are stored.\>\""}], ";"}], 
+  "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBExportBasis", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBExportBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,folder_String:\\\"./\\\"]\nExport a basis definition \
-file. The basis with the name BasisName has to be loaded in memory. If the \
-optional argument folder is given, this will be the location where the \
-exported basis definition will be placed.\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBExportBasis[BasisName_String,folder_String:\\\"./\\\"]\nExport a \
+basis definition file. The basis with the name BasisName has to be loaded in \
+memory. If the optional argument folder is given, this will be the location \
+where the exported basis definition will be placed.\>\""}], ";"}], 
+  "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBRestrictBasis", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBRestrictBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)[inBasisName_String, outBasisName_String, {indices__Integer}, \
-CacheDirectory_String:\\\"./TBCache\\\"]\nRestrict an existing basis. The new \
-basis will be called outBasisName and only contain the basis elements \
-specified by the given indices.\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBRestrictBasis[inBasisName_String, outBasisName_String, \
+{indices__Integer}, CacheDirectory_String:\\\"./TBCache\\\"]\nRestrict an \
+existing basis. The new basis will be called outBasisName and only contain \
+the basis elements specified by the given indices.\>\""}], ";"}], 
+  "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBConstructBasis", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBConstructBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)[options...]\n\nConstruct a new basis from a given set of Tensors.\n\
-Example call:\n\
+    "\"\<TBConstructBasis[options...]\n\nConstruct a new basis from a given \
+set of Tensors.\nExample call:\n\
 TBConstructBasis[\[IndentingNewLine]\\\"Name\\\"->\\\"FourFermionBasis\\\",\
 \[IndentingNewLine]\\\"Vertex\\\"->{psibar,psi,psibar,psi},\[IndentingNewLine]\
 \\\"VertexStructure\\\"->2(Tensor[1,2,3,4]-Tensor[1,4,3,2]),\
@@ -2979,34 +2977,32 @@ d3,d4],gamma[mu,d1,d2]gamma[mu,d3,d4],gamma5[d1,d2]gamma5[d3,d4],gamma[mu,d1,\
 dint1]gamma5[dint1,d2]gamma[mu,d3,d3int]gamma5[d3int,d4],sigma[mu,nu,d1,d2]\
 sigma[mu,nu,d3,d4]\[IndentingNewLine]}}\[IndentingNewLine]]\nFor all possible \
 options, see Options[TBConstructBasis]\n\n\>\""}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBExportCache", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBExportCache\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,CacheFolder_String:\\\"./TBCache\\\"]\nExports \
-everything in memory of the Basis BasisName onto disk in the folder \
+    "\"\<TBExportCache[BasisName_String,CacheFolder_String:\\\"./TBCache\\\"]\
+\nExports everything in memory of the Basis BasisName onto disk in the folder \
 CacheFolder.\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBUnregister", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBUnregister\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String]\nRemove an existing basis from internal memory. This \
-does not delete or change any files on disk.\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBUnregister[BasisName_String]\nRemove an existing basis from \
+internal memory. This does not delete or change any files on disk.\>\""}], 
+   ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBBasisExists", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBBasisExists\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String]\nReturns True or False, depending if the given Basis \
-exists in memory.\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBBasisExists[BasisName_String]\nReturns True or False, depending if \
+the given Basis exists in memory.\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"TBList", "::", "usage"}], " ", "=", " ", 
-   "\"\<\!\(\*StyleBox[\"TBList\",FontColor->RGBColor[1, 0.5, 0]]\)[]\n\
-Returns as a list all basis names in memory.\>\""}], ";"}]}], "Code",
+   "\"\<TBList[]\nReturns as a list all basis names in memory.\>\""}], 
+  ";"}]}], "Code",
  CellChangeTimes->{{3.916637829669835*^9, 3.91663783796828*^9}, {
    3.916638110622831*^9, 3.916638118237995*^9}, {3.9167289728094*^9, 
    3.916728976539971*^9}, {3.916730910644607*^9, 3.916730924497292*^9}, {
@@ -3055,50 +3051,71 @@ Returns as a list all basis names in memory.\>\""}], ";"}]}], "Code",
    3.9507842155417233`*^9}, {3.952957197296557*^9, 3.9529572295521307`*^9}, {
    3.959837835568686*^9, 3.9598378519339247`*^9}, {3.959839065568681*^9, 
    3.95983913271212*^9}, {3.9627598938989067`*^9, 3.9627599642747602`*^9}, {
-   3.962760248419434*^9, 
-   3.962760259747444*^9}},ExpressionUUID->"fa4c288d-f6fa-4904-b906-\
+   3.962760248419434*^9, 3.962760259747444*^9}, {3.969347371041151*^9, 
+   3.969347417320154*^9}},ExpressionUUID->"fa4c288d-f6fa-4904-b906-\
 ae7fe81b8ecf"],
 
 Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{
+    RowBox[{"TBBasisTransformation", "::", "usage"}], " ", "=", " ", 
+    "\"\<TBBasisTransformation[toBasis_String,fromBasis_String]\nReturns a \
+matrix for the transformation of coordinates (i.e. dressings) from the basis \
+\\\"fromBasis\\\" to the basis \\\"toBasis\\\".\nI.e. given a set of \
+dressings dress = {d1,d2,d3...} in \\\"fromBasis\\\", we get the set of \
+dressings dressbar = {db1,db2,db3,...} in \\\"toBasis\\\" from dressbar = \
+TBBasisTransformation[toBasis,fromBasis].dress\>\""}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TBVertexTransformation", "::", "usage"}], " ", "=", " ", 
+   "\"\<TBVertexTransformation[toBasis_String,fromBasis_String]\nReturns a \
+matrix for the transformation of coordinates (i.e. (!) vertex dressings) from \
+the basis \\\"fromBasis\\\" to the basis \\\"toBasis\\\".\nI.e. given a set \
+of (!) vertex dressings dress = {d1,d2,d3...} in \\\"fromBasis\\\", we get \
+the set of dressings dressbar = {db1,db2,db3,...} in \\\"toBasis\\\" from \
+dressbar = TBBasisTransformation[toBasis,fromBasis].dress\>\""}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.969414824495483*^9, 
+  3.969415044699641*^9}},ExpressionUUID->"2ace8e61-0363-414a-aec2-\
+78ad21a6b37c"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
     RowBox[{"TBGetIdentityMatrix", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetIdentityMatrix\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,indices___]\nReturns an identity matrix for the given \
-two-point function BasisName. Works only for two-point functions.\nIf no \
-indices are given, the standard indices specified by the basis are \
-used.\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBGetIdentityMatrix[BasisName_String,indices___]\nReturns an \
+identity matrix for the given two-point function BasisName. Works only for \
+two-point functions.\nIf no indices are given, the standard indices specified \
+by the basis are used.\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBGetBasisSize", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetBasisSize\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String]\nGet the size of a basis of with name \\\"BasisName\\\
-\".\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<TBGetBasisSize[BasisName_String]\nGet the size of a basis of with \
+name \\\"BasisName\\\".\>\""}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBGetIndexSet", "::", "usage"}], " ", "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetIndexSet\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,id_Integer,p_Symbol]\nGet a unique index set for \
-particle id in the Basis \\\"BasisName\\\" with momentum p.\n\
+    "\"\<TBGetIndexSet[BasisName_String,id_Integer,p_Symbol]\nGet a unique \
+index set for particle id in the Basis \\\"BasisName\\\" with momentum p.\n\
 TBGetIndexSet[set_List,p_]\nChange the momentum of an index set to p.\n\
-\>\""}], ";"}], "\[IndentingNewLine]"}], "\n", 
+\>\""}], ";"}], "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBGetBasis", "::", "usage"}], "=", " ", 
-    "\"\<\!\(\*StyleBox[\"TBGetBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,indices___]\nReturns a list with all basis elements.\n\
-If no indices are given, the standard indices specified by the basis are \
-used.\>\""}], ";"}], "\n"}], "\[IndentingNewLine]", 
+    "\"\<TBGetBasis[BasisName_String,indices___]\nReturns a list with all \
+basis elements.\nIf no indices are given, the standard indices specified by \
+the basis are used.\>\""}], ";"}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"TBMakePropagator", "::", "usage"}], " ", "=", " ", 
-   "\"\<\!\(\*StyleBox[\"TBMakePropagator\",FontColor->RGBColor[1, 0.5, \
-0]]\)[BasisName_String,InvProp_List]\nFor a two-point basis \
-\\\"BasisName\\\", obtain a propagator for a given inverse propagator.\n\
+   "\"\<TBMakePropagator[BasisName_String,InvProp_List]\nFor a two-point \
+basis \\\"BasisName\\\", obtain a propagator for a given inverse propagator.\n\
 InvProp should be a list of basis element coefficients making up the inverse \
 propagator.\nFor example, {\[ImaginaryI], Mq[p]} for the Basis \\\"qbq\\\" \
 for the standard quark propagator in vacuum.\>\""}], ";"}]}], "Input",
@@ -3242,32 +3259,19 @@ Cell[BoxData[
    RowBox[{"TBInfo", "[", "\"\<BaseBuilder\>\"", "]"}], ":=", 
    RowBox[{
    "Print", "@", 
-    "\"\<\!\(\*StyleBox[\"TensorBases\",FontWeight->\"Bold\"]\) provides \
-facilities for exporting and importing bases:\n\
-\\n\!\(\*StyleBox[\"TBImportBasis\",FontColor->RGBColor[1, 0.5, 0]]\) and\!\(\
-\*StyleBox[\" \",FontColor->RGBColor[1, 0.5, \
-0]]\)\!\(\*StyleBox[\"TBExportBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)\!\(\*StyleBox[\" \",FontColor->RGBColor[1, 0.5, 0]]\)allow for \
-importing user-written basis definition files and automatic export of bases \
-in memory to such definition files.\n\
-\\n\!\(\*StyleBox[\"TBExportCache\",FontColor->RGBColor[1, 0.5, 0]]\) writes \
-any basis data in memory to disk at a specified location.\n\\n\!\(\*StyleBox[\
-\"TBUnregister\",FontColor->RGBColor[1, 0.5, 0]]\)\!\(\*StyleBox[\" \
-\",FontColor->RGBColor[1, 0.5, 0]]\)allows to remove basis names from the \
+    "\"\<TensorBases provides facilities for exporting and importing bases:\n\
+\\nTBImportBasis and TBExportBasis allow for importing user-written basis \
+definition files and automatic export of bases in memory to such definition \
+files.\n\\nTBExportCache writes any basis data in memory to disk at a \
+specified location.\n\\nTBUnregister allows to remove basis names from the \
 registry, which allows one to overwrite bases by custom imports.\n\
-\\n\!\(\*StyleBox[\"TBRestrictBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)\!\(\*StyleBox[\" \",FontColor->RGBColor[1, 0.5, 0]]\)creates a new \
-basis from an old one by simple restriction.\n\
-\\n\!\(\*StyleBox[\"TBConstructBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)\!\(\*StyleBox[\" \",FontColor->RGBColor[1, 0.5, 0]]\)creates a new \
-basis from a set of primitive tensors. The method automatically takes tensor \
-products of multiple given tensor spaces and reduces any overcomplete set \
-using a given inner product to a minimal basis (a maximal linearly \
-independent set).\n\\nFor usage help with the aforementioned functions, \
-please call their usage messages, e.g. \
-\!\(\*StyleBox[\"TBConstructBasis\",FontColor->RGBColor[1, 0.5, \
-0]]\)::\!\(\*StyleBox[\"usage\",FontColor->RGBColor[0, 0, 1]]\).\n\>\""}]}], 
-  ";"}]], "Input",
+\\nTBRestrictBasis creates a new basis from an old one by simple restriction.\
+\n\\nTBConstructBasis creates a new basis from a set of primitive tensors. \
+The method automatically takes tensor products of multiple given tensor \
+spaces and reduces any overcomplete set using a given inner product to a \
+minimal basis (a maximal linearly independent set).\n\\nFor usage help with \
+the aforementioned functions, please call their usage messages, e.g. \
+TBConstructBasis::usage.\n\>\""}]}], ";"}]], "Input",
  CellChangeTimes->{{3.941220695961537*^9, 3.941221094400526*^9}, {
    3.9412211361305637`*^9, 3.9412211701939297`*^9}, 
    3.950784233752342*^9},ExpressionUUID->"9a87c29c-9c9e-41e8-b49c-\
@@ -3298,7 +3302,7 @@ matrices and accordingly \!\(\*SubscriptBox[\(\[Gamma]\), \(5\(\\\ \)\)]\)= \
    3.949680767061558*^9, 3.949680843277595*^9}, 
    3.9507842379924803`*^9},ExpressionUUID->"be2e6840-c5b7-46d7-8454-\
 3e14628bb533"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -4798,8 +4802,9 @@ Cell[BoxData[{
           RowBox[{"TBPrint", "[", 
            RowBox[{
             RowBox[{
-            "errorPrefix", "~~", "\"\<VertexBasis setting missing!\>\""}], 
-            ",", "2"}], "]"}], ";", 
+            "errorPrefix", "~~", 
+             "\"\<VertexBasis setting missing, setting to False!\>\""}], ",", 
+            "2"}], "]"}], ";", 
           RowBox[{
            RowBox[{"TBVertexBasis", "[", "BasisName", "]"}], "=", 
            "False"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
@@ -4881,6 +4886,21 @@ Cell[BoxData[{
              ",", "0"}], "]"}], ";", 
           RowBox[{"Abort", "[", "]"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
        
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"Not", "@", 
+          RowBox[{"TBCheck", "[", 
+           RowBox[{"BasisName", ",", "\"\<CanonicalProduct\>\"", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Head", "[", "#", "]"}], "=!=", "TBCanonicalProduct"}], 
+             "&"}]}], "]"}]}], ",", 
+         RowBox[{"TBPrint", "[", 
+          RowBox[{
+           RowBox[{
+           "errorPrefix", "~~", 
+            "\"\<CanonicalProduct definition missing! Some functions may/will \
+break.\>\""}], ",", "1"}], "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
        RowBox[{"If", "[", 
         RowBox[{
          RowBox[{"Not", "@", 
@@ -5145,10 +5165,12 @@ Cell[BoxData[{
    3.941174582792659*^9, 3.9411746127609*^9}, 3.9411807748431396`*^9, {
    3.941219309922535*^9, 3.941219345418728*^9}, 3.941220097331115*^9, {
    3.941221744421632*^9, 3.941221772650358*^9}, {3.950085647043741*^9, 
-   3.9500857136732197`*^9}, {3.952953758397339*^9, 
-   3.9529537678372726`*^9}},ExpressionUUID->"276d2ca9-7d95-4b0a-b9e8-\
+   3.9500857136732197`*^9}, {3.952953758397339*^9, 3.9529537678372726`*^9}, 
+   3.969347674542384*^9, {3.969351499061469*^9, 3.969351504801731*^9}, {
+   3.969353571532263*^9, 3.969353575633439*^9}, {3.96935390991082*^9, 
+   3.969353929629046*^9}},ExpressionUUID->"276d2ca9-7d95-4b0a-b9e8-\
 001c42d065e2"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5399,6 +5421,217 @@ Cell[BoxData[
    3.969257044874961*^9}},ExpressionUUID->"a0647142-035b-4af3-86c3-\
 0ef0ea513443"],
 
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"TBMakeCanonicalProduct", "::", "canonical"}], "=", 
+   "\"\<The canonical products of the given bases \\\"`1`\\\" and \\\"`2`\\\" \
+do not agree.\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"TBMakeCanonicalProduct", "::", "noProduct"}], "=", 
+    "\"\<The canonical product for the basis \\\"`1`\\\" has not been \
+defined!\>\""}], ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TBMakeCanonicalProduct", "[", 
+    RowBox[{"BasisName1_String", ",", "BasisName2_String"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Indices1", ",", "Indices2", ",", "product", ",", "operator"}], 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Indices1", "=", 
+       RowBox[{"TBInternal", "[", 
+        RowBox[{"BasisName1", ",", "\"\<Indices\>\""}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Indices2", "=", 
+       RowBox[{"TBInternal", "[", 
+        RowBox[{"BasisName2", ",", "\"\<Indices\>\""}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"Head", "[", 
+            RowBox[{"Evaluate", "[", 
+             RowBox[{"TBCanonicalProduct", "[", "BasisName1", "]"}], "]"}], 
+            "]"}], "===", "TBCanonicalProduct"}], ")"}], "||", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"TBCanonicalProduct", "[", "BasisName1", "]"}], "===", 
+           "Null"}], ")"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Message", "[", 
+          RowBox[{
+           RowBox[{"TBMakeCanonicalProduct", "::", "noProduct"}], ",", 
+           "BasisName1"}], "]"}], ";", 
+         RowBox[{"Abort", "[", "]"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"TBCanonicalProduct", "[", "BasisName1", "]"}], "=!=", 
+         RowBox[{"TBCanonicalProduct", "[", "BasisName1", "]"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Message", "[", 
+          RowBox[{
+           RowBox[{"TBMakeCanonicalProduct", "::", "canonical"}], ",", 
+           "BasisName1", ",", "BasisName2"}], "]"}], ";", 
+         RowBox[{"Abort", "[", "]"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"product", "=", 
+       RowBox[{
+        RowBox[{"TBCanonicalProduct", "[", "BasisName1", "]"}], "/.", 
+        RowBox[{
+         RowBox[{"Tensor1", "[", "a___", "]"}], ":>", 
+         RowBox[{"Tensor1", "@@", 
+          RowBox[{"Map", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Indices1", "[", 
+              RowBox[{"[", "#", "]"}], "]"}], "&"}], ",", 
+            RowBox[{"{", "a", "}"}]}], "]"}]}]}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"product", "=", 
+       RowBox[{"product", "/.", 
+        RowBox[{
+         RowBox[{"Tensor2", "[", "a___", "]"}], ":>", 
+         RowBox[{"Tensor2", "@@", 
+          RowBox[{"Map", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Indices2", "[", 
+              RowBox[{"[", "#", "]"}], "]"}], "&"}], ",", 
+            RowBox[{"{", "a", "}"}]}], "]"}]}]}]}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"operator", "[", 
+        RowBox[{"t1_", ",", "i_", ",", "t2_", ",", "j_"}], "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Return", "[", 
+           RowBox[{
+            RowBox[{"product", "/.", 
+             RowBox[{
+              RowBox[{"Tensor1", "[", "indices___", "]"}], ":>", 
+              RowBox[{"t1", "[", 
+               RowBox[{"BasisName1", ",", "i", ",", "indices"}], "]"}]}]}], "/.", 
+            RowBox[{
+             RowBox[{"Tensor2", "[", "indices___", "]"}], ":>", 
+             RowBox[{"t2", "[", 
+              RowBox[{"BasisName2", ",", "j", ",", "indices"}], "]"}]}]}], 
+           "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "operator", "]"}]}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.9694123579875717`*^9, 3.969412482136764*^9}, {
+   3.9694125597957907`*^9, 3.969412635675775*^9}, 
+   3.969412685907832*^9},ExpressionUUID->"c3c5409f-48fe-41df-9ce8-\
+a07da018aff7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"TBMakeCanonicalProduct", "[", "BasisName_String", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Indices", ",", "product", ",", "operator"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Indices", "=", 
+       RowBox[{"TBInternal", "[", 
+        RowBox[{"BasisName", ",", "\"\<Indices\>\""}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"product", "=", 
+       RowBox[{
+        RowBox[{"TBCanonicalProduct", "[", "BasisName", "]"}], "/.", 
+        RowBox[{
+         RowBox[{"Tensor1", "[", "a___", "]"}], ":>", 
+         RowBox[{"Tensor1", "@@", 
+          RowBox[{"Map", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Indices", "[", 
+              RowBox[{"[", "#", "]"}], "]"}], "&"}], ",", 
+            RowBox[{"{", "a", "}"}]}], "]"}]}]}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"product", "=", 
+       RowBox[{"product", "/.", 
+        RowBox[{
+         RowBox[{"Tensor2", "[", "a___", "]"}], ":>", 
+         RowBox[{"Tensor2", "@@", 
+          RowBox[{"Map", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Indices", "[", 
+              RowBox[{"[", "#", "]"}], "]"}], "&"}], ",", 
+            RowBox[{"{", "a", "}"}]}], "]"}]}]}]}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"operator", "[", 
+        RowBox[{"t1_", ",", "i_", ",", "t2_", ",", "j_"}], "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"If", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Head", "[", 
+                RowBox[{"Evaluate", "[", 
+                 RowBox[{"TBCanonicalProduct", "[", "BasisName", "]"}], "]"}],
+                 "]"}], "===", "TBCanonicalProduct"}], ")"}], "||", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"TBCanonicalProduct", "[", "BasisName", "]"}], "===", 
+               "Null"}], ")"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"Print", "[", 
+              RowBox[{
+              "\"\<The canonical product for the basis \\\"\>\"", "<>", 
+               "BasisName", "<>", "\"\<\\\" has not been defined!\>\""}], 
+              "]"}], ";", 
+             RowBox[{"Abort", "[", "]"}]}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Return", "[", 
+           RowBox[{
+            RowBox[{"product", "/.", 
+             RowBox[{
+              RowBox[{"Tensor1", "[", "indices___", "]"}], ":>", 
+              RowBox[{"t1", "[", 
+               RowBox[{"BasisName", ",", "i", ",", "indices"}], "]"}]}]}], "/.", 
+            RowBox[{
+             RowBox[{"Tensor2", "[", "indices___", "]"}], ":>", 
+             RowBox[{"t2", "[", 
+              RowBox[{"BasisName", ",", "j", ",", "indices"}], "]"}]}]}], 
+           "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "operator", "]"}]}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{
+  3.933874942369762*^9, 3.933903006687234*^9, {3.933923328866502*^9, 
+   3.933923331861949*^9}, {3.933923432052272*^9, 3.933923432425312*^9}, 
+   3.9339235116136208`*^9, 3.933939206252264*^9, {3.935760814371027*^9, 
+   3.935760818763315*^9}, {3.937411864001*^9, 3.937411886973242*^9}, {
+   3.94117825112866*^9, 3.9411782796554327`*^9}, {3.941178322710187*^9, 
+   3.941178323667128*^9}, {3.941178437534092*^9, 3.941178442953298*^9}, {
+   3.9411784750547447`*^9, 3.941178475230547*^9}, {3.941178566099085*^9, 
+   3.9411785759336443`*^9}, {3.94117866160221*^9, 3.941178674879146*^9}, 
+   3.9411811452367277`*^9, {3.969257038862466*^9, 3.969257044874961*^9}, {
+   3.969347486808716*^9, 3.9693475004961643`*^9}, {3.969351343113069*^9, 
+   3.969351441284939*^9}, {3.96935324056332*^9, 
+   3.9693532625350227`*^9}},ExpressionUUID->"7662e852-6b7d-4ee4-96de-\
+95764d7a2591"],
+
 Cell[BoxData[
  RowBox[{
   RowBox[{
@@ -5503,7 +5736,7 @@ Cell[BoxData[
          RowBox[{"n", ">", 
           RowBox[{"TBInternal", "[", 
            RowBox[{"BasisName", ",", "\"\<Length\>\""}], "]"}]}], "||", 
-         RowBox[{"n", "<", "1"}]}], ",", 
+         RowBox[{"n", "<", "1"}]}], ",", "\[IndentingNewLine]", 
         RowBox[{
          RowBox[{"Print", "[", 
           RowBox[{"n", ",", 
@@ -5577,8 +5810,8 @@ Cell[BoxData[
    3.933942185390345*^9, 3.933942221441439*^9}, {3.93576300138018*^9, 
    3.935763002124125*^9}, {3.935818534121738*^9, 3.93581854935391*^9}, 
    3.935828123825547*^9, {3.935828288168433*^9, 3.935828311055485*^9}, 
-   3.935828346208022*^9, {3.9507066192400007`*^9, 
-   3.950706641455909*^9}},ExpressionUUID->"61eaeae7-1a13-4ce5-831f-\
+   3.935828346208022*^9, {3.9507066192400007`*^9, 3.950706641455909*^9}, 
+   3.969353774599743*^9},ExpressionUUID->"61eaeae7-1a13-4ce5-831f-\
 881e2297d0d2"],
 
 Cell[BoxData[
@@ -5734,7 +5967,7 @@ Cell[BoxData[
        ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"If", "[", 
        RowBox[{
-        RowBox[{"det", "===", "0"}], ",", 
+        RowBox[{"det", "===", "0"}], ",", "\[IndentingNewLine]", 
         RowBox[{
          RowBox[{"Print", "[", 
           RowBox[{
@@ -5759,9 +5992,9 @@ Cell[BoxData[
    3.935469714727334*^9}, {3.935476055744764*^9, 3.935476060824622*^9}, {
    3.935476498297638*^9, 3.935476502041047*^9}, {3.935681872329018*^9, 
    3.935681918688628*^9}, {3.9356819657292347`*^9, 3.935681967208983*^9}, {
-   3.935682150001432*^9, 3.935682150553063*^9}, 3.9358197955010443`*^9},
- CellLabel->
-  "In[169]:=",ExpressionUUID->"ac6faa51-ce9e-4b84-bada-36b9f44afbb9"],
+   3.935682150001432*^9, 3.935682150553063*^9}, 3.9358197955010443`*^9, 
+   3.9693537814150476`*^9},ExpressionUUID->"ac6faa51-ce9e-4b84-bada-\
+36b9f44afbb9"],
 
 Cell[BoxData[
  RowBox[{
@@ -5884,7 +6117,7 @@ Cell[BoxData[
          RowBox[{"n", ">", 
           RowBox[{"TBInternal", "[", 
            RowBox[{"BasisName", ",", "\"\<Length\>\""}], "]"}]}], "||", 
-         RowBox[{"n", "<", "1"}]}], ",", 
+         RowBox[{"n", "<", "1"}]}], ",", "\[IndentingNewLine]", 
         RowBox[{
          RowBox[{"Print", "[", 
           RowBox[{"n", ",", 
@@ -5956,10 +6189,10 @@ Cell[BoxData[
    3.933875165576366*^9, 3.933913854622457*^9, {3.933913889400075*^9, 
    3.9339138952616997`*^9}, {3.933923514428039*^9, 3.933923517387652*^9}, {
    3.933942185390345*^9, 3.933942221441439*^9}, 3.935828159897253*^9, 
-   3.935828320319875*^9},
- CellLabel->
-  "In[171]:=",ExpressionUUID->"9ef01342-89a5-4ac7-97c3-96645a7ca791"]
-}, Closed]],
+   3.935828320319875*^9, 
+   3.9693537879716187`*^9},ExpressionUUID->"9ef01342-89a5-4ac7-97c3-\
+96645a7ca791"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6226,6 +6459,25 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
+   RowBox[{"TBDefineTBGetCanonicalProduct", "[", "BasisName_String", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"TBGetCanonicalProduct", "[", "BasisName", "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Return", "[", "\[IndentingNewLine]", 
+           RowBox[{"TBInternal", "[", 
+            RowBox[{"BasisName", ",", "\"\<CanonicalProduct\>\""}], "]"}], 
+           "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", 
+        "]"}]}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
    RowBox[{"TBUnDefineTBGetInnerProduct", "[", "BasisName_String", "]"}], ":=", 
    RowBox[{"Module", "[", 
     RowBox[{
@@ -6367,10 +6619,10 @@ Cell[BoxData[{
    3.935819606662373*^9, 3.935819700973648*^9}, {3.936858082896402*^9, 
    3.936858272853257*^9}, {3.93685846954662*^9, 3.936858559236175*^9}, {
    3.936858605099218*^9, 3.936858631922153*^9}, {3.9374120839966593`*^9, 
-   3.9374121159050817`*^9}},
- CellLabel->
-  "In[173]:=",ExpressionUUID->"5fd29c15-2ee2-45bb-8e2c-84772a8fccb6"]
-}, Closed]],
+   3.9374121159050817`*^9}, {3.969347432213995*^9, 
+   3.969347447279084*^9}},ExpressionUUID->"5fd29c15-2ee2-45bb-8e2c-\
+84772a8fccb6"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -6607,6 +6859,11 @@ Cell[BoxData[
      "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"TBInternal", "[", 
+       RowBox[{"BasisName", ",", "\"\<CanonicalProduct\>\""}], "]"}], "=", 
+      RowBox[{"TBMakeCanonicalProduct", "[", "BasisName", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"TBInternal", "[", 
        RowBox[{"BasisName", ",", "\"\<Vertices\>\""}], "]"}], "=", 
       RowBox[{"AutoSaveRestore", "[", 
        RowBox[{
@@ -6682,6 +6939,8 @@ Cell[BoxData[
      "\[IndentingNewLine]", 
      RowBox[{"TBDefineTBGetInnerProduct", "[", "BasisName", "]"}], ";", 
      "\[IndentingNewLine]", 
+     RowBox[{"TBDefineTBGetCanonicalProduct", "[", "BasisName", "]"}], ";", 
+     "\[IndentingNewLine]", 
      RowBox[{"TBDefineTBGetInverseMetric", "[", "BasisName", "]"}], ";", 
      "\[IndentingNewLine]", 
      RowBox[{"TBDefineTBGetProjector", "[", "BasisName", "]"}], ";", 
@@ -6702,9 +6961,10 @@ Cell[BoxData[
   3.94117581719256*^9, 3.941175826320649*^9}, {3.941176130777733*^9, 
   3.941176147794403*^9}, {3.9411766016475286`*^9, 3.941176611371645*^9}, {
   3.941176900193429*^9, 3.941176961369573*^9}, {3.941177489388479*^9, 
-  3.9411774900252523`*^9}},
- CellLabel->
-  "In[184]:=",ExpressionUUID->"bfd8db10-63e3-4def-a1fc-e8d43db1a1f0"],
+  3.9411774900252523`*^9}, {3.969347541806017*^9, 3.969347545472262*^9}, {
+  3.969353352564761*^9, 
+  3.969353363319121*^9}},ExpressionUUID->"bfd8db10-63e3-4def-a1fc-\
+e8d43db1a1f0"],
 
 Cell[BoxData[
  RowBox[{
@@ -6764,6 +7024,11 @@ Cell[BoxData[
       RowBox[{"TBInternal", "[", 
        RowBox[{"BasisName", ",", "\"\<InnerProduct\>\""}], "]"}], "=", 
       RowBox[{"TBMakeInnerProduct", "[", "BasisName", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"TBInternal", "[", 
+       RowBox[{"BasisName", ",", "\"\<CanonicalProduct\>\""}], "]"}], "=", 
+      RowBox[{"TBMakeCanonicalProduct", "[", "BasisName", "]"}]}], ";", 
      "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"TBInternal", "[", 
@@ -6842,6 +7107,8 @@ Cell[BoxData[
      "\[IndentingNewLine]", 
      RowBox[{"TBUnDefineTBGetInnerProduct", "[", "BasisName", "]"}], ";", 
      "\[IndentingNewLine]", 
+     RowBox[{"TBDefineTBGetCanonicalProduct", "[", "BasisName", "]"}], ";", 
+     "\[IndentingNewLine]", 
      RowBox[{"TBDefineTBGetInverseMetric", "[", "BasisName", "]"}], ";", 
      "\[IndentingNewLine]", 
      RowBox[{"TBDefineTBGetProjector", "[", "BasisName", "]"}], ";", 
@@ -6862,9 +7129,9 @@ Cell[BoxData[
    3.937412131761386*^9}, {3.94117473738103*^9, 3.941174802379508*^9}, {
    3.941174921443696*^9, 3.9411749329328203`*^9}, 3.9411752095341682`*^9, {
    3.941175246478609*^9, 3.941175247150536*^9}, {3.941176980969018*^9, 
-   3.941177006296823*^9}},
- CellLabel->
-  "In[185]:=",ExpressionUUID->"116a0c96-5bd5-4c0a-adb7-e6a94047e56f"],
+   3.941177006296823*^9}, {3.969347556669059*^9, 3.969347562512723*^9}, 
+   3.9693533825047626`*^9},ExpressionUUID->"116a0c96-5bd5-4c0a-adb7-\
+e6a94047e56f"],
 
 Cell[BoxData[
  RowBox[{
@@ -6963,7 +7230,7 @@ Cell[BoxData[
  CellChangeTimes->{{3.941194605100706*^9, 3.941194623866212*^9}},
  CellLabel->
   "In[187]:=",ExpressionUUID->"8d6d551a-80c8-4fc7-a71d-942b77d4b246"]
-}, Closed]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -7407,6 +7674,8 @@ Cell[BoxData[{
       "\[IndentingNewLine]", 
       RowBox[{"\"\<InnerProduct\>\"", "->", 
        RowBox[{"Tensor1", "*", "Tensor2"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{"\"\<CanonicalProduct\>\"", "->", "Null"}], ",", 
+      "\[IndentingNewLine]", 
       RowBox[{"\"\<Indices\>\"", "->", 
        RowBox[{"{", 
         RowBox[{"{", "}"}], "}"}]}], ",", "\[IndentingNewLine]", 
@@ -7426,9 +7695,14 @@ Cell[BoxData[{
      "\[IndentingNewLine]", "}"}]}], ";"}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
+  RowBox[{"TBConstructBasis", "::", "invalid"}], "=", 
+  "\"\<The argument \\\"`1`\\\" with value \\\"`2`\\\" is invalid.\>\""}], "\
+\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{
-   RowBox[{"TBConstructBasis", "::", "invalid"}], "=", 
-   "\"\<The argument \\\"`1`\\\" with value \\\"`2`\\\" is invalid.\>\""}], 
+   RowBox[{"TBConstructBasis", "::", "warning"}], "=", 
+   "\"\<The argument \\\"`1`\\\" with value \\\"`2`\\\" is missing. Some \
+functions may/will break.\>\""}], 
   "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -7454,10 +7728,11 @@ TBConstructBasis::usage\>\""}], ";"}], "\[IndentingNewLine]",
      RowBox[{"{", 
       RowBox[{
       "BasisName", ",", "RequiredGroups", ",", "Vertex", ",", 
-       "VertexStructure", ",", "InnerProduct", ",", "Comment", ",", "Author", 
-       ",", "Usage", ",", "Indices", ",", "MomentumConservation", ",", 
-       "Tensors", ",", "Replacements", ",", "CacheDirectory"}], "}"}], ",", 
-     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       "VertexStructure", ",", "InnerProduct", ",", "CanonicalProduct", ",", 
+       "Comment", ",", "Author", ",", "Usage", ",", "Indices", ",", 
+       "MomentumConservation", ",", "Tensors", ",", "Replacements", ",", 
+       "CacheDirectory"}], "}"}], ",", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
      RowBox[{
       RowBox[{"BasisName", "=", 
        RowBox[{"OptionValue", "[", "\"\<Name\>\"", "]"}]}], ";", 
@@ -7555,6 +7830,24 @@ TBConstructBasis::usage\>\""}], ";"}], "\[IndentingNewLine]",
            "\"\<InnerProduct\>\"", ",", "InnerProduct"}], "]"}], ";", 
          RowBox[{"Abort", "[", "]"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
       "\[IndentingNewLine]", 
+      RowBox[{"CanonicalProduct", "=", 
+       RowBox[{"OptionValue", "[", "\"\<CanonicalProduct\>\"", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"Head", "@", "InnerProduct"}], "===", "List"}], "||", 
+         RowBox[{"FreeQ", "[", 
+          RowBox[{"InnerProduct", ",", "Tensor1", ",", "Infinity"}], "]"}], "||", 
+         RowBox[{"FreeQ", "[", 
+          RowBox[{"InnerProduct", ",", "Tensor2", ",", "Infinity"}], "]"}]}], 
+        ",", 
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"TBConstructBasis", "::", "warning"}], ",", 
+          "\"\<CanonicalProduct\>\"", ",", "InnerProduct"}], "]"}]}], "]"}], 
+      ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"Indices", "=", 
        RowBox[{"OptionValue", "[", "\"\<Indices\>\"", "]"}]}], ";", 
       "\[IndentingNewLine]", 
@@ -7655,8 +7948,9 @@ TBConstructBasis::usage\>\""}], ";"}], "\[IndentingNewLine]",
        "BasisName", ",", "RequiredGroups", ",", "Vertex", ",", 
         "VertexStructure", ",", "InnerProduct", ",", "Comment", ",", "Author",
          ",", "Usage", ",", "Indices", ",", "MomentumConservation", ",", 
-        "Tensors", ",", "Replacements", ",", "CacheDirectory"}], "]"}]}]}], 
-    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+        "Tensors", ",", "Replacements", ",", "CacheDirectory", ",", 
+        "CanonicalProduct"}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]}], "Input",
  CellChangeTimes->{{3.953886958273278*^9, 3.953887059605421*^9}, {
    3.9538870979295483`*^9, 3.953887266753953*^9}, {3.95388762310182*^9, 
    3.953887708689928*^9}, {3.953887747929785*^9, 3.953887898286428*^9}, {
@@ -7665,7 +7959,8 @@ TBConstructBasis::usage\>\""}], ";"}], "\[IndentingNewLine]",
    3.9538884687512617`*^9}, 3.9538884990626917`*^9, 3.9538887613238564`*^9, {
    3.95388879702682*^9, 3.953888800914649*^9}, {3.959838836885137*^9, 
    3.959838974403184*^9}, 3.959839175020261*^9, {3.969257098732551*^9, 
-   3.969257099644917*^9}},ExpressionUUID->"cee60305-1632-4714-aee9-\
+   3.969257099644917*^9}, {3.969352007489665*^9, 
+   3.969352107168013*^9}},ExpressionUUID->"cee60305-1632-4714-aee9-\
 1dcaae6ffc44"],
 
 Cell[BoxData[
@@ -7681,8 +7976,9 @@ Cell[BoxData[
      "MomentumConservation_List", ",", "\n", "\t", 
      RowBox[{"{", "Tensors__List", "}"}], ",", "\n", "\t", 
      "Replacements_List", ",", "\n", "\t", 
-     RowBox[{"CacheDirectory_String", ":", "\"\<./TBCache\>\""}]}], "\n", 
-    "  ", "]"}], ":=", 
+     RowBox[{"CacheDirectory_String", ":", "\"\<./TBCache\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"CanonicalProduct_", ":", "Null"}]}], "\n", "  ", "]"}], ":=", 
    RowBox[{"Module", "[", 
     RowBox[{
      RowBox[{"{", 
@@ -7729,6 +8025,15 @@ Cell[BoxData[
        RowBox[{"TBUsage", "[", "BasisName", "]"}], "=", "Usage"}], ";", 
       "\[IndentingNewLine]", 
       RowBox[{
+       RowBox[{"TBInnerProduct", "[", "BasisName", "]"}], "=", 
+       "InnerProduct"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"TBCanonicalProduct", "[", "BasisName", "]"}], "=", 
+       "CanonicalProduct"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"TBVertexStructure", "[", "BasisName", "]"}], "=", 
+       "VertexStructure"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
        RowBox[{"TBRequiredGroups", "[", "BasisName", "]"}], "=", 
        RowBox[{"{", "RequiredGroups", "}"}]}], ";", "\[IndentingNewLine]", 
       "\[IndentingNewLine]", 
@@ -7758,12 +8063,6 @@ Cell[BoxData[
         "InsertInputNaming"}]}], ";", "\[IndentingNewLine]", 
       "\[IndentingNewLine]", 
       RowBox[{
-       RowBox[{"TBInnerProduct", "[", "BasisName", "]"}], "=", 
-       "InnerProduct"}], ";", "\[IndentingNewLine]", 
-      RowBox[{
-       RowBox[{"TBVertexStructure", "[", "BasisName", "]"}], "=", 
-       "VertexStructure"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
-      RowBox[{
        RowBox[{"TBInternal", "[", 
         RowBox[{"BasisName", ",", "\"\<Indices\>\""}], "]"}], "=", 
        RowBox[{"InsertOutputNaming", "[", 
@@ -7787,6 +8086,11 @@ Cell[BoxData[
        RowBox[{"TBInternal", "[", 
         RowBox[{"BasisName", ",", "\"\<InnerProduct\>\""}], "]"}], "=", 
        RowBox[{"TBMakeInnerProduct", "[", "BasisName", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"TBInternal", "[", 
+        RowBox[{"BasisName", ",", "\"\<CanonicalProduct\>\""}], "]"}], "=", 
+       RowBox[{"TBMakeCanonicalProduct", "[", "BasisName", "]"}]}], ";", 
       "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{
        RowBox[{"TBInternal", "[", 
@@ -7817,7 +8121,8 @@ Cell[BoxData[
        RowBox[{
        "TBGetBasisElement", ",", "TBGetMetric", ",", "TBGetInverseMetric", 
         ",", "TBGetProjector", ",", "TBInfo", ",", "TBGetVertex", ",", 
-        "TBGetInnerProduct"}], "]"}], ";", "\[IndentingNewLine]", 
+        "TBGetInnerProduct", ",", "TBGetCanonicalProduct"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
       RowBox[{"TBDefineTBGetBasisElement", "[", "BasisName", "]"}], ";", 
       "\[IndentingNewLine]", 
       RowBox[{"TBDefineTBGetVertex", "[", "BasisName", "]"}], ";", 
@@ -7825,6 +8130,8 @@ Cell[BoxData[
       RowBox[{"TBDefineTBGetMetric", "[", "BasisName", "]"}], ";", 
       "\[IndentingNewLine]", 
       RowBox[{"TBDefineTBGetInnerProduct", "[", "BasisName", "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"TBDefineTBGetCanonicalProduct", "[", "BasisName", "]"}], ";", 
       "\[IndentingNewLine]", 
       RowBox[{"TBDefineTBGetInverseMetric", "[", "BasisName", "]"}], ";", 
       "\[IndentingNewLine]", 
@@ -7838,8 +8145,8 @@ Cell[BoxData[
        RowBox[{
        "TBGetBasisElement", ",", "TBGetMetric", ",", "TBGetInverseMetric", 
         ",", "TBGetProjector", ",", "TBInfo", ",", "TBGetVertex", ",", 
-        "TBGetInnerProduct"}], "]"}], ";", "\[IndentingNewLine]", 
-      "\[IndentingNewLine]", 
+        "TBGetInnerProduct", ",", "TBGetCanonicalProduct"}], "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"TBPrint", "[", 
        RowBox[{
         RowBox[{"BasisName", "~~", "\"\<: done.\>\""}], ",", "1"}], "]"}], 
@@ -7868,10 +8175,11 @@ Cell[BoxData[
    3.941219813714857*^9, 3.9412198179378767`*^9}, {3.953887078650299*^9, 
    3.9538870894419928`*^9}, 3.9538885470428867`*^9, 3.953888873414888*^9, {
    3.969257100022036*^9, 3.969257112043832*^9}, {3.969257431392515*^9, 
-   3.9692574565867243`*^9}, {3.96925761091959*^9, 
-   3.969257645999009*^9}},ExpressionUUID->"df914fa8-0897-4c10-9328-\
+   3.9692574565867243`*^9}, {3.96925761091959*^9, 3.969257645999009*^9}, {
+   3.9693475833461*^9, 3.969347602997785*^9}, {3.969352109666912*^9, 
+   3.96935218252607*^9}},ExpressionUUID->"df914fa8-0897-4c10-9328-\
 ade25a1bd30a"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -7996,7 +8304,8 @@ Cell[BoxData[
       RowBox[{
       "TBGetBasisElement", ",", "TBGetMetric", ",", "TBGetInverseMetric", ",",
         "TBGetProjector", ",", "TBInfo", ",", "TBGetVertex", ",", 
-       "TBGetInnerProduct"}], "]"}], ";", "\[IndentingNewLine]", 
+       "TBGetInnerProduct", ",", "TBGetCanonicalProduct"}], "]"}], ";", 
+     "\[IndentingNewLine]", 
      RowBox[{"TBAutoDefineBasisNoLoad", "[", 
       RowBox[{"outBasisName", ",", "CacheDirectory"}], "]"}], ";", 
      "\[IndentingNewLine]", 
@@ -8004,7 +8313,8 @@ Cell[BoxData[
       RowBox[{
       "TBGetBasisElement", ",", "TBGetMetric", ",", "TBGetInverseMetric", ",",
         "TBGetProjector", ",", "TBInfo", ",", "TBGetVertex", ",", 
-       "TBGetInnerProduct"}], "]"}], ";", "\[IndentingNewLine]", 
+       "TBGetInnerProduct", ",", "TBGetCanonicalProduct"}], "]"}], ";", 
+     "\[IndentingNewLine]", 
      RowBox[{"End", "[", "]"}], ";", "\[IndentingNewLine]", 
      RowBox[{"EndPackage", "[", "]"}], ";"}]}], "\[IndentingNewLine]", 
    "]"}]}]], "Input",
@@ -8015,10 +8325,11 @@ Cell[BoxData[
    3.941194790357012*^9}, 3.9411948384433403`*^9, {3.941194891006693*^9, 
    3.94119489475568*^9}, {3.941194970541586*^9, 3.94119497328979*^9}, {
    3.941283705834065*^9, 3.941283707677825*^9}, {3.947168930895203*^9, 
-   3.947168944794134*^9}, {3.947168984114822*^9, 
-   3.947169005566553*^9}},ExpressionUUID->"c51852e4-4259-4a60-afd1-\
+   3.947168944794134*^9}, {3.947168984114822*^9, 3.947169005566553*^9}, {
+   3.969347607489406*^9, 
+   3.969347608833191*^9}},ExpressionUUID->"c51852e4-4259-4a60-afd1-\
 89085a704206"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -8088,7 +8399,8 @@ Cell[BoxData[
       RowBox[{
       "TBGetBasisElement", ",", "TBGetMetric", ",", "TBGetInverseMetric", ",",
         "TBGetProjector", ",", "TBInfo", ",", "TBGetVertex", ",", 
-       "TBGetInnerProduct"}], "]"}], ";", "\[IndentingNewLine]", 
+       "TBGetInnerProduct", ",", "TBGetCanonicalProduct"}], "]"}], ";", 
+     "\[IndentingNewLine]", 
      RowBox[{"TBAutoDefineBasis", "[", 
       RowBox[{"BasisDefinitionFile", ",", "CacheDirectory"}], "]"}], ";", 
      "\[IndentingNewLine]", 
@@ -8096,7 +8408,8 @@ Cell[BoxData[
       RowBox[{
       "TBGetBasisElement", ",", "TBGetMetric", ",", "TBGetInverseMetric", ",",
         "TBGetProjector", ",", "TBInfo", ",", "TBGetVertex", ",", 
-       "TBGetInnerProduct"}], "]"}], ";", "\[IndentingNewLine]", 
+       "TBGetInnerProduct", ",", "TBGetCanonicalProduct"}], "]"}], ";", 
+     "\[IndentingNewLine]", 
      RowBox[{"End", "[", "]"}], ";", "\[IndentingNewLine]", 
      RowBox[{"EndPackage", "[", "]"}], ";"}]}], "\[IndentingNewLine]", 
    "]"}]}]], "Input",
@@ -8111,9 +8424,9 @@ Cell[BoxData[
    3.94117820954919*^9}, {3.941178487339715*^9, 3.941178523478299*^9}, {
    3.941180530833547*^9, 3.9411805594587173`*^9}, 3.941180837745357*^9, {
    3.941193495459939*^9, 3.9411934959779882`*^9}, {3.941220403507407*^9, 
-   3.941220437727633*^9}, 3.941220472167695*^9},
- CellLabel->
-  "In[196]:=",ExpressionUUID->"ed8767a1-38cb-4d61-8fcd-d8bef0b02bf2"],
+   3.941220437727633*^9}, 3.941220472167695*^9, {3.9693476126920977`*^9, 
+   3.969347613364894*^9}},ExpressionUUID->"ed8767a1-38cb-4d61-8fcd-\
+d8bef0b02bf2"],
 
 Cell[BoxData[{
  RowBox[{
@@ -8538,7 +8851,7 @@ Cell[BoxData[{
   3.950085506535466*^9, 
   3.950085522118803*^9}},ExpressionUUID->"449db943-f88d-4296-bedc-\
 a6300214bcf4"]
-}, Open  ]]
+}, Closed]]
 }, Open  ]]
 }, Open  ]],
 
@@ -8647,7 +8960,8 @@ StyleBox[\" \
        RowBox[{
        "TBGetBasisElement", ",", "TBGetMetric", ",", "TBGetInverseMetric", 
         ",", "TBGetProjector", ",", "TBInfo", ",", "TBGetVertex", ",", 
-        "TBGetInnerProduct"}], "]"}], ";", "\[IndentingNewLine]", 
+        "TBGetInnerProduct", ",", "TBGetCanonicalProduct"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
       RowBox[{"ClearCache", "/@", "basisDefinitionFiles"}], ";", 
       "\[IndentingNewLine]", 
       RowBox[{"TBAutoDefineBasis", "/@", "basisDefinitionFiles"}], ";", 
@@ -8656,8 +8970,8 @@ StyleBox[\" \
        RowBox[{
        "TBGetBasisElement", ",", "TBGetMetric", ",", "TBGetInverseMetric", 
         ",", "TBGetProjector", ",", "TBInfo", ",", "TBGetVertex", ",", 
-        "TBGetInnerProduct"}], "]"}], ";", "\[IndentingNewLine]", 
-      "\[IndentingNewLine]", 
+        "TBGetInnerProduct", ",", "TBGetCanonicalProduct"}], "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"endTime", "=", 
        RowBox[{"AbsoluteTime", "[", "]"}]}], ";", "\[IndentingNewLine]", 
       "\[IndentingNewLine]", 
@@ -8686,9 +9000,10 @@ StyleBox[\" \
    3.934087776585174*^9, 3.934087868779227*^9}, {3.934348151660913*^9, 
    3.9343481542801323`*^9}, 3.93547656879394*^9, {3.935476624329867*^9, 
    3.93547662658576*^9}, {3.935476710201949*^9, 3.935476711113432*^9}, 
-   3.935844139441034*^9, {3.9411776886761093`*^9, 3.941177712195971*^9}},
- CellLabel->
-  "In[204]:=",ExpressionUUID->"516650ad-94d7-4c45-86f1-a468f0befd43"],
+   3.935844139441034*^9, {3.9411776886761093`*^9, 3.941177712195971*^9}, {
+   3.969347618437463*^9, 
+   3.969347618904976*^9}},ExpressionUUID->"516650ad-94d7-4c45-86f1-\
+a468f0befd43"],
 
 Cell[CellGroupData[{
 
@@ -8754,7 +9069,7 @@ Cell[BoxData["$Aborted"], "Output",
  CellLabel->
   "Out[205]=",ExpressionUUID->"62c49d00-1308-4327-9f61-1fa94e6a1750"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -8763,6 +9078,338 @@ Cell["Constructing and getting other things from Bases", "Chapter",
   3.9507839353582697`*^9, 3.950783945243785*^9}, {3.950783997068142*^9, 
   3.9507839992158403`*^9}},ExpressionUUID->"34a6e352-6706-4c26-a9dc-\
 a4f7001cae32"],
+
+Cell[CellGroupData[{
+
+Cell["Basis Transformations", "Section",
+ CellChangeTimes->{{3.969414762856432*^9, 
+  3.969414768803349*^9}},ExpressionUUID->"8f688e9a-3910-494a-a87f-\
+f2f844618e52"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"TBBasisTransformation", "::", "vertex"}], "=", 
+    "\"\<Either the basis \\\"`1`\\\" or \\\"`2`\\\" is a pure vertex basis. \
+Cannot infer the basis elements from the vertices!\>\""}], ";"}], " ", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TBBasisTransformation", "[", 
+    RowBox[{"BasisName1_String", ",", "BasisName2_String"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"isVertex", "=", 
+        RowBox[{
+         RowBox[{"TBVertexBasis", "[", "BasisName1", "]"}], "||", 
+         RowBox[{"TBVertexBasis", "[", "BasisName1", "]"}]}]}], ",", 
+       "\[IndentingNewLine]", "cProd", ",", "cProd1", ",", "cMetric12", ",", 
+       "cMetric11", ",", "cMetric11Inv", ",", "momentumConservation"}], "}"}],
+      ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", "\[IndentingNewLine]", "   ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "The", " ", "projection", " ", "operator", " ", "to", " ", "get", " ", 
+         SubscriptBox["b", "i"], " ", "from", " ", "a", " ", "vector", " ", 
+         TemplateBox[{"v"},
+          "Ket"]}], "=", 
+        RowBox[{
+         SubscriptBox["\[CapitalSigma]", "i"], 
+         SubscriptBox["b", "i"], 
+         TemplateBox[{"i"},
+          "Ket"], " ", "reads", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           TemplateBox[{
+             RowBox[{"i", "'"}], "i"},
+            "BraKet"], ")"}], 
+          RowBox[{"-", "1"}]], 
+         RowBox[{
+          TemplateBox[{
+            RowBox[{"i", "'"}]},
+           "Bra"], ".", "\[IndentingNewLine]", "Accordingly"}]}]}], ",", " ", 
+       
+       RowBox[{
+        RowBox[{"to", " ", "get", " ", 
+         SubscriptBox["b", "i"], " ", "from", " ", 
+         TemplateBox[{"v"},
+          "Ket"]}], "=", 
+        RowBox[{
+         RowBox[{
+          SubscriptBox["\[CapitalSigma]", "i"], 
+          SubscriptBox["b", "i"], 
+          TemplateBox[{"i"},
+           "Ket"]}], "=", 
+         RowBox[{
+          SubscriptBox["\[CapitalSigma]", "a"], 
+          SubscriptBox["c", "a"], 
+          TemplateBox[{"a"},
+           "Ket"]}]}]}], ",", " ", 
+       RowBox[{
+       "if", " ", "given", " ", "the", " ", "representation", " ", "in", " ", 
+        "terms", " ", "of", " ", 
+        SubscriptBox["c", "a"]}], ",", " ", 
+       RowBox[{
+        RowBox[{
+        "the", " ", "transformation", " ", "matrix", " ", "reads", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           TemplateBox[{
+             RowBox[{"i", "'"}], "i"},
+            "BraKet"], ")"}], 
+          RowBox[{"-", "1"}]], 
+         TemplateBox[{
+           RowBox[{"i", "'"}], "a"},
+          "BraKet"]}], " ", "=", " ", 
+        RowBox[{"cMetric11Inv", ".", "cMetric12"}]}], ",", " ", 
+       RowBox[{"as", " ", "calculated", " ", 
+        RowBox[{"below", "."}]}]}], "\[IndentingNewLine]", "*)"}], 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{"isVertex", ",", 
+        RowBox[{
+         RowBox[{"Message", "[", 
+          RowBox[{
+           RowBox[{"TBBasisTransformation", "::", "vertex"}], ",", 
+           "BasisName1", ",", "BasisName2"}], "]"}], ";", 
+         RowBox[{"Abort", "[", "]"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"cProd", "=", 
+       RowBox[{"TBMakeCanonicalProduct", "[", 
+        RowBox[{"BasisName1", ",", "BasisName2"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"cProd1", "=", 
+       RowBox[{"TBMakeCanonicalProduct", "[", 
+        RowBox[{"BasisName1", ",", "BasisName1"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"momentumConservation", "=", 
+       RowBox[{"InsertOutputNaming", "[", 
+        RowBox[{"TBMomentumConservation", "[", "BasisName1", "]"}], "]"}]}], 
+      ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"cMetric12", "=", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"cProd", "[", 
+            RowBox[{
+            "TBGetBasisElement", ",", "i", ",", "TBGetBasisElement", ",", 
+             "j"}], "]"}], ")"}], "//.", "momentumConservation"}], 
+         "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{"TBGetBasisSize", "[", "BasisName1", "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"TBGetBasisSize", "[", "BasisName2", "]"}]}], "}"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"cMetric12", "=", 
+       RowBox[{"Map", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Simplify", "[", 
+           RowBox[{"Global`UseLorentzLinearity", "[", 
+            RowBox[{"TBFormTrace", "[", "#", "]"}], "]"}], "]"}], "&"}], 
+         "\[IndentingNewLine]", ",", "\[IndentingNewLine]", "cMetric12", ",", 
+         
+         RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"cMetric11", "=", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"cProd1", "[", 
+            RowBox[{
+            "TBGetBasisElement", ",", "i", ",", "TBGetBasisElement", ",", 
+             "j"}], "]"}], ")"}], "//.", "momentumConservation"}], 
+         "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{"TBGetBasisSize", "[", "BasisName1", "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"TBGetBasisSize", "[", "BasisName1", "]"}]}], "}"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"cMetric11", "=", 
+       RowBox[{"Map", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Simplify", "[", 
+           RowBox[{"Global`UseLorentzLinearity", "[", 
+            RowBox[{"Simplify", "[", 
+             RowBox[{"TBFormTrace", "[", "#", "]"}], "]"}], "]"}], "]"}], 
+          "&"}], "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+         "cMetric11", ",", 
+         RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"cMetric11Inv", "=", 
+       RowBox[{"Inverse", "[", "cMetric11", "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"ParallelMap", "[", 
+       RowBox[{"Simplify", ",", 
+        RowBox[{"cMetric11Inv", ".", "cMetric12"}], ",", 
+        RowBox[{"{", "2", "}"}]}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TBVertexTransformation", "[", 
+    RowBox[{"BasisName1_String", ",", "BasisName2_String"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "cProd", ",", "cProd1", ",", "cMetric12", ",", "cMetric11", ",", 
+       "cMetric11Inv", ",", "momentumConservation"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", "\[IndentingNewLine]", "   ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+        "The", " ", "projection", " ", "operator", " ", "to", " ", "get", " ", 
+         SubscriptBox["b", "i"], " ", "from", " ", "a", " ", "vector", " ", 
+         TemplateBox[{"v"},
+          "Ket"]}], "=", 
+        RowBox[{
+         SubscriptBox["\[CapitalSigma]", "i"], 
+         SubscriptBox["b", "i"], 
+         TemplateBox[{"i"},
+          "Ket"], " ", "reads", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           TemplateBox[{
+             RowBox[{"i", "'"}], "i"},
+            "BraKet"], ")"}], 
+          RowBox[{"-", "1"}]], 
+         RowBox[{
+          TemplateBox[{
+            RowBox[{"i", "'"}]},
+           "Bra"], ".", "\[IndentingNewLine]", "Accordingly"}]}]}], ",", " ", 
+       
+       RowBox[{
+        RowBox[{"to", " ", "get", " ", 
+         SubscriptBox["b", "i"], " ", "from", " ", 
+         TemplateBox[{"v"},
+          "Ket"]}], "=", 
+        RowBox[{
+         RowBox[{
+          SubscriptBox["\[CapitalSigma]", "i"], 
+          SubscriptBox["b", "i"], 
+          TemplateBox[{"i"},
+           "Ket"]}], "=", 
+         RowBox[{
+          SubscriptBox["\[CapitalSigma]", "a"], 
+          SubscriptBox["c", "a"], 
+          TemplateBox[{"a"},
+           "Ket"]}]}]}], ",", " ", 
+       RowBox[{
+       "if", " ", "given", " ", "the", " ", "representation", " ", "in", " ", 
+        "terms", " ", "of", " ", 
+        SubscriptBox["c", "a"]}], ",", " ", 
+       RowBox[{
+        RowBox[{
+        "the", " ", "transformation", " ", "matrix", " ", "reads", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           TemplateBox[{
+             RowBox[{"i", "'"}], "i"},
+            "BraKet"], ")"}], 
+          RowBox[{"-", "1"}]], 
+         TemplateBox[{
+           RowBox[{"i", "'"}], "a"},
+          "BraKet"]}], " ", "=", " ", 
+        RowBox[{"cMetric11Inv", ".", "cMetric12"}]}], ",", " ", 
+       RowBox[{"as", " ", "calculated", " ", 
+        RowBox[{"below", "."}]}]}], "\[IndentingNewLine]", "*)"}], 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"cProd", "=", 
+       RowBox[{"TBMakeCanonicalProduct", "[", 
+        RowBox[{"BasisName1", ",", "BasisName2"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"cProd1", "=", 
+       RowBox[{"TBMakeCanonicalProduct", "[", 
+        RowBox[{"BasisName1", ",", "BasisName1"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"momentumConservation", "=", 
+       RowBox[{"InsertOutputNaming", "[", 
+        RowBox[{"TBMomentumConservation", "[", "BasisName1", "]"}], "]"}]}], 
+      ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"cMetric12", "=", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"cProd", "[", 
+            RowBox[{"TBGetVertex", ",", "i", ",", "TBGetVertex", ",", "j"}], 
+            "]"}], ")"}], "//.", "momentumConservation"}], 
+         "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{"TBGetBasisSize", "[", "BasisName1", "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"TBGetBasisSize", "[", "BasisName2", "]"}]}], "}"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"cMetric12", "=", 
+       RowBox[{"ParallelMap", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Simplify", "[", 
+           RowBox[{"Global`UseLorentzLinearity", "[", 
+            RowBox[{"TBFormTrace", "[", "#", "]"}], "]"}], "]"}], "&"}], 
+         "\[IndentingNewLine]", ",", "\[IndentingNewLine]", "cMetric12", ",", 
+         
+         RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"cMetric11", "=", 
+       RowBox[{"Table", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"cProd1", "[", 
+            RowBox[{"TBGetVertex", ",", "i", ",", "TBGetVertex", ",", "j"}], 
+            "]"}], ")"}], "//.", "momentumConservation"}], 
+         "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", 
+           RowBox[{"TBGetBasisSize", "[", "BasisName1", "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"TBGetBasisSize", "[", "BasisName1", "]"}]}], "}"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"cMetric11", "=", 
+       RowBox[{"ParallelMap", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Simplify", "[", 
+           RowBox[{"Global`UseLorentzLinearity", "[", 
+            RowBox[{"TBFormTrace", "[", "#", "]"}], "]"}], "]"}], "&"}], 
+         "\[IndentingNewLine]", ",", "\[IndentingNewLine]", "cMetric11", ",", 
+         
+         RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"cMetric11Inv", "=", 
+       RowBox[{"Inverse", "[", "cMetric11", "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"ParallelMap", "[", 
+       RowBox[{"Simplify", ",", 
+        RowBox[{"cMetric11Inv", ".", "cMetric12"}], ",", 
+        RowBox[{"{", "2", "}"}]}], "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.969414778421459*^9, 3.96941478738867*^9}, {
+   3.969415569725296*^9, 3.969415574581581*^9}, {3.969415638066874*^9, 
+   3.969415663530004*^9}, {3.969415694681038*^9, 3.9694157133993273`*^9}, {
+   3.969415788286725*^9, 3.969415797205681*^9}, {3.969416039661626*^9, 
+   3.969416042957592*^9}, {3.969416299826092*^9, 3.969416340613453*^9}, {
+   3.969416378482131*^9, 3.969416379917164*^9}, {3.969416439269486*^9, 
+   3.969416446553492*^9}, 3.9694164916621923`*^9, {3.96941655025032*^9, 
+   3.9694165599103947`*^9}},ExpressionUUID->"0ec9bdae-e9ab-45ab-9804-\
+e4f709e96573"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -11601,7 +12248,7 @@ Cell[BoxData[
 AutoGeneratedPackage->Automatic,
 InitializationCellEvaluation->False,
 InitializationCellWarning->False,
-WindowSize->{588.75, 711},
+WindowSize->{1200, 750},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
 Magnification:>0.8 Inherited,
 FrontEndVersion->"14.1 for Linux x86 (64-bit) (July 16, 2024)",
@@ -11632,255 +12279,262 @@ Cell[812, 30, 158, 3, 53, "Chapter",ExpressionUUID->"2d5f9f27-5490-4bea-8ecf-1b3
 Cell[CellGroupData[{
 Cell[995, 37, 188, 3, 53, "Section",ExpressionUUID->"14b72385-f030-403e-a0c1-5d8222f87d9c"],
 Cell[CellGroupData[{
-Cell[1208, 44, 2802, 44, 288, "Input",ExpressionUUID->"cff12a64-b8f4-41c0-bf5f-6bed048747c5"],
-Cell[4013, 90, 4079, 62, 189, "Print",ExpressionUUID->"653ab452-b552-416d-a18f-e66588142d05"]
+Cell[1208, 44, 3005, 46, 288, "Input",ExpressionUUID->"cff12a64-b8f4-41c0-bf5f-6bed048747c5"],
+Cell[4216, 92, 4079, 62, 189, "Print",ExpressionUUID->"653ab452-b552-416d-a18f-e66588142d05"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8141, 158, 184, 3, 53, "Section",ExpressionUUID->"436dffab-0715-4dc4-9893-1534c639b158"],
+Cell[8344, 160, 184, 3, 53, "Section",ExpressionUUID->"436dffab-0715-4dc4-9893-1534c639b158"],
 Cell[CellGroupData[{
-Cell[8350, 165, 7780, 188, 780, "Input",ExpressionUUID->"b5c156b0-48dd-4f0b-b103-49b8869d43c2"],
-Cell[16133, 355, 286, 5, 18, "Print",ExpressionUUID->"c9f3d842-9ce9-41fa-acbe-888c601f1def"],
-Cell[16422, 362, 357, 6, 28, "Output",ExpressionUUID->"e91ed60a-a087-42b8-bdc0-acad488342af"]
+Cell[8553, 167, 7780, 188, 780, "Input",ExpressionUUID->"b5c156b0-48dd-4f0b-b103-49b8869d43c2"],
+Cell[16336, 357, 286, 5, 18, "Print",ExpressionUUID->"c9f3d842-9ce9-41fa-acbe-888c601f1def"],
+Cell[16625, 364, 357, 6, 28, "Output",ExpressionUUID->"e91ed60a-a087-42b8-bdc0-acad488342af"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[16816, 373, 689, 13, 56, "Input",ExpressionUUID->"102739d5-abf9-4cd7-b201-831760d9bc3c"],
-Cell[17508, 388, 2954, 42, 34, "Print",ExpressionUUID->"a221858b-784e-48a1-a052-ff381322f202"]
+Cell[17019, 375, 689, 13, 56, "Input",ExpressionUUID->"102739d5-abf9-4cd7-b201-831760d9bc3c"],
+Cell[17711, 390, 2954, 42, 34, "Print",ExpressionUUID->"a221858b-784e-48a1-a052-ff381322f202"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[20499, 435, 501, 11, 37, "Input",ExpressionUUID->"b2853eeb-7d21-4045-928b-88a01a09d003"],
-Cell[21003, 448, 415, 8, 49, "Print",ExpressionUUID->"b040574c-0232-4e09-94d7-1ecfc83fd757"]
+Cell[20702, 437, 501, 11, 37, "Input",ExpressionUUID->"b2853eeb-7d21-4045-928b-88a01a09d003"],
+Cell[21206, 450, 415, 8, 49, "Print",ExpressionUUID->"b040574c-0232-4e09-94d7-1ecfc83fd757"]
 }, Open  ]]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[21467, 462, 259, 4, 42, "Section",ExpressionUUID->"db779555-ecf5-414b-9ffe-a23354af864d"],
-Cell[21729, 468, 2075, 54, 203, "Input",ExpressionUUID->"6b97ee68-1ec3-4863-b4b5-c6c874bbb5ff"],
-Cell[23807, 524, 1928, 33, 292, "Input",ExpressionUUID->"9d748520-463b-4673-8dbf-05d7992768a8"],
-Cell[25738, 559, 5454, 133, 560, "Input",ExpressionUUID->"f56832ff-a350-4aa1-8112-dc4f04970905"],
-Cell[31195, 694, 1721, 42, 166, "Input",ExpressionUUID->"e50ee3b0-10d2-4eed-b352-52a93420a5f3"],
-Cell[32919, 738, 3847, 85, 523, "Input",ExpressionUUID->"d6b6bbb9-3345-45a0-85dd-a35cd6fbe82c"],
-Cell[36769, 825, 4007, 89, 593, "Input",ExpressionUUID->"aa92b93a-9b79-4b4b-b856-7897148043bc"],
-Cell[40779, 916, 1415, 34, 148, "Input",ExpressionUUID->"dd937277-d672-41e4-9591-3f9cf27c3310"],
-Cell[42197, 952, 1002, 21, 93, "Input",ExpressionUUID->"f4b4be25-93f6-4d3d-9c1f-25ef9d1ee98e"],
-Cell[43202, 975, 12963, 257, 941, "Input",ExpressionUUID->"136f0a81-1f78-410c-a510-fd6e05afdfe1"],
+Cell[21670, 464, 259, 4, 42, "Section",ExpressionUUID->"db779555-ecf5-414b-9ffe-a23354af864d"],
+Cell[21932, 470, 2075, 54, 203, "Input",ExpressionUUID->"6b97ee68-1ec3-4863-b4b5-c6c874bbb5ff"],
+Cell[24010, 526, 1928, 33, 292, "Input",ExpressionUUID->"9d748520-463b-4673-8dbf-05d7992768a8"],
+Cell[25941, 561, 5454, 133, 560, "Input",ExpressionUUID->"f56832ff-a350-4aa1-8112-dc4f04970905"],
+Cell[31398, 696, 1721, 42, 166, "Input",ExpressionUUID->"e50ee3b0-10d2-4eed-b352-52a93420a5f3"],
+Cell[33122, 740, 3847, 85, 523, "Input",ExpressionUUID->"d6b6bbb9-3345-45a0-85dd-a35cd6fbe82c"],
+Cell[36972, 827, 4007, 89, 593, "Input",ExpressionUUID->"aa92b93a-9b79-4b4b-b856-7897148043bc"],
+Cell[40982, 918, 1415, 34, 148, "Input",ExpressionUUID->"dd937277-d672-41e4-9591-3f9cf27c3310"],
+Cell[42400, 954, 1002, 21, 93, "Input",ExpressionUUID->"f4b4be25-93f6-4d3d-9c1f-25ef9d1ee98e"],
+Cell[43405, 977, 12963, 257, 941, "Input",ExpressionUUID->"136f0a81-1f78-410c-a510-fd6e05afdfe1"],
 Cell[CellGroupData[{
-Cell[56190, 1236, 3015, 57, 166, "Input",ExpressionUUID->"1d0a7378-10e8-44e5-ac34-cc759cb2766f"],
-Cell[59208, 1295, 864, 15, 18, "Print",ExpressionUUID->"dba95bb8-bad2-470c-9618-59bee8165789"]
+Cell[56393, 1238, 3015, 57, 166, "Input",ExpressionUUID->"1d0a7378-10e8-44e5-ac34-cc759cb2766f"],
+Cell[59411, 1297, 864, 15, 18, "Print",ExpressionUUID->"dba95bb8-bad2-470c-9618-59bee8165789"]
 }, Open  ]],
-Cell[60087, 1313, 2981, 71, 217, "Input",ExpressionUUID->"a4e4af53-1b25-4820-aafe-c9c3ee5db581"],
-Cell[63071, 1386, 1546, 38, 129, "Input",ExpressionUUID->"f42e7fcf-aed4-4ea5-bb46-42d923e9aecb"],
-Cell[64620, 1426, 327, 7, 37, "Input",ExpressionUUID->"a12fffeb-b23c-482f-b3c6-974cd4d90c8e"],
-Cell[64950, 1435, 5305, 136, 506, "Input",ExpressionUUID->"941a5f15-7c76-4ca5-81aa-4e5a668fdb3e"],
-Cell[70258, 1573, 4495, 113, 398, "Input",ExpressionUUID->"f189d402-5d73-4821-a327-342585e8f469"],
-Cell[74756, 1688, 1054, 21, 72, "Input",ExpressionUUID->"29f8c600-84c8-4c49-873c-18edfcb4af3b"],
-Cell[75813, 1711, 2557, 66, 168, "Input",ExpressionUUID->"5befda18-05ad-4bf2-b49c-d50854f16f21"],
-Cell[78373, 1779, 1830, 45, 199, "Input",ExpressionUUID->"349af2e8-124c-46fb-ac24-9e658f6b07b9"],
-Cell[80206, 1826, 5182, 120, 648, "Input",ExpressionUUID->"79c471e6-d456-4320-ac55-bcbbeb206c62"],
-Cell[85391, 1948, 1834, 45, 199, "Input",ExpressionUUID->"f8d0ce3a-d9e9-440c-9456-88207b758f72"],
-Cell[87228, 1995, 10056, 241, 664, "Input",ExpressionUUID->"e922503b-8241-4aba-aa0f-75c69241d47a"],
-Cell[97287, 2238, 7670, 201, 506, "Input",ExpressionUUID->"f3ea6309-60d5-4adf-9938-addd5d5f4741"],
-Cell[104960, 2441, 14572, 298, 1170, "Input",ExpressionUUID->"377a1416-7c5f-4000-b6d8-2a50aee7d278"]
+Cell[60290, 1315, 2981, 71, 217, "Input",ExpressionUUID->"a4e4af53-1b25-4820-aafe-c9c3ee5db581"],
+Cell[63274, 1388, 1546, 38, 129, "Input",ExpressionUUID->"f42e7fcf-aed4-4ea5-bb46-42d923e9aecb"],
+Cell[64823, 1428, 327, 7, 37, "Input",ExpressionUUID->"a12fffeb-b23c-482f-b3c6-974cd4d90c8e"],
+Cell[65153, 1437, 5305, 136, 506, "Input",ExpressionUUID->"941a5f15-7c76-4ca5-81aa-4e5a668fdb3e"],
+Cell[70461, 1575, 4495, 113, 398, "Input",ExpressionUUID->"f189d402-5d73-4821-a327-342585e8f469"],
+Cell[74959, 1690, 1054, 21, 72, "Input",ExpressionUUID->"29f8c600-84c8-4c49-873c-18edfcb4af3b"],
+Cell[76016, 1713, 2557, 66, 168, "Input",ExpressionUUID->"5befda18-05ad-4bf2-b49c-d50854f16f21"],
+Cell[78576, 1781, 1830, 45, 199, "Input",ExpressionUUID->"349af2e8-124c-46fb-ac24-9e658f6b07b9"],
+Cell[80409, 1828, 5182, 120, 648, "Input",ExpressionUUID->"79c471e6-d456-4320-ac55-bcbbeb206c62"],
+Cell[85594, 1950, 1834, 45, 199, "Input",ExpressionUUID->"f8d0ce3a-d9e9-440c-9456-88207b758f72"],
+Cell[87431, 1997, 10056, 241, 664, "Input",ExpressionUUID->"e922503b-8241-4aba-aa0f-75c69241d47a"],
+Cell[97490, 2240, 7670, 201, 506, "Input",ExpressionUUID->"f3ea6309-60d5-4adf-9938-addd5d5f4741"],
+Cell[105163, 2443, 14572, 298, 1170, "Input",ExpressionUUID->"377a1416-7c5f-4000-b6d8-2a50aee7d278"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[119569, 2744, 197, 4, 42, "Section",ExpressionUUID->"519c8cf4-00ad-429f-90d6-d6259640b221"],
-Cell[119769, 2750, 796, 17, 110, "Code",ExpressionUUID->"44dc6e77-47eb-4c57-945f-d5a7c5cda42d"],
+Cell[119772, 2746, 197, 4, 42, "Section",ExpressionUUID->"519c8cf4-00ad-429f-90d6-d6259640b221"],
+Cell[119972, 2752, 796, 17, 110, "Code",ExpressionUUID->"44dc6e77-47eb-4c57-945f-d5a7c5cda42d"],
 Cell[CellGroupData[{
-Cell[120590, 2771, 1105, 22, 56, "Input",ExpressionUUID->"bb3a37eb-d538-4d41-8217-39204afc0d84"],
-Cell[121698, 2795, 336, 6, 28, "Output",ExpressionUUID->"acf014db-5c6c-4a08-841b-375e4eee33e7"]
+Cell[120793, 2773, 1105, 22, 56, "Input",ExpressionUUID->"bb3a37eb-d538-4d41-8217-39204afc0d84"],
+Cell[121901, 2797, 336, 6, 28, "Output",ExpressionUUID->"acf014db-5c6c-4a08-841b-375e4eee33e7"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[122083, 2807, 174, 3, 53, "Section",ExpressionUUID->"4029e77f-5a28-4c64-82f6-7635a458148b"],
-Cell[122260, 2812, 462, 14, 69, "Input",ExpressionUUID->"4d3f01e4-537a-4ee6-883b-ac7809cb4485"],
-Cell[122725, 2828, 13275, 231, 1294, "Code",ExpressionUUID->"fa4c288d-f6fa-4904-b906-ae7fe81b8ecf"],
-Cell[136003, 3061, 2366, 48, 368, "Input",ExpressionUUID->"961023d5-c081-4924-a4a2-771943e79ed6"],
-Cell[138372, 3111, 6106, 111, 934, "Input",ExpressionUUID->"b369a129-6cd6-4cba-9c5e-28d2d18ce42d"],
-Cell[144481, 3224, 548, 12, 56, "Input",ExpressionUUID->"9dedee05-7403-4f49-af58-65aba455c566"],
-Cell[145032, 3238, 2045, 35, 170, "Input",ExpressionUUID->"9a87c29c-9c9e-41e8-b49c-cc4140e36576"],
-Cell[147080, 3275, 1347, 24, 191, "Input",ExpressionUUID->"be2e6840-c5b7-46d7-8454-3e14628bb533"]
-}, Open  ]],
+Cell[122286, 2809, 174, 3, 42, "Section",ExpressionUUID->"4029e77f-5a28-4c64-82f6-7635a458148b"],
+Cell[122463, 2814, 709, 19, 69, "Input",ExpressionUUID->"4d3f01e4-537a-4ee6-883b-ac7809cb4485"],
+Cell[123175, 2835, 12269, 220, 1375, "Code",ExpressionUUID->"fa4c288d-f6fa-4904-b906-ae7fe81b8ecf"],
+Cell[135447, 3057, 1300, 24, 169, "Input",ExpressionUUID->"2ace8e61-0363-414a-aec2-78ad21a6b37c"],
+Cell[136750, 3083, 2091, 43, 368, "Input",ExpressionUUID->"961023d5-c081-4924-a4a2-771943e79ed6"],
+Cell[138844, 3128, 6106, 111, 934, "Input",ExpressionUUID->"b369a129-6cd6-4cba-9c5e-28d2d18ce42d"],
+Cell[144953, 3241, 548, 12, 56, "Input",ExpressionUUID->"9dedee05-7403-4f49-af58-65aba455c566"],
+Cell[145504, 3255, 1288, 22, 170, "Input",ExpressionUUID->"9a87c29c-9c9e-41e8-b49c-cc4140e36576"],
+Cell[146795, 3279, 1347, 24, 191, "Input",ExpressionUUID->"be2e6840-c5b7-46d7-8454-3e14628bb533"]
+}, Closed]],
 Cell[CellGroupData[{
-Cell[148464, 3304, 159, 3, 53, "Section",ExpressionUUID->"e355101f-e9af-4241-a28d-d8c2150a645e"],
-Cell[148626, 3309, 212, 4, 42, "Code",ExpressionUUID->"334e210a-0008-4f8a-aa82-905e18a840c0"],
+Cell[148179, 3308, 159, 3, 42, "Section",ExpressionUUID->"e355101f-e9af-4241-a28d-d8c2150a645e"],
+Cell[148341, 3313, 212, 4, 42, "Code",ExpressionUUID->"334e210a-0008-4f8a-aa82-905e18a840c0"],
 Cell[CellGroupData[{
-Cell[148863, 3317, 730, 17, 56, "Input",ExpressionUUID->"efff9365-e605-44e2-96ed-3bb97e4ee665"],
-Cell[149596, 3336, 336, 6, 28, "Output",ExpressionUUID->"8af54105-7c27-450e-a0d6-a4a27c093902"]
+Cell[148578, 3321, 730, 17, 56, "Input",ExpressionUUID->"efff9365-e605-44e2-96ed-3bb97e4ee665"],
+Cell[149311, 3340, 336, 6, 28, "Output",ExpressionUUID->"8af54105-7c27-450e-a0d6-a4a27c093902"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[149993, 3349, 308, 5, 53, "Chapter",ExpressionUUID->"337028bb-22a5-4c7a-abf1-dfc7beb47d0a"],
+Cell[149708, 3353, 308, 5, 53, "Chapter",ExpressionUUID->"337028bb-22a5-4c7a-abf1-dfc7beb47d0a"],
 Cell[CellGroupData[{
-Cell[150326, 3358, 224, 4, 53, "Section",ExpressionUUID->"dbe6e042-2d89-4387-bbaa-a2256028c645"],
-Cell[150553, 3364, 2371, 51, 356, "Input",ExpressionUUID->"ef80aa05-824a-4470-b476-ddcf32456fc1"],
-Cell[152927, 3417, 3883, 93, 273, "Input",ExpressionUUID->"6e076dbb-146a-4f86-8dd4-efa0ea4f3802"],
-Cell[156813, 3512, 8163, 181, 610, "Input",ExpressionUUID->"4067993b-78cc-4eab-a413-1ccb6e45d9eb"],
-Cell[164979, 3695, 3438, 86, 271, "Input",ExpressionUUID->"0506a667-986c-4b85-9f62-5514c39fc506"],
-Cell[168420, 3783, 1527, 30, 111, "Input",ExpressionUUID->"b63997b2-abf3-4330-be84-36295372784e"],
-Cell[169950, 3815, 4802, 167, 574, "Input",ExpressionUUID->"07be19eb-22d0-491d-acac-4ebb05b77005"]
+Cell[150041, 3362, 224, 4, 53, "Section",ExpressionUUID->"dbe6e042-2d89-4387-bbaa-a2256028c645"],
+Cell[150268, 3368, 2371, 51, 356, "Input",ExpressionUUID->"ef80aa05-824a-4470-b476-ddcf32456fc1"],
+Cell[152642, 3421, 3883, 93, 273, "Input",ExpressionUUID->"6e076dbb-146a-4f86-8dd4-efa0ea4f3802"],
+Cell[156528, 3516, 8163, 181, 610, "Input",ExpressionUUID->"4067993b-78cc-4eab-a413-1ccb6e45d9eb"],
+Cell[164694, 3699, 3438, 86, 271, "Input",ExpressionUUID->"0506a667-986c-4b85-9f62-5514c39fc506"],
+Cell[168135, 3787, 1527, 30, 111, "Input",ExpressionUUID->"b63997b2-abf3-4330-be84-36295372784e"],
+Cell[169665, 3819, 4802, 167, 574, "Input",ExpressionUUID->"07be19eb-22d0-491d-acac-4ebb05b77005"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[174789, 3987, 185, 3, 42, "Section",ExpressionUUID->"2da5ecf0-e090-4d2e-b392-bb3466e0c2eb"],
-Cell[174977, 3992, 972, 24, 56, "Input",ExpressionUUID->"f67051ff-d457-4e90-a315-afaf11fe82c4"],
-Cell[175952, 4018, 1730, 46, 203, "Input",ExpressionUUID->"8ce792ad-49a8-4a56-8abc-de5826491428"],
-Cell[177685, 4066, 739, 17, 111, "Input",ExpressionUUID->"0b12d5b2-017d-4cf6-b1cf-cbe10312ea40"],
-Cell[178427, 4085, 444, 11, 37, "Input",ExpressionUUID->"eda1049b-d470-45b6-af18-dbfc767fa940"],
-Cell[178874, 4098, 2382, 64, 201, "Input",ExpressionUUID->"9f480c74-eca2-469f-bfe8-255f7c611d82"],
-Cell[181259, 4164, 2912, 69, 330, "Input",ExpressionUUID->"87c42bbb-3c0d-454a-93a1-4b0b25de9b39",
+Cell[174504, 3991, 185, 3, 42, "Section",ExpressionUUID->"2da5ecf0-e090-4d2e-b392-bb3466e0c2eb"],
+Cell[174692, 3996, 972, 24, 56, "Input",ExpressionUUID->"f67051ff-d457-4e90-a315-afaf11fe82c4"],
+Cell[175667, 4022, 1730, 46, 203, "Input",ExpressionUUID->"8ce792ad-49a8-4a56-8abc-de5826491428"],
+Cell[177400, 4070, 739, 17, 111, "Input",ExpressionUUID->"0b12d5b2-017d-4cf6-b1cf-cbe10312ea40"],
+Cell[178142, 4089, 444, 11, 37, "Input",ExpressionUUID->"eda1049b-d470-45b6-af18-dbfc767fa940"],
+Cell[178589, 4102, 2382, 64, 201, "Input",ExpressionUUID->"9f480c74-eca2-469f-bfe8-255f7c611d82"],
+Cell[180974, 4168, 2912, 69, 330, "Input",ExpressionUUID->"87c42bbb-3c0d-454a-93a1-4b0b25de9b39",
  InitializationCell->True],
-Cell[184174, 4235, 2177, 51, 304, "Input",ExpressionUUID->"c69a1f90-52d2-4c70-a615-7352da6779eb"]
+Cell[183889, 4239, 2177, 51, 304, "Input",ExpressionUUID->"c69a1f90-52d2-4c70-a615-7352da6779eb"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[186388, 4291, 170, 3, 42, "Section",ExpressionUUID->"ee0a3f20-4449-4c13-b99e-a02f47060c2b"],
-Cell[186561, 4296, 3373, 91, 349, "Input",ExpressionUUID->"822fba52-6de1-43c4-885f-5e6ab1f6fc3b"],
-Cell[189937, 4389, 3331, 91, 349, "Input",ExpressionUUID->"bbdfd93e-0b45-4ca4-90ca-a3a9b22aa1ac"],
-Cell[193271, 4482, 1057, 29, 128, "Input",ExpressionUUID->"5b3a0713-e32a-40c8-baf1-a8d35b9ca4d7"],
-Cell[194331, 4513, 1059, 30, 128, "Input",ExpressionUUID->"e639b518-8d0a-4143-92d8-ccb99c3e3134"],
-Cell[195393, 4545, 3104, 88, 349, "Input",ExpressionUUID->"235217ce-2a52-433b-9dcb-ca48aa796831"]
+Cell[186103, 4295, 170, 3, 42, "Section",ExpressionUUID->"ee0a3f20-4449-4c13-b99e-a02f47060c2b"],
+Cell[186276, 4300, 3373, 91, 349, "Input",ExpressionUUID->"822fba52-6de1-43c4-885f-5e6ab1f6fc3b"],
+Cell[189652, 4393, 3331, 91, 349, "Input",ExpressionUUID->"bbdfd93e-0b45-4ca4-90ca-a3a9b22aa1ac"],
+Cell[192986, 4486, 1057, 29, 128, "Input",ExpressionUUID->"5b3a0713-e32a-40c8-baf1-a8d35b9ca4d7"],
+Cell[194046, 4517, 1059, 30, 128, "Input",ExpressionUUID->"e639b518-8d0a-4143-92d8-ccb99c3e3134"],
+Cell[195108, 4549, 3104, 88, 349, "Input",ExpressionUUID->"235217ce-2a52-433b-9dcb-ca48aa796831"]
 }, Closed]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[198546, 4639, 264, 4, 53, "Chapter",ExpressionUUID->"b45359a4-435a-48f5-938f-6624251f7dc8"],
+Cell[198261, 4643, 264, 4, 53, "Chapter",ExpressionUUID->"b45359a4-435a-48f5-938f-6624251f7dc8"],
 Cell[CellGroupData[{
-Cell[198835, 4647, 173, 3, 53, "Section",ExpressionUUID->"57618d00-5575-4b3a-bb3d-ab20be3bd518"],
+Cell[198550, 4651, 173, 3, 53, "Section",ExpressionUUID->"57618d00-5575-4b3a-bb3d-ab20be3bd518"],
 Cell[CellGroupData[{
-Cell[199033, 4654, 244, 4, 42, "Subsection",ExpressionUUID->"fdbba363-df9e-4831-8273-2e976f9760de"],
-Cell[199280, 4660, 19146, 489, 1001, "Input",ExpressionUUID->"276d2ca9-7d95-4b0a-b9e8-001c42d065e2"]
+Cell[198748, 4658, 244, 4, 42, "Subsection",ExpressionUUID->"fdbba363-df9e-4831-8273-2e976f9760de"],
+Cell[198995, 4664, 19942, 507, 1038, "Input",ExpressionUUID->"276d2ca9-7d95-4b0a-b9e8-001c42d065e2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[218974, 5176, 218, 4, 42, "Subsection",ExpressionUUID->"4d8cf1c7-8120-4fd8-8435-e5bdbedca1d6"],
+Cell[219195, 5182, 2003, 43, 179, "Input",ExpressionUUID->"3fdb3362-9708-45f6-90ec-4a08285d194a"],
+Cell[221201, 5227, 4839, 103, 359, "Input",ExpressionUUID->"cd19b020-7808-4b5c-a1a3-737ab5f86d7a"],
+Cell[226043, 5332, 3830, 89, 308, "Input",ExpressionUUID->"a0647142-035b-4af3-86c3-0ef0ea513443"],
+Cell[229876, 5423, 4589, 112, 552, "Input",ExpressionUUID->"c3c5409f-48fe-41df-9ce8-a07da018aff7"],
+Cell[234468, 5537, 4188, 95, 399, "Input",ExpressionUUID->"7662e852-6b7d-4ee4-96de-95764d7a2591"],
+Cell[238659, 5634, 3827, 83, 414, "Input",ExpressionUUID->"40224019-5bbe-4af3-bb73-5d0fce2e4594"],
+Cell[242489, 5719, 4248, 95, 521, "Input",ExpressionUUID->"61eaeae7-1a13-4ce5-831f-881e2297d0d2"],
+Cell[246740, 5816, 7108, 133, 729, "Input",ExpressionUUID->"6be61425-e734-43e1-8f41-a7b0f08b8855"],
+Cell[253851, 5951, 2126, 45, 252, "Input",ExpressionUUID->"ac6faa51-ce9e-4b84-bada-36b9f44afbb9"],
+Cell[255980, 5998, 4682, 100, 581, "Input",ExpressionUUID->"7b039ccb-9100-4dea-b99c-bec5c7ee5184"],
+Cell[260665, 6100, 4080, 93, 537, "Input",ExpressionUUID->"9ef01342-89a5-4ac7-97c3-96645a7ca791"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[264782, 6198, 166, 3, 42, "Subsection",ExpressionUUID->"721a4bfa-aee9-42d0-96d3-96743ca88c9a"],
+Cell[264951, 6203, 2627, 66, 276, "Input",ExpressionUUID->"b09ddb40-3738-43ba-bb9f-5b40636f77fc"],
+Cell[267581, 6271, 16005, 352, 2133, "Input",ExpressionUUID->"5fd29c15-2ee2-45bb-8e2c-84772a8fccb6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[283623, 6628, 194, 3, 42, "Subsection",ExpressionUUID->"4242c64b-75cf-4833-9d4c-f8fa32859c1c"],
+Cell[283820, 6633, 735, 20, 111, "Input",ExpressionUUID->"9cc81c11-fd01-456a-8d42-c7e11e50298a"],
+Cell[284558, 6655, 4897, 102, 394, "Input",ExpressionUUID->"2554b4b1-4f7a-4978-8f23-c17c75e9fec4"],
+Cell[289458, 6759, 511, 14, 54, "Input",ExpressionUUID->"bb7d78b6-0709-4a59-a019-6b02011b3430"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[290006, 6778, 165, 3, 42, "Subsection",ExpressionUUID->"d227ef0c-8266-4409-8f73-aa6465e26740"],
+Cell[290174, 6783, 8140, 183, 991, "Input",ExpressionUUID->"bfd8db10-63e3-4def-a1fc-e8d43db1a1f0"],
+Cell[298317, 6968, 7422, 165, 901, "Input",ExpressionUUID->"116a0c96-5bd5-4c0a-adb7-e6a94047e56f"],
+Cell[305742, 7135, 3897, 69, 253, "Input",ExpressionUUID->"25fdb4b4-859c-4eee-92ea-5ea5491eae01"],
+Cell[309642, 7206, 1063, 25, 163, "Input",ExpressionUUID->"8d6d551a-80c8-4fc7-a71d-942b77d4b246"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[310754, 7237, 171, 3, 53, "Section",ExpressionUUID->"affba3cf-2232-4f92-a752-5294cc029251"],
+Cell[310928, 7242, 3925, 83, 221, "Input",ExpressionUUID->"8c849199-ac20-4382-a7f0-940f2ba5fe23"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[218463, 5154, 218, 4, 30, "Subsection",ExpressionUUID->"4d8cf1c7-8120-4fd8-8435-e5bdbedca1d6"],
-Cell[218684, 5160, 2003, 43, 179, "Input",ExpressionUUID->"3fdb3362-9708-45f6-90ec-4a08285d194a"],
-Cell[220690, 5205, 4839, 103, 359, "Input",ExpressionUUID->"cd19b020-7808-4b5c-a1a3-737ab5f86d7a"],
-Cell[225532, 5310, 3830, 89, 308, "Input",ExpressionUUID->"a0647142-035b-4af3-86c3-0ef0ea513443"],
-Cell[229365, 5401, 3827, 83, 342, "Input",ExpressionUUID->"40224019-5bbe-4af3-bb73-5d0fce2e4594"],
-Cell[233195, 5486, 4203, 95, 359, "Input",ExpressionUUID->"61eaeae7-1a13-4ce5-831f-881e2297d0d2"],
-Cell[237401, 5583, 7108, 133, 606, "Input",ExpressionUUID->"6be61425-e734-43e1-8f41-a7b0f08b8855"],
-Cell[244512, 5718, 2101, 45, 197, "Input",ExpressionUUID->"ac6faa51-ce9e-4b84-bada-36b9f44afbb9"],
-Cell[246616, 5765, 4682, 100, 471, "Input",ExpressionUUID->"7b039ccb-9100-4dea-b99c-bec5c7ee5184"],
-Cell[251301, 5867, 4055, 93, 359, "Input",ExpressionUUID->"9ef01342-89a5-4ac7-97c3-96645a7ca791"]
+Cell[314890, 7330, 163, 3, 42, "Section",ExpressionUUID->"ec752d41-e18b-46c9-a687-2a43acbc2c49"],
+Cell[CellGroupData[{
+Cell[315078, 7337, 173, 3, 42, "Subsection",ExpressionUUID->"3e413af6-2afb-4184-9b39-a1aaa5f0470a"],
+Cell[315254, 7342, 4601, 105, 376, "Input",ExpressionUUID->"ddd79a10-fb97-42d5-8007-c57acf0bf44a"],
+Cell[319858, 7449, 7771, 179, 495, "Input",ExpressionUUID->"8dfab7ec-76d6-44d3-bd88-b570064f104c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[327666, 7633, 166, 3, 42, "Subsection",ExpressionUUID->"dc801699-1d95-410e-9663-9189a6f1e807"],
+Cell[327835, 7638, 666, 18, 55, "Input",ExpressionUUID->"e7e8722e-6c81-4b40-87c8-d6ef15800524"],
+Cell[328504, 7658, 12747, 305, 1211, "Input",ExpressionUUID->"cee60305-1632-4714-aee9-1dcaae6ffc44"],
+Cell[341254, 7965, 10487, 215, 1263, "Input",ExpressionUUID->"df914fa8-0897-4c10-9328-ade25a1bd30a"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[255393, 5965, 166, 3, 30, "Subsection",ExpressionUUID->"721a4bfa-aee9-42d0-96d3-96743ca88c9a"],
-Cell[255562, 5970, 2627, 66, 276, "Input",ExpressionUUID->"b09ddb40-3738-43ba-bb9f-5b40636f77fc"],
-Cell[258192, 6038, 15220, 333, 2004, "Input",ExpressionUUID->"5fd29c15-2ee2-45bb-8e2c-84772a8fccb6"]
+Cell[351778, 8185, 159, 3, 30, "Subsection",ExpressionUUID->"1efcce37-5c6a-46da-b65a-c7e8cd3a1ea3"],
+Cell[351940, 8190, 6167, 140, 543, "Input",ExpressionUUID->"c51852e4-4259-4a60-afd1-89085a704206"]
 }, Closed]],
 Cell[CellGroupData[{
-Cell[273449, 6376, 194, 3, 30, "Subsection",ExpressionUUID->"4242c64b-75cf-4833-9d4c-f8fa32859c1c"],
-Cell[273646, 6381, 735, 20, 111, "Input",ExpressionUUID->"9cc81c11-fd01-456a-8d42-c7e11e50298a"],
-Cell[274384, 6403, 4897, 102, 394, "Input",ExpressionUUID->"2554b4b1-4f7a-4978-8f23-c17c75e9fec4"],
-Cell[279284, 6507, 511, 14, 54, "Input",ExpressionUUID->"bb7d78b6-0709-4a59-a019-6b02011b3430"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[279832, 6526, 165, 3, 42, "Subsection",ExpressionUUID->"d227ef0c-8266-4409-8f73-aa6465e26740"],
-Cell[280000, 6531, 7736, 175, 954, "Input",ExpressionUUID->"bfd8db10-63e3-4def-a1fc-e8d43db1a1f0"],
-Cell[287739, 6708, 7042, 158, 864, "Input",ExpressionUUID->"116a0c96-5bd5-4c0a-adb7-e6a94047e56f"],
-Cell[294784, 6868, 3897, 69, 253, "Input",ExpressionUUID->"25fdb4b4-859c-4eee-92ea-5ea5491eae01"],
-Cell[298684, 6939, 1063, 25, 163, "Input",ExpressionUUID->"8d6d551a-80c8-4fc7-a71d-942b77d4b246"]
-}, Closed]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[299796, 6970, 171, 3, 53, "Section",ExpressionUUID->"affba3cf-2232-4f92-a752-5294cc029251"],
-Cell[299970, 6975, 3925, 83, 221, "Input",ExpressionUUID->"8c849199-ac20-4382-a7f0-940f2ba5fe23"]
-}, Closed]],
-Cell[CellGroupData[{
-Cell[303932, 7063, 163, 3, 42, "Section",ExpressionUUID->"ec752d41-e18b-46c9-a687-2a43acbc2c49"],
-Cell[CellGroupData[{
-Cell[304120, 7070, 173, 3, 42, "Subsection",ExpressionUUID->"3e413af6-2afb-4184-9b39-a1aaa5f0470a"],
-Cell[304296, 7075, 4601, 105, 376, "Input",ExpressionUUID->"ddd79a10-fb97-42d5-8007-c57acf0bf44a"],
-Cell[308900, 7182, 7771, 179, 495, "Input",ExpressionUUID->"8dfab7ec-76d6-44d3-bd88-b570064f104c"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[316708, 7366, 166, 3, 42, "Subsection",ExpressionUUID->"dc801699-1d95-410e-9663-9189a6f1e807"],
-Cell[316877, 7371, 666, 18, 55, "Input",ExpressionUUID->"e7e8722e-6c81-4b40-87c8-d6ef15800524"],
-Cell[317546, 7391, 11551, 277, 1539, "Input",ExpressionUUID->"cee60305-1632-4714-aee9-1dcaae6ffc44"],
-Cell[329100, 7670, 9791, 202, 1443, "Input",ExpressionUUID->"df914fa8-0897-4c10-9328-ade25a1bd30a"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[338928, 7877, 159, 3, 42, "Subsection",ExpressionUUID->"1efcce37-5c6a-46da-b65a-c7e8cd3a1ea3"],
-Cell[339090, 7882, 6045, 137, 543, "Input",ExpressionUUID->"c51852e4-4259-4a60-afd1-89085a704206"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[345172, 8024, 172, 3, 42, "Subsection",ExpressionUUID->"6fd1aab8-49ce-4b72-8f10-a955c0d61aff"],
-Cell[345347, 8029, 1049, 26, 109, "Input",ExpressionUUID->"722f1a94-94b0-4458-8e49-4565186956ca"],
-Cell[346399, 8057, 2902, 58, 234, "Input",ExpressionUUID->"ed8767a1-38cb-4d61-8fcd-d8bef0b02bf2"],
-Cell[349304, 8117, 6874, 170, 646, "Input",ExpressionUUID->"d4d0c117-b8d3-4534-9810-eca46ea7b9ca"],
-Cell[356181, 8289, 11409, 250, 1401, "Input",ExpressionUUID->"449db943-f88d-4296-bedc-a6300214bcf4"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[367651, 8546, 213, 4, 53, "Chapter",ExpressionUUID->"221bb86f-745e-4bc2-a4c0-d57eedca7fe8"],
-Cell[367867, 8552, 1357, 34, 129, "Input",ExpressionUUID->"cba66cbf-1d59-4a38-9eb3-c28a5bd46deb"],
-Cell[369227, 8588, 4660, 102, 480, "Input",ExpressionUUID->"516650ad-94d7-4c45-86f1-a468f0befd43"],
-Cell[CellGroupData[{
-Cell[373912, 8694, 392, 10, 72, "Input",ExpressionUUID->"4bd30e8a-e2ca-4156-95a1-a802bc6392e7"],
-Cell[CellGroupData[{
-Cell[374329, 8708, 1029, 19, 18, "Print",ExpressionUUID->"0acca0b3-8454-42cd-b9bf-6763330b40df"],
-Cell[375361, 8729, 1030, 19, 18, "Print",ExpressionUUID->"6dad3b0e-87b1-4cd2-8f15-e8f9e0eea03c"]
-}, Open  ]],
-Cell[376406, 8751, 160, 3, 26, "Output",ExpressionUUID->"62c49d00-1308-4327-9f61-1fa94e6a1750"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[376615, 8760, 291, 4, 53, "Chapter",ExpressionUUID->"34a6e352-6706-4c26-a9dc-a4f7001cae32"],
-Cell[CellGroupData[{
-Cell[376931, 8768, 203, 4, 53, "Section",ExpressionUUID->"371e5165-5789-4a54-b8ed-1ad9279324ac"],
-Cell[377137, 8774, 1238, 32, 146, "Input",ExpressionUUID->"c295db63-b755-42d4-905e-1f60bd136daf"],
-Cell[378378, 8808, 3167, 78, 276, "Input",ExpressionUUID->"4846ddb1-8167-43f8-81b1-6123f63d2e77"],
-Cell[381548, 8888, 9291, 217, 833, "Input",ExpressionUUID->"9d9e432a-d4af-4dcc-9d9e-1c04658c33ba"],
-Cell[390842, 9107, 1064, 27, 93, "Input",ExpressionUUID->"e68c39a2-a812-43a3-91aa-78fdedec2843"],
-Cell[391909, 9136, 1172, 28, 93, "Input",ExpressionUUID->"9bc022fa-0a10-4835-b882-4bc39407c56a"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[393118, 9169, 212, 4, 53, "Section",ExpressionUUID->"84d986be-8d17-4863-a617-8340b33ff44f"],
-Cell[393333, 9175, 1087, 31, 56, "Input",ExpressionUUID->"d665743c-fc53-4c25-a3dd-abde9a533ea6"],
-Cell[394423, 9208, 2190, 48, 203, "Input",ExpressionUUID->"5e78e10f-4d64-4a4e-bbb8-8b3d20131c47"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[396650, 9261, 164, 3, 53, "Section",ExpressionUUID->"01de564e-e77c-4793-b30b-519a41b90f3e"],
-Cell[396817, 9266, 3575, 85, 484, "Input",ExpressionUUID->"dcbb158f-daa3-4447-b3fa-de02c92ce373"],
-Cell[400395, 9353, 8934, 199, 709, "Input",ExpressionUUID->"038f472d-4965-4744-92f5-a4507f90d81b"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[409378, 9558, 169, 3, 53, "Chapter",ExpressionUUID->"1e0c9b17-26f2-4dfa-9b12-f0fcfa71397f"],
-Cell[CellGroupData[{
-Cell[409572, 9565, 156, 3, 53, "Section",ExpressionUUID->"5e56d50d-49e6-4304-9335-02ae825ce1c2"],
-Cell[409731, 9570, 2046, 40, 123, "Input",ExpressionUUID->"b9ed0595-8856-47f8-b683-4ccc50eab34d"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[411814, 9615, 172, 3, 53, "Section",ExpressionUUID->"8ffa1e1e-e9b7-4c60-a83a-b25d1067fe84"],
-Cell[411989, 9620, 4831, 127, 258, "Input",ExpressionUUID->"552fd81a-00e9-4406-bd7b-53eaf56cdea5"],
-Cell[416823, 9749, 2338, 59, 148, "Input",ExpressionUUID->"6078d412-e4a5-4d75-91d7-f6401e2febfe"],
-Cell[419164, 9810, 5416, 137, 276, "Input",ExpressionUUID->"a17f937c-f706-4976-8f08-42a105f6ccc9"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[424617, 9952, 183, 3, 53, "Section",ExpressionUUID->"04ef16ce-b8bd-4593-9dd9-7f337307e574"],
-Cell[CellGroupData[{
-Cell[424825, 9959, 158, 3, 42, "Subsection",ExpressionUUID->"171d1c15-50f3-4038-94a7-5c5590d84e9a"],
-Cell[CellGroupData[{
-Cell[425008, 9966, 165, 3, 34, "Subsubsection",ExpressionUUID->"b7c07b71-68a3-4a76-94a8-f9a553ef4e87"],
-Cell[425176, 9971, 12835, 285, 1244, "Input",ExpressionUUID->"78d1d83d-1db3-48fe-9d5d-0549bc1ca3eb"],
-Cell[438014, 10258, 12403, 269, 1683, "Input",ExpressionUUID->"48f54286-12c9-432b-b442-cd476a94214d"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[450454, 10532, 163, 3, 34, "Subsubsection",ExpressionUUID->"760961e8-a2ff-4ade-a764-8d04318f13d6"],
-Cell[450620, 10537, 12119, 267, 1072, "Input",ExpressionUUID->"eb0d0058-7e72-44ea-9964-09dd66819a96"],
-Cell[462742, 10806, 11264, 244, 1458, "Input",ExpressionUUID->"eda0cfa0-8b5d-471e-93a5-482d7d0e9336"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[474055, 11056, 154, 3, 42, "Subsection",ExpressionUUID->"fe90355d-812c-40f2-9b7c-b012ae540bf9"],
-Cell[474212, 11061, 11820, 265, 1190, "Input",ExpressionUUID->"aabc8ef7-49e5-4333-9181-ae2ddd34f9e3"],
-Cell[486035, 11328, 11003, 238, 1600, "Input",ExpressionUUID->"57457dd7-5571-4c38-a645-c46447a3a30c"]
+Cell[358144, 8335, 172, 3, 30, "Subsection",ExpressionUUID->"6fd1aab8-49ce-4b72-8f10-a955c0d61aff"],
+Cell[358319, 8340, 1049, 26, 109, "Input",ExpressionUUID->"722f1a94-94b0-4458-8e49-4565186956ca"],
+Cell[359371, 8368, 3000, 60, 234, "Input",ExpressionUUID->"ed8767a1-38cb-4d61-8fcd-d8bef0b02bf2"],
+Cell[362374, 8430, 6874, 170, 646, "Input",ExpressionUUID->"d4d0c117-b8d3-4534-9810-eca46ea7b9ca"],
+Cell[369251, 8602, 11409, 250, 1401, "Input",ExpressionUUID->"449db943-f88d-4296-bedc-a6300214bcf4"]
 }, Closed]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[497099, 11573, 162, 3, 53, "Chapter",ExpressionUUID->"e8c3cc19-732d-4100-ba41-4f741977ed46"],
-Cell[497264, 11578, 294, 6, 37, "Input",ExpressionUUID->"9b9ea4fc-21b7-44a7-a56c-9624eb86aa03"],
-Cell[497561, 11586, 151, 4, 41, "Code",ExpressionUUID->"404ab529-fa01-4a17-8d30-d78a744d6275"],
-Cell[497715, 11592, 158, 4, 41, "Code",ExpressionUUID->"71cbb145-c03b-495b-a560-6fe322da1f14"]
+Cell[380721, 8859, 213, 4, 53, "Chapter",ExpressionUUID->"221bb86f-745e-4bc2-a4c0-d57eedca7fe8"],
+Cell[380937, 8865, 1357, 34, 129, "Input",ExpressionUUID->"cba66cbf-1d59-4a38-9eb3-c28a5bd46deb"],
+Cell[382297, 8901, 4755, 104, 480, "Input",ExpressionUUID->"516650ad-94d7-4c45-86f1-a468f0befd43"],
+Cell[CellGroupData[{
+Cell[387077, 9009, 392, 10, 72, "Input",ExpressionUUID->"4bd30e8a-e2ca-4156-95a1-a802bc6392e7"],
+Cell[CellGroupData[{
+Cell[387494, 9023, 1029, 19, 18, "Print",ExpressionUUID->"0acca0b3-8454-42cd-b9bf-6763330b40df"],
+Cell[388526, 9044, 1030, 19, 18, "Print",ExpressionUUID->"6dad3b0e-87b1-4cd2-8f15-e8f9e0eea03c"]
+}, Open  ]],
+Cell[389571, 9066, 160, 3, 26, "Output",ExpressionUUID->"62c49d00-1308-4327-9f61-1fa94e6a1750"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[389780, 9075, 291, 4, 45, "Chapter",ExpressionUUID->"34a6e352-6706-4c26-a9dc-a4f7001cae32"],
+Cell[CellGroupData[{
+Cell[390096, 9083, 166, 3, 53, "Section",ExpressionUUID->"8f688e9a-3910-494a-a87f-f2f844618e52"],
+Cell[390265, 9088, 13248, 322, 1377, "Input",ExpressionUUID->"0ec9bdae-e9ab-45ab-9804-e4f709e96573"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[403550, 9415, 203, 4, 53, "Section",ExpressionUUID->"371e5165-5789-4a54-b8ed-1ad9279324ac"],
+Cell[403756, 9421, 1238, 32, 146, "Input",ExpressionUUID->"c295db63-b755-42d4-905e-1f60bd136daf"],
+Cell[404997, 9455, 3167, 78, 276, "Input",ExpressionUUID->"4846ddb1-8167-43f8-81b1-6123f63d2e77"],
+Cell[408167, 9535, 9291, 217, 833, "Input",ExpressionUUID->"9d9e432a-d4af-4dcc-9d9e-1c04658c33ba"],
+Cell[417461, 9754, 1064, 27, 93, "Input",ExpressionUUID->"e68c39a2-a812-43a3-91aa-78fdedec2843"],
+Cell[418528, 9783, 1172, 28, 93, "Input",ExpressionUUID->"9bc022fa-0a10-4835-b882-4bc39407c56a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[419737, 9816, 212, 4, 53, "Section",ExpressionUUID->"84d986be-8d17-4863-a617-8340b33ff44f"],
+Cell[419952, 9822, 1087, 31, 56, "Input",ExpressionUUID->"d665743c-fc53-4c25-a3dd-abde9a533ea6"],
+Cell[421042, 9855, 2190, 48, 203, "Input",ExpressionUUID->"5e78e10f-4d64-4a4e-bbb8-8b3d20131c47"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[423269, 9908, 164, 3, 53, "Section",ExpressionUUID->"01de564e-e77c-4793-b30b-519a41b90f3e"],
+Cell[423436, 9913, 3575, 85, 484, "Input",ExpressionUUID->"dcbb158f-daa3-4447-b3fa-de02c92ce373"],
+Cell[427014, 10000, 8934, 199, 709, "Input",ExpressionUUID->"038f472d-4965-4744-92f5-a4507f90d81b"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[435997, 10205, 169, 3, 53, "Chapter",ExpressionUUID->"1e0c9b17-26f2-4dfa-9b12-f0fcfa71397f"],
+Cell[CellGroupData[{
+Cell[436191, 10212, 156, 3, 53, "Section",ExpressionUUID->"5e56d50d-49e6-4304-9335-02ae825ce1c2"],
+Cell[436350, 10217, 2046, 40, 123, "Input",ExpressionUUID->"b9ed0595-8856-47f8-b683-4ccc50eab34d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[438433, 10262, 172, 3, 53, "Section",ExpressionUUID->"8ffa1e1e-e9b7-4c60-a83a-b25d1067fe84"],
+Cell[438608, 10267, 4831, 127, 258, "Input",ExpressionUUID->"552fd81a-00e9-4406-bd7b-53eaf56cdea5"],
+Cell[443442, 10396, 2338, 59, 148, "Input",ExpressionUUID->"6078d412-e4a5-4d75-91d7-f6401e2febfe"],
+Cell[445783, 10457, 5416, 137, 276, "Input",ExpressionUUID->"a17f937c-f706-4976-8f08-42a105f6ccc9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[451236, 10599, 183, 3, 53, "Section",ExpressionUUID->"04ef16ce-b8bd-4593-9dd9-7f337307e574"],
+Cell[CellGroupData[{
+Cell[451444, 10606, 158, 3, 42, "Subsection",ExpressionUUID->"171d1c15-50f3-4038-94a7-5c5590d84e9a"],
+Cell[CellGroupData[{
+Cell[451627, 10613, 165, 3, 34, "Subsubsection",ExpressionUUID->"b7c07b71-68a3-4a76-94a8-f9a553ef4e87"],
+Cell[451795, 10618, 12835, 285, 1244, "Input",ExpressionUUID->"78d1d83d-1db3-48fe-9d5d-0549bc1ca3eb"],
+Cell[464633, 10905, 12403, 269, 1683, "Input",ExpressionUUID->"48f54286-12c9-432b-b442-cd476a94214d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[477073, 11179, 163, 3, 34, "Subsubsection",ExpressionUUID->"760961e8-a2ff-4ade-a764-8d04318f13d6"],
+Cell[477239, 11184, 12119, 267, 1072, "Input",ExpressionUUID->"eb0d0058-7e72-44ea-9964-09dd66819a96"],
+Cell[489361, 11453, 11264, 244, 1458, "Input",ExpressionUUID->"eda0cfa0-8b5d-471e-93a5-482d7d0e9336"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[500674, 11703, 154, 3, 42, "Subsection",ExpressionUUID->"fe90355d-812c-40f2-9b7c-b012ae540bf9"],
+Cell[500831, 11708, 11820, 265, 1190, "Input",ExpressionUUID->"aabc8ef7-49e5-4333-9181-ae2ddd34f9e3"],
+Cell[512654, 11975, 11003, 238, 1600, "Input",ExpressionUUID->"57457dd7-5571-4c38-a645-c46447a3a30c"]
+}, Closed]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[523718, 12220, 162, 3, 53, "Chapter",ExpressionUUID->"e8c3cc19-732d-4100-ba41-4f741977ed46"],
+Cell[523883, 12225, 294, 6, 37, "Input",ExpressionUUID->"9b9ea4fc-21b7-44a7-a56c-9624eb86aa03"],
+Cell[524180, 12233, 151, 4, 41, "Code",ExpressionUUID->"404ab529-fa01-4a17-8d30-d78a744d6275"],
+Cell[524334, 12239, 158, 4, 41, "Code",ExpressionUUID->"71cbb145-c03b-495b-a560-6fe322da1f14"]
 }, Open  ]]
 }, Open  ]]
 }

@@ -32,17 +32,15 @@ TBComment["AAA"]="Three-gluon vertex basis";
 
 TBAuthor["AAA"]="FR Sattler";
 
+TBReplacements["AAA"]={};
+
 TBUsage["AAA"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
 	A: {\!\(\*SubscriptBox[\(p\), \(2\)]\),\[Nu],\!\(\*SubscriptBox[\(a\), \(2\)]\)}
 	A: {\!\(\*SubscriptBox[\(p\), \(3\)]\),\[Rho],\!\(\*SubscriptBox[\(a\), \(3\)]\)}
 We use the general form 
 	\[ScriptCapitalL] = (2\[Pi]\!\(\*SuperscriptBox[\()\), \(d\)]\)\[Delta](\!\(\*SubscriptBox[\(p\), \(1\)]\)+\!\(\*SubscriptBox[\(p\), \(2\)]\)+\!\(\*SubscriptBox[\(p\), \(3\)]\))\!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\)
-and the \!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\) are listed in the following:    ",
-TableForm[
-{
-{"\!\(\*SuperscriptBox[\(f\), \(\*SubscriptBox[\(a\), \(1\)] \*SubscriptBox[\(a\), \(2\)] \*SubscriptBox[\(a\), \(3\)]\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \(\[Mu]\[Nu]\)]\)(\!\(\*SubscriptBox[\(p\), \(2\)]\)-\!\(\*SubscriptBox[\(p\), \(1\)]\)\!\(\*SubscriptBox[\()\), \(\[Rho]\)]\)"}
-},TableHeadings->{{1}, {"Tensor"}},TableSpacing->{3, 3}]
+The first four \!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\) are fully transversal, while the rest of the tensor basis is partially longitudinal."
 };
 
 TBIndices["AAA"]={{p1,mu,a1},{p2,nu,a2},{p3,rho,a3}};
@@ -100,7 +98,4 @@ longProj[p1,mu,mui]longProj[p2,nu,nui]longProj[p3,rho,rhoi]
 (sp[p3,p3]TBdeltaLorentz[mui,nui]TBvec[p2-p1,rhoi] +sp[p2,p2]TBdeltaLorentz[mui,rhoi] TBvec[p1-p3,nui] +sp[p1,p1]TBdeltaLorentz[nui,rhoi]TBvec[p3-p2,mui])
 }//.omega[i_]:>sp[Symbol["q"<>ToString[i]],Symbol["p"<>ToString[i]]]//.{q1->p2-p3,q2->p3-p1,q3->p1-p2};
 
-TBCanonicalProduct["AAA"]=Tensor1[1,2,3]Tensor2[1,2,3]
-
-
-
+TBCanonicalProduct["AAA"]=Tensor1[1,2,3]Tensor2[1,2,3];

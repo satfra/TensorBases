@@ -56,6 +56,8 @@ TBIndices["transAAqbqMinimal"]={{p1,mu,a1},{p2,nu,a2},{p3,d3,A3,F3},{p4,d4,A4,F4
 
 TBInnerProduct["transAAqbqMinimal"]=Tensor1[1,2,3,4]Tensor2[1,2,4,3]+Tensor1[1,2,3,4]Tensor2[2,1,4,3];
 
+TBCanonicalProduct["transAAqbqMinimal"]=Tensor1[1,2,3,4]Tensor2[1,2,4,3];
+
 
 (* ::Input::Initialization:: *)
 TBgammaComm[mu_,nu_,d1_,d2_]:=Module[{dint},TBgamma[mu,d1,dint]TBgamma[nu,dint,d2]-TBgamma[nu,d1,dint]TBgamma[mu,dint,d2]]

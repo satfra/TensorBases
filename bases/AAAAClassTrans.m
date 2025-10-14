@@ -36,6 +36,8 @@ TBComment["AAAAClassTrans"]="Four-gluon vertex basis";
 
 TBAuthor["AAAAClassTrans"]="FR Sattler";
 
+TBReplacements["AAAAClassTrans"]={};
+
 TBUsage["AAAAClassTrans"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
 	A: {\!\(\*SubscriptBox[\(p\), \(2\)]\),\[Nu],\!\(\*SubscriptBox[\(a\), \(2\)]\)}
@@ -53,7 +55,7 @@ TableForm[
 
 TBIndices["AAAAClassTrans"]={{p1,mu,a1},{p2,nu,a2},{p3,rho,a3},{p4,sig,a4}};
 
-TBMomentumConservation["AAAAClassTrans"]={(*p4->-p1-p2-p3*)};
+TBMomentumConservation["AAAAClassTrans"]={p4->-p1-p2-p3};
 
 TBBasis["AAAAClassTrans"]={
 transProj[p1,mu,v1]transProj[p2,nu,v2]transProj[p3,rho,v3]transProj[p4,sig,v4]

@@ -26,6 +26,8 @@ TBRequiredGroups["AA"]={{color,SUNfund,Nc}};
 
 TBVertex["AA"]={A,A};
 
+TBVertexBasis["AA"]=False;
+
 TBVertexStructure["AA"]=2Tensor[1,2];
 
 TBInnerProduct["AA"]=2Tensor1[1,2]Tensor2[1,2];
@@ -33,6 +35,8 @@ TBInnerProduct["AA"]=2Tensor1[1,2]Tensor2[1,2];
 TBComment["AA"]="Gluon propagator basis (Vacuum)";
 
 TBAuthor["AA"]="FR Sattler";
+
+TBReplacements["AA"]={};
 
 TBUsage["AA"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
@@ -61,5 +65,4 @@ TBBasis["AA"]={
 	(*T^(2)*)
 };
 
-
-
+TBCanonicalProduct["AA"]=Tensor1[1,2]Tensor2[2,1];

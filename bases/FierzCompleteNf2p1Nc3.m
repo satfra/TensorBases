@@ -274,3 +274,5 @@ Sum[\[Sigma]munuT0Ta[i1,i2,il1,il2,ac]\[Sigma]munuT0Ta[i3,i4,il1,il2,ac] ,{il1,1
 }//.Thread[{i1,i2,i3,i4}->Map[#[[2;;]]&,TBIndices["FierzCompleteNf2p1Nc3"]]];
 
 TBInnerProduct["FierzCompleteNf2p1Nc3"]=(2Tensor1[1,2,3,4]Tensor2[2,1,4,3]-2Tensor1[1,2,3,4]Tensor2[2,3,4,1]);
+
+TBCanonicalProduct["FierzCompleteNf2p1Nc3"]=Tensor1[1,2,3,4]Tensor2[2,1,4,3];

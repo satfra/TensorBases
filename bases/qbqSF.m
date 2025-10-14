@@ -30,6 +30,8 @@ TBVertexStructure["qbqSF"]=Tensor[1,2];
 
 TBInnerProduct["qbqSF"]=Tensor1[1,2]Tensor2[2,1];
 
+TBCanonicalProduct["qbqSF"]=Tensor1[1,2]Tensor2[2,1];
+
 TBComment["qbqSF"]="Quark propagator basis (single flavor)";
 
 TBAuthor["qbqSF"]="FR Sattler";

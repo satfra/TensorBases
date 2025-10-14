@@ -79,6 +79,8 @@ TBComment["FierzCompleteNf2Nc3NJL"]="Fierz-complete, phenomenologically inspired
 
 TBAuthor["FierzCompleteNf2Nc3NJL"]="Andreas Gei\[SZ]el";
 
+TBReplacements["FierzCompleteNf2Nc3NJL"]={};
+
 TBUsage["FierzCompleteNf2Nc3NJL"]={"Indices: 
 	\!\(\*OverscriptBox[\(q\), \(_\)]\): {\!\(\*SubscriptBox[\(p\), \(1\)]\),\!\(\*SubscriptBox[\(d\), \(1\)]\),\!\(\*SubscriptBox[\(A\), \(1\)]\),\!\(\*SubscriptBox[\(F\), \(1\)]\)}
 	q: {\!\(\*SubscriptBox[\(p\), \(2\)]\),\!\(\*SubscriptBox[\(d\), \(2\)]\),\!\(\*SubscriptBox[\(A\), \(2\)]\),\!\(\*SubscriptBox[\(F\), \(2\)]\)}
@@ -142,3 +144,5 @@ T0Ta[i1,i2,a]T0Ta[i3,i4,a]-\[Gamma]5TfTa[i1,i2,f,a]\[Gamma]5TfTa[i3,i4,f,a]+\[Ga
 }//.Thread[{i1,i2,i3,i4}->Map[#[[2;;]]&,TBIndices["FierzCompleteNf2Nc3NJL"]]];
 
 TBInnerProduct["FierzCompleteNf2Nc3NJL"]=(2Tensor1[1,2,3,4]Tensor2[2,1,4,3]-2Tensor1[1,2,3,4]Tensor2[2,3,4,1]);
+
+TBCanonicalProduct["FierzCompleteNf2Nc3NJL"]=Tensor1[1,2,3,4]Tensor2[2,1,4,3];

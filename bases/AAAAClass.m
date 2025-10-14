@@ -36,6 +36,8 @@ TBComment["AAAAClass"]="Four-gluon vertex basis";
 
 TBAuthor["AAAAClass"]="FR Sattler";
 
+TBReplacements["AAAAClass"]={};
+
 TBUsage["AAAAClass"]={"Indices: 
 	A: {\!\(\*SubscriptBox[\(p\), \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}
 	A: {\!\(\*SubscriptBox[\(p\), \(2\)]\),\[Nu],\!\(\*SubscriptBox[\(a\), \(2\)]\)}
@@ -53,7 +55,7 @@ TableForm[
 
 TBIndices["AAAAClass"]={{p1,v1,a1},{p2,v2,a2},{p3,v3,a3},{p4,v4,a4}};
 
-TBMomentumConservation["AAAAClass"]={(*p4->-p1-p2-p3*)};
+TBMomentumConservation["AAAAClass"]={p4->-p1-p2-p3};
 
 TBBasis["AAAAClass"]={
 (ff[a1,a2,a3,a4](TBdeltaLorentz[v1,v3]TBdeltaLorentz[v2,v4]-TBdeltaLorentz[v1,v4]TBdeltaLorentz[v2,v3])

@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     25301,        610]
-NotebookOptionsPosition[     24585,        590]
-NotebookOutlinePosition[     25037,        608]
-CellTagsIndexPosition[     24994,        605]
+NotebookDataLength[     23394,        571]
+NotebookOptionsPosition[     22871,        553]
+NotebookOutlinePosition[     23321,        571]
+CellTagsIndexPosition[     23278,        568]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -33,7 +33,7 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"TBAutoDefine", "[", "\"\<AAA\>\"", "]"}], "=", "True"}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -41,7 +41,7 @@ Cell[BoxData[{
     RowBox[{"{", 
      RowBox[{"{", 
       RowBox[{"color", ",", "SUNfund", ",", "Nc"}], "}"}], "}"}]}], ";"}], 
-  "\[IndentingNewLine]"}], "\n", 
+  "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -63,42 +63,28 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"TBAuthor", "[", "\"\<AAA\>\"", "]"}], "=", 
-    "\"\<FR Sattler\>\""}], ";"}], "\n"}], "\n", 
+    "\"\<FR Sattler\>\""}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"TBReplacements", "[", "\"\<AAA\>\"", "]"}], "=", 
+    RowBox[{"{", "}"}]}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
     RowBox[{"TBUsage", "[", "\"\<AAA\>\"", "]"}], "=", 
-    RowBox[{"{", 
-     RowBox[{
-     "\"\<Indices: \n\tA: {\!\(\*SubscriptBox[\(p\), \
+    RowBox[{
+    "{", "\"\<Indices: \n\tA: {\!\(\*SubscriptBox[\(p\), \
 \(1\)]\),\[Mu],\!\(\*SubscriptBox[\(a\), \(1\)]\)}\n\tA: {\!\(\*SubscriptBox[\
 \(p\), \(2\)]\),\[Nu],\!\(\*SubscriptBox[\(a\), \(2\)]\)}\n\tA: \
 {\!\(\*SubscriptBox[\(p\), \(3\)]\),\[Rho],\!\(\*SubscriptBox[\(a\), \
 \(3\)]\)}\nWe use the general form \n\t\[ScriptCapitalL] = \
 (2\[Pi]\!\(\*SuperscriptBox[\()\), \(d\)]\)\[Delta](\!\(\*SubscriptBox[\(p\), \
 \(1\)]\)+\!\(\*SubscriptBox[\(p\), \(2\)]\)+\!\(\*SubscriptBox[\(p\), \
-\(3\)]\))\!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\)\nand the \!\(\*SubscriptBox[\
-\(\[Tau]\), \(i\)]\) are listed in the following:    \>\"", ",", 
-      "\[IndentingNewLine]", 
-      RowBox[{"TableForm", "[", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"{", "\[IndentingNewLine]", 
-         RowBox[{
-         "{", "\"\<\!\(\*SuperscriptBox[\(f\), \(\*SubscriptBox[\(a\), \(1\)] \
-\*SubscriptBox[\(a\), \(2\)] \*SubscriptBox[\(a\), \
-\(3\)]\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \
-\(\[Mu]\[Nu]\)]\)(\!\(\*SubscriptBox[\(p\), \
-\(2\)]\)-\!\(\*SubscriptBox[\(p\), \(1\)]\)\!\(\*SubscriptBox[\()\), \(\[Rho]\
-\)]\)\>\"", "}"}], "\[IndentingNewLine]", "}"}], ",", 
-        RowBox[{"TableHeadings", "\[Rule]", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"{", "1", "}"}], ",", " ", 
-           RowBox[{"{", "\"\<Tensor\>\"", "}"}]}], "}"}]}], ",", 
-        RowBox[{"TableSpacing", "\[Rule]", 
-         RowBox[{"{", 
-          RowBox[{"3", ",", " ", "3"}], "}"}]}]}], "]"}]}], 
-     "\[IndentingNewLine]", "}"}]}], ";"}], "\n"}], "\n", 
+\(3\)]\))\!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\)\nThe first four \
+\!\(\*SubscriptBox[\(\[Tau]\), \(i\)]\) are fully transversal, while the rest \
+of the tensor basis is partially longitudinal.\>\"", "\[IndentingNewLine]", 
+     "}"}]}], ";"}], "\n"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -120,7 +106,7 @@ Cell[BoxData[{
      RowBox[{"p3", "->", 
       RowBox[{
        RowBox[{"-", "p1"}], "-", "p2"}]}], "}"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{
@@ -519,12 +505,13 @@ Cell[BoxData[{
        RowBox[{"q3", "->", 
         RowBox[{"p1", "-", "p2"}]}]}], "}"}]}]}], ";"}], "\n"}], "\n", 
  RowBox[{
-  RowBox[{"TBCanonicalProduct", "[", "\"\<AAA\>\"", "]"}], "=", 
   RowBox[{
-   RowBox[{"Tensor1", "[", 
-    RowBox[{"1", ",", "2", ",", "3"}], "]"}], 
-   RowBox[{"Tensor2", "[", 
-    RowBox[{"1", ",", "2", ",", "3"}], "]"}]}]}]}], "Input",
+   RowBox[{"TBCanonicalProduct", "[", "\"\<AAA\>\"", "]"}], "=", 
+   RowBox[{
+    RowBox[{"Tensor1", "[", 
+     RowBox[{"1", ",", "2", ",", "3"}], "]"}], 
+    RowBox[{"Tensor2", "[", 
+     RowBox[{"1", ",", "2", ",", "3"}], "]"}]}]}], ";"}]}], "Input",
  InitializationCell->True,
  CellChangeTimes->{{3.933907126989883*^9, 3.933907268431929*^9}, {
    3.933939176255615*^9, 3.93393917794698*^9}, {3.933995516400053*^9, 
@@ -558,38 +545,14 @@ Cell[BoxData[{
    3.9471681338666887`*^9, 3.947168138446965*^9}, {3.947168190354039*^9, 
    3.947168214990423*^9}, {3.947168252502811*^9, 3.947168392935837*^9}, {
    3.947168428803213*^9, 3.947168479999572*^9}, {3.947168513651259*^9, 
-   3.947168566247064*^9}, {3.952953866358491*^9, 
-   3.952953872122538*^9}},ExpressionUUID->"fb41c690-768a-4d38-bc18-\
-2bd3dbf3b602"],
-
-Cell[BoxData["Exit"], "Input",
- CellChangeTimes->{{3.94716872862782*^9, 3.94716872902106*^9}},
- CellLabel->"In[6]:=",ExpressionUUID->"f6dca104-d683-406e-b99b-c186f8e9efe0"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"TBRebuildCache", "=", "True"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"TBVerbose", "=", "2"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"TBBasisList", "=", 
-   RowBox[{"{", "\"\<AAA\>\"", "}"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"Block", "[", 
-  RowBox[{
-   RowBox[{"{", " ", "Print", "}"}], ",", 
-   RowBox[{"Get", "[", "\"\<TensorBases`\>\"", "]"}]}], "]"}]}], "Input",
- CellChangeTimes->{{3.935840293005282*^9, 3.9358403394367743`*^9}, {
-   3.935840655700201*^9, 3.935840657483893*^9}, {3.937410258563156*^9, 
-   3.937410291910013*^9}, {3.937410769321018*^9, 3.937410780576475*^9}, {
-   3.937412149782271*^9, 3.9374121771012363`*^9}, 3.937412207372718*^9, {
-   3.9374127190518427`*^9, 3.937412733727064*^9}, {3.9471669277620983`*^9, 
-   3.947166958721697*^9}, {3.947168734574128*^9, 3.947168745022537*^9}, {
-   3.947168961985421*^9, 3.947168962533353*^9}, {3.947169544748968*^9, 
-   3.947169545873395*^9}},ExpressionUUID->"d0008d1c-49c9-4e6a-b20f-\
-2a6a4453885c"]
+   3.947168566247064*^9}, {3.952953866358491*^9, 3.952953872122538*^9}, 
+   3.969348220887985*^9, {3.969348415126152*^9, 3.96934841635928*^9}, {
+   3.9693485450996313`*^9, 
+   3.969348569821455*^9}},ExpressionUUID->"fb41c690-768a-4d38-bc18-\
+2bd3dbf3b602"]
 },
 AutoGeneratedPackage->"AAA.m",
-WindowSize->{588.75, 711},
+WindowSize->{1200, 750},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
 Magnification:>0.5 Inherited,
 FrontEndVersion->"14.1 for Linux x86 (64-bit) (July 16, 2024)",
@@ -608,10 +571,8 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[558, 20, 404, 8, 18, "Input",ExpressionUUID->"b2b1053a-818e-4283-955b-1989cb1b5799"],
-Cell[965, 30, 22405, 532, 1065, "Input",ExpressionUUID->"fb41c690-768a-4d38-bc18-2bd3dbf3b602",
- InitializationCell->True],
-Cell[23373, 564, 172, 2, 18, "Input",ExpressionUUID->"f6dca104-d683-406e-b99b-c186f8e9efe0"],
-Cell[23548, 568, 1033, 20, 49, "Input",ExpressionUUID->"d0008d1c-49c9-4e6a-b20f-2a6a4453885c"]
+Cell[965, 30, 21902, 521, 920, "Input",ExpressionUUID->"fb41c690-768a-4d38-bc18-2bd3dbf3b602",
+ InitializationCell->True]
 }
 ]
 *)
