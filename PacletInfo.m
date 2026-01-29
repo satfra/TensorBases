@@ -3,7 +3,7 @@
 PacletObject[
     <|
         "Name" -> "TensorBases",
-        "Version" -> "1.1.0",
+        "Version" -> "1.1.1",
         "WolframVersion" -> "13.3+",
         "Extensions" ->
             {
