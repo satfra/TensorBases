@@ -260,6 +260,8 @@ AddGroupTensors[{FormTracer`SU2fundexplicit, {flavor,2}, deltaAdjFlav[a, b], FFl
 ]
 SetNf[]:=Module[{},
 RemoveGroupTensor[flavor];
+
+Unprotect[Nf];
 ClearAll[Nf];
 AddFormTracerGroup[{flavor,SUNfund,Nf}];
 ]
@@ -828,7 +830,9 @@ If no indices are given, the standard indices specified by the basis are used.";
 TBMakePropagator::usage = "TBMakePropagator[BasisName_String,InvProp_List]
 For a two-point basis \"BasisName\", obtain a propagator for a given inverse propagator.
 InvProp should be a list of basis element coefficients making up the inverse propagator.
-For example, {\[ImaginaryI], Mq[p]} for the Basis \"qbq\" for the standard quark propagator in vacuum.";
+For example, {\[ImaginaryI], Mq[p]} for the Basis \"qbq\" for the standard quark propagator in vacuum.
+TBMakePropagator[BasisName_String,InvProp_List,p]
+Uses the momentum p in the output.";
 
 
 TB3PToS0S1SPhi::usage="TB3PToS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]
@@ -1988,7 +1992,7 @@ If[Not@AllTrue[indexList,(#<=Length[TBInternal[inBasisName,"Basis"]])&],Print["I
 
 BeginPackage["TensorBases`"];
 Begin["`Private`"];
-TBAutoDefine[outBasisName]=TBAutoDefine[inBasisName];
+TBAutoDefine[outBasisName]=True;
 TBRequiredGroups[outBasisName]=TBRequiredGroups[inBasisName];
 TBVertex[outBasisName]=TBVertex[inBasisName];
 TBVertexStructure[outBasisName]=TBVertexStructure[inBasisName];
@@ -2442,6 +2446,10 @@ solution=LinearSolve[A,-b];
 
 Return[solution/.Thread[invPropR->InvProp]];
 ];
+TBMakePropagator[BasisName_String,InvProp_List,p_]:=Module[{prop},
+prop=TBMakePropagator[BasisName,InvProp];
+Return[prop/.TBInternal[BasisName,"Indices"][[1,1]]:>p];
+]
 
 
 Unprotect@TBInfo;
