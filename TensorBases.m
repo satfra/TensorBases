@@ -1251,6 +1251,13 @@ Return[True];
 ];
 
 
+chooseMap[obj_]:=If[ByteCount[obj]>30000,ParallelMap,Map];
+chooseMap[size_Integer]:=If[size>8,ParallelMap,Map];
+
+chooseTable[obj_]:=If[ByteCount[obj]>30000,ParallelTable,Table];
+chooseTable[size_Integer]:=If[size>8,ParallelTable,Table];
+
+
 TBMakeBasis[BasisName_String]:=Module[
 {rawBasis=TBBasis[BasisName],momentumConservation},
 
@@ -1353,11 +1360,11 @@ Return[FullSimplify@(InsertOutputNaming[rawBasis]//.momentumConservation)];
 ];
 
 vertices=TBVertexStructure[BasisName]/.Tensor[a___]:>Tensor@@Map[Indices[[#]]&,{a}];
-vertices=ParallelMap[
+
+vertices=chooseMap[TBInternal[BasisName,"Length"]][
 FullSimplify[vertices/.Tensor[indices___]:>TBEvaluateBasisElement[BasisName,#,indices]]&,
 Table[i,{i,1,TBInternal[BasisName,"Length"]}]
 ];
-
 
 Return[vertices];
 ];
@@ -1400,7 +1407,7 @@ TBEvaluateVertex,j
 ]//.momentumConservation//.TBInternal[BasisName,"Replacements"]//Global`UseLorentzLinearity
 ,{i,1,TBInternal[BasisName,"Length"]},{j,1,TBInternal[BasisName,"Length"]}];
 
-metric=ParallelMap[FullSimplify,metric];
+metric=chooseMap[metric][FullSimplify,metric];
 
 Return[metric]
 ];
@@ -1414,7 +1421,7 @@ TBEvaluateBasisElement,j
 ]//.momentumConservation//.TBInternal[BasisName,"Replacements"]//Global`UseLorentzLinearity
 ,{i,1,TBInternal[BasisName,"Length"]},{j,1,TBInternal[BasisName,"Length"]}];
 
-metric=ParallelMap[FullSimplify,metric];
+metric=chooseMap[metric][FullSimplify,metric];
 
 Return[metric]
 ];
@@ -1437,7 +1444,7 @@ TBBuildProjectors[BasisName_String]:=Module[
 {projectors,i,j},
 
 If[TBVertexBasis[BasisName]===True,
-projectors=ParallelTable[
+projectors=chooseTable[TBInternal[BasisName,"Length"]][
 Simplify[
 Sum[TBInternal[BasisName,"InverseMetric"][[i,j]]TBEvaluateVertex[BasisName,j,TBInternal[BasisName,"Indices"]],{j,1,TBInternal[BasisName,"Length"]}]//.TBInternal[BasisName,"Replacements"]
 ],
@@ -1447,7 +1454,7 @@ Sum[TBInternal[BasisName,"InverseMetric"][[i,j]]TBEvaluateVertex[BasisName,j,TBI
 Return[projectors]
 ];
 
-projectors=ParallelTable[
+projectors=chooseTable[TBInternal[BasisName,"Length"]][
 Simplify[
 Sum[TBInternal[BasisName,"InverseMetric"][[i,j]]TBEvaluateBasisElement[BasisName,j,TBInternal[BasisName,"Indices"]],{j,1,TBInternal[BasisName,"Length"]}]//.TBInternal[BasisName,"Replacements"]
 ],
@@ -1974,6 +1981,7 @@ TBDefineTBGetInverseMetric[BasisName];
 TBDefineTBGetProjector[BasisName];
 TBDefineTBInfo[BasisName];
 TBAddBasisDocumentation[BasisName];
+
 Protect[TBGetBasisElement,TBGetMetric,TBGetInverseMetric,TBGetProjector,TBInfo,TBGetVertex,TBGetInnerProduct,TBGetCanonicalProduct];
 
 TBPrint[BasisName~~": done.",1];
