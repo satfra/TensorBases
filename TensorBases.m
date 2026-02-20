@@ -2313,7 +2313,12 @@ If[Length[TBInternal[BasisName,"Indices"]]=!=2,
 Print["Can only create an identity matrix for two-point functions!"];Abort[]
 ];
 
-groups=Map[Symbol[SymbolName[#]]&,TBRequiredGroups[BasisName][[All,1]]];
+groups=If[Length[Flatten@TBRequiredGroups[BasisName]]>0
+,
+Map[Symbol[SymbolName[#]]&,TBRequiredGroups[BasisName][[All,1]]]
+,
+{}
+];
 
 diracIndices=FormTracer`GetOpenDiracIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]]];
 lorentzIndices=FormTracer`GetOpenLorentzIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]]];
@@ -2370,6 +2375,7 @@ GetAllSymbols[expr_]:=DeleteDuplicates@Cases[Flatten[{expr}//.Times[a_,b__]:>{a,
 GetIdentityVector[BasisName_,p_]:=Module[{idxSet1,idxSet2},
 idxSet1=TBGetIndexSet[BasisName,1,p];
 idxSet2=TBGetIndexSet[BasisName,1,p];
+
 Table[
 TBFormTrace[
 TBGetProjector[BasisName,i,idxSet2,idxSet1]TBGetIdentityMatrix[BasisName,idxSet1,idxSet2]
@@ -2446,6 +2452,7 @@ solution=LinearSolve[A,-b];
 
 Return[solution/.Thread[invPropR->InvProp]];
 ];
+
 TBMakePropagator[BasisName_String,InvProp_List,p_]:=Module[{prop},
 prop=TBMakePropagator[BasisName,InvProp];
 Return[prop/.TBInternal[BasisName,"Indices"][[1,1]]:>p];
