@@ -35,7 +35,8 @@ If[ChoiceDialog[
 TemplateApply["There is a newer TensorBases version on the internet. 
 The installed version is `a`, whereas `b` is available. Do you want to install it?",<|"a"->TBInstalledVersion,"b"->TBCurVersion|>]
 ,WindowTitle->"Update TensorBases",WindowSize->{Medium,All}],
-Import["https://raw.githubusercontent.com/satfra/TensorBases/main/TensorBasesInstaller.m"];Abort[],
+Import["https://raw.githubusercontent.com/satfra/TensorBases/main/TensorBasesInstaller.m"];
+Echo["Please restart your Kernel."];Exit[],
 Print["Consider updating the TensorBases package for bugfixes and new features!"];
 ];
 ];
