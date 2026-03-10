@@ -789,6 +789,15 @@ For all possible options, see Options[TBConstructBasis]
 
 ";
 
+TBConstructVertexBasis::usage = "TBConstructVertexBasis[options...]
+
+Construct a new vertex basis from a given set of Tensors.
+Example call:
+TBConstructBasis[\[IndentingNewLine]\"Name\"->\"FourFermionBasis\",\[IndentingNewLine]\"Vertex\"->{psibar,psi,psibar,psi},\[IndentingNewLine]\"VertexStructure\"->2(Tensor[1,2,3,4]-Tensor[1,4,3,2]),\[IndentingNewLine]\"Indices\"->{{p1,d1},{p2,d2},{p3,d3},{p4,d4}},\[IndentingNewLine]\"Tensors\"->{{deltaDirac[d1,d2]deltaDirac[d3,d4],gamma[mu,d1,d2]gamma[mu,d3,d4],gamma5[d1,d2]gamma5[d3,d4],gamma[mu,d1,dint1]gamma5[dint1,d2]gamma[mu,d3,d3int]gamma5[d3int,d4],sigma[mu,nu,d1,d2]sigma[mu,nu,d3,d4]\[IndentingNewLine]}}\[IndentingNewLine]]
+For all possible options, see Options[TBConstructBasis]
+
+";
+
 TBExportCache::usage = "TBExportCache[BasisName_String,CacheFolder_String:\"./TBCache\"]
 Exports everything in memory of the Basis BasisName onto disk in the folder CacheFolder.";
 
@@ -900,6 +909,7 @@ TBInfo["BaseBuilder"]:=Print@"TensorBases provides facilities for exporting and 
 \nTBUnregister allows to remove basis names from the registry, which allows one to overwrite bases by custom imports.
 \nTBRestrictBasis creates a new basis from an old one by simple restriction.
 \nTBConstructBasis creates a new basis from a set of primitive tensors. The method automatically takes tensor products of multiple given tensor spaces and reduces any overcomplete set using a given inner product to a minimal basis (a maximal linearly independent set).
+\nTBConstructVertexBasis creates a new vertex basis from a set of primitive tensors. 
 \nFor usage help with the aforementioned functions, please call their usage messages, e.g. TBConstructBasis::usage.
 ";
 
@@ -1935,10 +1945,10 @@ TBConstructBasis[
 	CacheDirectory_String:"./TBCache",
 CanonicalProduct_:Null
   ]:=Module[{reducedTensors,maximalSet,basis},
+If[MemberQ[TBAvailableBasisNames,BasisName],Print["Basis \""~~BasisName~~"\" has been already defined!"];Abort[]];
+
 BeginPackage["TensorBases`"];
 Begin["`Private`"];
-
-If[MemberQ[TBAvailableBasisNames,BasisName],Print["Basis \""~~BasisName~~"\" has been already defined!"];Abort[]];
 
 TBReplacements[BasisName]=Replacements;
 TBIndices[BasisName]={Indices};
@@ -1977,6 +1987,136 @@ TBDefineTBGetBasisElement[BasisName];
 TBDefineTBGetVertex[BasisName];
 TBDefineTBGetMetric[BasisName];
 TBDefineTBGetInnerProduct[BasisName];
+TBDefineTBGetCanonicalProduct[BasisName];
+TBDefineTBGetInverseMetric[BasisName];
+TBDefineTBGetProjector[BasisName];
+TBDefineTBInfo[BasisName];
+TBAddBasisDocumentation[BasisName];
+Protect[TBGetBasisElement,TBGetMetric,TBGetInverseMetric,TBGetProjector,TBInfo,TBGetVertex,TBGetInnerProduct,TBGetCanonicalProduct];
+
+TBPrint[BasisName~~": done.",1];
+
+End[];
+EndPackage[];
+];
+
+
+Options[TBConstructVertexBasis]={
+"Name"->"",
+"RequiredGroups"->{{}},
+"Vertex"->"",
+"VertexStructure"->Tensor,
+"CanonicalProduct"->Null,
+"Indices"->{{}},
+"MomentumConservation"->{},
+"Tensors"->{{}},
+"Replacements"->{},
+"Comment"->"",
+"Author"->"User",
+"Usage"->"",
+"CacheDirectory"->"./TBCache"
+};
+
+TBConstructVertexBasis::invalid="The argument \"`1`\" with value \"`2`\" is invalid."
+TBConstructVertexBasis::warning="The argument \"`1`\" with value \"`2`\" is missing. Some functions may/will break."
+
+TBConstructVertexBasis::InvalidArgument="TBConstructBasis takes only named arguments, see TBConstructBasis::usage";
+TBConstructVertexBasis[___]:=(Message[TBConstructVertexBasis::InvalidArgument];Abort[]);
+
+TBConstructVertexBasis[OptionsPattern[]]:=Module[
+{BasisName,RequiredGroups,Vertex,VertexStructure,CanonicalProduct,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory},
+
+BasisName=OptionValue["Name"];
+If[Head@BasisName=!=String||BasisName==="",Message[TBConstructVertexBasis::invalid,"Name",BasisName];Abort[]];
+
+RequiredGroups=OptionValue["RequiredGroups"];
+If[Head@RequiredGroups=!=List&&AnyTrue[RequiredGroups,Head[#]=!=List&],Message[TBConstructVertexBasis::invalid,"RequiredGroups",RequiredGroups];Abort[]];
+
+Vertex=OptionValue["Vertex"];
+If[Head@Vertex=!=List||AnyTrue[Vertex,Head[#]=!=Symbol&],Message[TBConstructVertexBasis::invalid,"Vertex",Vertex];Abort[]];
+
+VertexStructure=OptionValue["VertexStructure"];
+If[Head@VertexStructure===List||FreeQ[VertexStructure,Tensor,Infinity],Message[TBConstructVertexBasis::invalid,"VertexStructure",VertexStructure];Abort[]];
+
+CanonicalProduct=OptionValue["CanonicalProduct"];
+If[Head@CanonicalProduct===List||FreeQ[CanonicalProduct,Tensor1,Infinity]||FreeQ[CanonicalProduct,Tensor2,Infinity],Message[TBConstructVertexBasis::warning,"CanonicalProduct",CanonicalProduct]];
+
+Indices=OptionValue["Indices"];
+If[Head@Indices=!=List||AnyTrue[Indices,Head[#]=!=List&],Message[TBConstructVertexBasis::invalid,"Indices",Indices];Abort[]];
+
+MomentumConservation=OptionValue["MomentumConservation"];
+If[Head@MomentumConservation=!=List,Message[TBConstructVertexBasis::invalid,"MomentumConservation",MomentumConservation];Abort[]];
+
+Tensors=OptionValue["Tensors"];
+If[Head@Tensors=!=List&&AnyTrue[Tensors,Head[#]=!=List&],Message[TBConstructVertexBasis::invalid,"Tensors",Tensors];Abort[]];
+
+Replacements=OptionValue["Replacements"];
+If[Head@Replacements=!=List||AnyTrue[Replacements,(Head[#]=!=Rule&&Head[#]=!=RuleDelayed)&],Message[TBConstructVertexBasis::invalid,"Replacements",Replacements];Abort[]];
+
+Author=OptionValue["Author"];
+Usage=OptionValue["Usage"];
+Comment=OptionValue["Comment"];
+CacheDirectory=OptionValue["CacheDirectory"];
+
+TBConstructVertexBasis[BasisName,RequiredGroups,Vertex,VertexStructure,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory,CanonicalProduct]
+];
+
+
+TBConstructVertexBasis[
+	BasisName_String,
+{RequiredGroups___List},
+	Vertex_List,
+	VertexStructure_,
+	Comment_String,
+	Author_String,
+	Usage_,
+	{Indices__List},
+	MomentumConservation_List,
+	{Tensors__List},
+	Replacements_List,
+	CacheDirectory_String:"./TBCache",
+  CanonicalProduct_:Null
+  ]:=Module[{reducedTensors,maximalSet,basis},
+BeginPackage["TensorBases`"];
+Begin["`Private`"];
+
+If[MemberQ[TBAvailableBasisNames,BasisName],Print["Basis \""~~BasisName~~"\" has been already defined!"];Abort[]];
+
+TBReplacements[BasisName]=Replacements;
+TBIndices[BasisName]={Indices};
+TBMomentumConservation[BasisName]=MomentumConservation;
+TBVertex[BasisName]=Vertex;
+TBVertexBasis[BasisName]=True;
+TBAuthor[BasisName]=Author;
+TBComment[BasisName]=Comment;
+TBUsage[BasisName]=Usage;
+TBCanonicalProduct[BasisName]=CanonicalProduct;
+TBVertexStructure[BasisName]=VertexStructure;
+TBRequiredGroups[BasisName]={RequiredGroups};
+
+TBCheckRequirements[BasisName];
+
+(*Build a maximal set by doing the tensor product*)
+maximalSet=Flatten[TensorProduct@@{Tensors}]//.MomentumConservation;
+(*If necessary, reduce it*)
+TBBasis[BasisName]=ReduceTensorList[maximalSet,CanonicalProduct,{Indices}]//InsertInputNaming;
+
+TBInternal[BasisName,"Indices"]=InsertOutputNaming[{Indices}];
+TBInternal[BasisName,"Replacements"]=Replacements;
+TBInternal[BasisName,"Length"]=TBBasisLength[BasisName];
+TBInternal[BasisName,"InnerProduct"]=TBMakeInnerProduct[BasisName];
+TBInternal[BasisName,"CanonicalProduct"]=TBMakeCanonicalProduct[BasisName];
+
+TBInternal[BasisName,"Vertices"]=TBMakeVertices[BasisName]//InsertInputNaming;
+TBInternal[BasisName,"Metric"]=TBBuildMetric[BasisName]//InsertInputNaming;
+TBInternal[BasisName,"InverseMetric"]=TBBuildInverseMetric[BasisName]//InsertInputNaming;
+TBInternal[BasisName,"Projectors"]=TBBuildProjectors[BasisName]//InsertInputNaming;
+
+Unprotect[TBGetBasisElement,TBGetMetric,TBGetInverseMetric,TBGetProjector,TBInfo,TBGetVertex,TBGetInnerProduct,TBGetCanonicalProduct];
+TBUnDefineTBGetBasisElement[BasisName];
+TBDefineTBGetVertex[BasisName];
+TBDefineTBGetMetric[BasisName];
+TBUnDefineTBGetInnerProduct[BasisName];
 TBDefineTBGetCanonicalProduct[BasisName];
 TBDefineTBGetInverseMetric[BasisName];
 TBDefineTBGetProjector[BasisName];
@@ -2329,10 +2469,10 @@ Map[Symbol[SymbolName[#]]&,TBRequiredGroups[BasisName][[All,1]]]
 {}
 ];
 
-diracIndices=FormTracer`GetOpenDiracIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]]];
-lorentzIndices=FormTracer`GetOpenLorentzIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]]];
-fundIndices=Map[FormTracer`GetOpenFundGroupIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]],#]&,groups];
-adjIndices=Map[FormTracer`GetOpenAdjGroupIndices[InsertOutputNaming@TBInternal[BasisName,"Basis"][[1]],#]&,groups];
+diracIndices=FormTracer`GetOpenDiracIndices[InsertOutputNaming@TBInternal[BasisName,"Vertices"][[1]]];
+lorentzIndices=FormTracer`GetOpenLorentzIndices[InsertOutputNaming@TBInternal[BasisName,"Vertices"][[1]]];
+fundIndices=Map[FormTracer`GetOpenFundGroupIndices[InsertOutputNaming@TBInternal[BasisName,"Vertices"][[1]],#]&,groups];
+adjIndices=Map[FormTracer`GetOpenAdjGroupIndices[InsertOutputNaming@TBInternal[BasisName,"Vertices"][[1]],#]&,groups];
 
 chooseDelta[i_,j_]:=Module[{idx},
 If[MemberQ[diracIndices,i],
@@ -2359,6 +2499,7 @@ newIndices=Flatten[idxList];
 replacements=Thread[Flatten[originalIndices]->newIndices];
 
 deltas=Map[chooseDelta[#[[1]],#[[2]]]&,Transpose[originalIndices][[2;;]]];
+
 Return[
 Times@@deltas/.replacements//InsertOutputNaming
 ];
@@ -2379,6 +2520,9 @@ Return[InsertOutputNaming@TBVertex[BasisName]];
 
 exclusions[a_]:=And@@{a=!=List,a=!=Complex,a=!=Plus,a=!=Power}
 GetAllSymbols[expr_]:=DeleteDuplicates@Cases[Flatten[{expr}//.Times[a_,b__]:>{a,b}/.a_Symbol[b__]/;exclusions[a]:>{a,b}],_Symbol,Infinity]
+
+
+TBGetProjector[BasisName,i,idxSet2,idxSet1]
 
 
 GetIdentityVector[BasisName_,p_]:=Module[{idxSet1,idxSet2},
