@@ -1490,7 +1490,8 @@ TBGetBasisElement[BasisName,All,indices___]:=Module[{},
 Print[BasisName~~" is a Vertex basis - no basis elements are available!"];Abort[];
 ];
 TBGetBasisElement[BasisName,All]:=Module[{},
-Print[BasisName~~" is a Vertex basis - no basis elements are available!"];Abort[];
+Nothing
+(*Print[BasisName~~" is a Vertex basis - no basis elements are available!"];Abort[];*)
 ];
 ];
 
@@ -1572,7 +1573,8 @@ TBInternal[BasisName,"CanonicalProduct"]
 ];
 TBUnDefineTBGetInnerProduct[BasisName_String]:=Module[{},
 TBGetInnerProduct[BasisName]:=Module[{},
-Print[BasisName~~" is a Vertex basis - no inner product is available!"];Abort[];
+Nothing
+(*Print[BasisName~~" is a Vertex basis - no inner product is available!"];Abort[];*)
 ];
 ];
 TBDefineTBGetInverseMetric[BasisName_String]:=Module[{},
