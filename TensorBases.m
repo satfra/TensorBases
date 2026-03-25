@@ -920,7 +920,7 @@ For a given group, \!\(\*SuperscriptBox[\(T\), \(a\)]\) denotes the generators o
 \!\(\*SubscriptBox[\(\[Epsilon]\), \(abc\)]\) is the fully anti-symmetric Levi-Civita symbol.
 The \!\(\*SuperscriptBox[\(T\), \(a\)]\) are normalised as 
 	tr[\!\(\*SuperscriptBox[\(T\), \(a\)]\)\!\(\*SuperscriptBox[\(T\), \(b\)]\)] = \!\(\*FractionBox[\(1\), \(2\)]\)\!\(\*SubscriptBox[\(\[Delta]\), \(ab\)]\).
-The \!\(\*SubscriptBox[\(\[Gamma]\), \(\[Mu]\(\\\ \)\)]\)denote Euclidean gamma matrices and accordingly \!\(\*SubscriptBox[\(\[Gamma]\), \(5\(\\\ \)\)]\)= \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(1\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(2\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(3\)]\)
+The \!\(\*SubscriptBox[\(\[Gamma]\), \(\(\[Mu]\)\(\\\ \)\)]\)denote Euclidean gamma matrices and accordingly \!\(\*SubscriptBox[\(\[Gamma]\), \(\(5\)\(\\\ \)\)]\)= \!\(\*SubscriptBox[\(\[Gamma]\), \(0\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(1\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(2\)]\)\!\(\*SubscriptBox[\(\[Gamma]\), \(3\)]\)
 ";
 
 
@@ -1146,12 +1146,7 @@ Print["Unknown basis "~~name~~". Aborting"];Abort[]
 TBGetBasisElement[name_String,n_Integer]:=Module[{},
 Print["Unknown basis "~~name~~". Aborting"];Abort[]
 ];
-TBGetBasisElement[name_String]:=Module[{},
-Print["TBGetBasisElement[...] requires at least two arguments! Aborting"];Abort[]
-];
-TBGetBasisElement[]:=Module[{},
-Print["TBGetBasisElement[...] requires at least two arguments! Aborting"];Abort[]
-];
+TBGetBasisElement[args___]/;Length[{args}]<2:=Module[{},Print["TBGetBasisElement[...] requires at least two arguments! Aborting"];Abort[]];
 
 
 TBGetVertex[name_String,All,indices___]:=Module[{},
@@ -1166,28 +1161,19 @@ Print["Unknown basis "~~name~~". Aborting"];Abort[]
 TBGetVertex[name_String,n_Integer]:=Module[{},
 Print["Unknown basis "~~name~~". Aborting"];Abort[]
 ];
-TBGetVertex[name_String]:=Module[{},
-Print["TBGetVertex[...] requires at least two arguments! Aborting"];Abort[]
-];
-TBGetVertex[]:=Module[{},
-Print["TBGetVertex[...] requires at least two arguments! Aborting"];Abort[]
-];
+TBGetVertex[args___]/;Length[{args}]<2:=Module[{},Print["TBGetVertex[...] requires at least two arguments! Aborting"];Abort[]];
 
 
 TBGetMetric[name_String]:=Module[{},
 Print["Unknown basis "~~name~~". Aborting"];Abort[]
 ];
-TBGetMetric[]:=Module[{},
-Print["TBGetMetric[...] requires an argument. Aborting"];Abort[]
-];
+TBGetMetric[args___]/;Length[{args}]<1:=Module[{},Print["TBGetMetric[...] requires an argument! Aborting"];Abort[]];
 
 
 TBGetInverseMetric[name_String]:=Module[{},
 Print["Unknown basis "~~name~~". Aborting"];Abort[]
 ];
-TBGetInverseMetric[]:=Module[{},
-Print["TBGetInverseMetric[...] requires an argument. Aborting"];Abort[]
-];
+TBGetInverseMetric[args___]/;Length[{args}]<1:=Module[{},Print["TBGetInverseMetric[...] requires an argument! Aborting"];Abort[]];
 
 
 TBGetProjector[name_String,All,indices___]:=Module[{},
@@ -1202,12 +1188,7 @@ Print["Unknown basis "~~name~~". Aborting"];Abort[]
 TBGetProjector[name_String,n_Integer]:=Module[{},
 Print["Unknown basis "~~name~~". Aborting"];Abort[]
 ];
-TBGetProjector[name_String]:=Module[{},
-Print["TBGetProjector[...] requires at least two arguments! Aborting"];Abort[]
-];
-TBGetProjector[]:=Module[{},
-Print["TBGetProjector[...] requires at least two arguments! Aborting"];Abort[]
-];
+TBGetProjector[args___]/;Length[{args}]<2:=Module[{},Print["TBGetProjector[...] requires at least two arguments! Aborting"];Abort[]];
 
 
 GetBasisName[BasisDefinitionFile_String]:=Module[{},
@@ -1509,7 +1490,8 @@ TBGetBasisElement[BasisName,All,indices___]:=Module[{},
 Print[BasisName~~" is a Vertex basis - no basis elements are available!"];Abort[];
 ];
 TBGetBasisElement[BasisName,All]:=Module[{},
-Print[BasisName~~" is a Vertex basis - no basis elements are available!"];Abort[];
+Nothing
+(*Print[BasisName~~" is a Vertex basis - no basis elements are available!"];Abort[];*)
 ];
 ];
 
@@ -1591,7 +1573,8 @@ TBInternal[BasisName,"CanonicalProduct"]
 ];
 TBUnDefineTBGetInnerProduct[BasisName_String]:=Module[{},
 TBGetInnerProduct[BasisName]:=Module[{},
-Print[BasisName~~" is a Vertex basis - no inner product is available!"];Abort[];
+Nothing
+(*Print[BasisName~~" is a Vertex basis - no inner product is available!"];Abort[];*)
 ];
 ];
 TBDefineTBGetInverseMetric[BasisName_String]:=Module[{},
@@ -1632,9 +1615,12 @@ TBGetProjector[BasisName,#]&/@Range[TBInternal[BasisName,"Length"]]
 
 
 TBDefineTBInfo[BasisName_String]:=Module[{},
-TBInfo[BasisName]:=Module[{},
+(*TBInfo[BasisName]:=Module[{},
 Print@@TBUsage[BasisName];
+];*)
 ];
+TBInfo[BasisName_String]:=Module[{},
+Print@@TBUsage[BasisName];
 ];
 
 
@@ -1797,7 +1783,7 @@ TBAutoDefineTensorBasis[BasisName,folderPrefix]
 
 
 Unprotect[TBInfo];
-TBInfo[]:=Module[{data},
+TBInfo[args___]/;Length[{args}]<1:=Module[{data},
 data=Map[{#["Name"],#["Vertex"],Grid[#["Indices"]],#["InnerProduct"],Grid[#["Groups"]],#["Comment"],#["Author"]}&,TBBasisDocs];
 Grid[
 Join[{{"Name","Vertex","Indices","Inner product","Groups","Comment","Author"}},data],
