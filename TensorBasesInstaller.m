@@ -88,7 +88,7 @@ If[installationSuccess===$Failed,
 (*installation failed*)
 Message[TensorBasesInstaller::installationfailed];,
 (*installation successful*)
-PacletDataRebuild[];
+Quiet[If[$VersionNumber >= 14.0, PacletDataRebuild[], PacletManager`RebuildPacletData[]]];
 Print["Installation was successful."];
 ];
 ];
