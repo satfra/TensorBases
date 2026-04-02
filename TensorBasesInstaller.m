@@ -26,12 +26,6 @@ Message[TensorBases::allowinternetuse];
 Abort[];
 ];
 
-(* just for backwards compatibility *)
-If[ToString[Context[URLDownload]]=!="System`",
-URLDownload=URLSave
-];
-
-
 (* ::Input::Initialization:: *)
 TensorBasesZipLocation="https://github.com/satfra/TensorBases/archive/refs/heads/main.zip";
 TensorBasesInstallDir=FileNameJoin[{$UserBaseDirectory,"Applications"}];
@@ -43,7 +37,16 @@ TensorBasesInstaller::installationfailed="\nInstallation failed. Please read the
 
 Print["Downloading TensorBases ..."];
 TensorBasesArchive=FileNameJoin[{$TemporaryDirectory,"TensorBases.zip"}];
-URLDownload[TensorBasesZipLocation,TensorBasesArchive]
+If[$VersionNumber >= 11.2,
+URLDownload[TensorBasesZipLocation, TensorBasesArchive],
+Module[{data},
+data = Quiet[Import[TensorBasesZipLocation, "Byte"]];
+If[ListQ[data] && Length[data] > 0,
+Close[BinaryWrite[OpenWrite[TensorBasesArchive, BinaryFormat -> True], data]],
+Message[TensorBasesInstaller::zipdownloadfailed]; Abort[]
+]
+]
+]
 
 tmpTensorBasesImport=Import[TensorBasesArchive];
 If[tmpTensorBasesImport==="{\"error\":\"Not Found\"}"||tmpTensorBasesImport==="404: Not Found",
