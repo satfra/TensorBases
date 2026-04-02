@@ -46,30 +46,29 @@ Print["Consider updating the TensorBases package for bugfixes and new features!"
 
 Print["Mathematica package \!\(\*
 StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\)\!\(\*
-StyleBox[\" \",\nFontWeight->\"Bold\"]\)loaded
-\!\(\*
-StyleBox[\"Authors\",\nFontWeight->\"Bold\"]\): Andreas Gei\[SZ]el, Franz Richard Sattler
-\!\(\*
-StyleBox[\"Version\",\nFontWeight->\"Bold\"]\): 1.0
-\!\(\*
-StyleBox[\"Year\",\nFontWeight->\"Bold\"]\): 2025
-
-For a list of available bases, call \!\(\*
+StyleBox[\" \",\nFontWeight->\"Bold\"]\)loaded"]
+Print["\!\(\*
+StyleBox[\"Authors\",\nFontWeight->\"Bold\"]\): Andreas Gei\[SZ]el, Franz Richard Sattler"]
+Print["\!\(\*
+StyleBox[\"Version\",\nFontWeight->\"Bold\"]\): 1.0"]
+Print["\!\(\*
+StyleBox[\"Year\",\nFontWeight->\"Bold\"]\): 2025"]
+Print["For a list of available bases, call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[]. For further information on a particular basis, call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"\!\(\*
-StyleBox[\"BasisName\",\nFontColor->GrayLevel[0.5]]\)\"].
-
-This package provides the methods \!\(\*
+StyleBox[\"BasisName\",\nFontColor->GrayLevel[0.5]]\)\"]."]
+Print[""]
+Print["This package provides the methods \!\(\*
 StyleBox[\"TBGetBasisElement\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBGetInnerProduct\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBGetMetric\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBGetInverseMetric\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
-StyleBox[\"TBGetProjector\",\nFontColor->RGBColor[1, 0.5, 0]]\) for every tensor basis available.
-For closer explanations, please call their usage messages, e.g. \!\(\*
+StyleBox[\"TBGetProjector\",\nFontColor->RGBColor[1, 0.5, 0]]\) for every tensor basis available."]
+Print["For closer explanations, please call their usage messages, e.g. \!\(\*
 StyleBox[\"TBGetProjector\",\nFontColor->RGBColor[1, 0.5, 0]]\)::\!\(\*
-StyleBox[\"usage\",\nFontColor->RGBColor[0, 0, 1]]\).
-
-Other useful tools include \!\(\*
+StyleBox[\"usage\",\nFontColor->RGBColor[0, 0, 1]]\)."]
+Print[""]
+Print["Other useful tools include \!\(\*
 StyleBox[\"TBBasisTransformation\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBVertexTransformation\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBGetIdentityMatrix\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
@@ -77,14 +76,14 @@ StyleBox[\"TBGetBasisSize\",\nFontColor->RGBColor[1, 0.5, 0]]\),\!\(\*
 StyleBox[\" \",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
 StyleBox[\"TBGetIndexSet\",\nFontColor->RGBColor[1, 0.5, 0]]\),\!\(\*
 StyleBox[\" \",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
-StyleBox[\"TBMakePropagator\",\nFontColor->RGBColor[1, 0.5, 0]]\).
-
-To build or manipulate bases, please call \!\(\*
-StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"BaseBuilder\"].
-
-To show information on the used notation, call \!\(\*
-StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Notation\"].
-"]
+StyleBox[\"TBMakePropagator\",\nFontColor->RGBColor[1, 0.5, 0]]\)."]
+Print[""]
+Print["To build or manipulate bases, please call \!\(\*
+StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"BaseBuilder\"]."]
+Print[""]
+Print["To show information on the used notation, call \!\(\*
+StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Notation\"]."]
+Print[""]
 
 
 FormTracerLoaded[]:=(Length[Select[$Packages,#=="FormTracer`"&]]>0);
@@ -134,12 +133,12 @@ Block[{Print},FiniteT[True];]
 Block[{Print},FastGamma5Trace[True];]
 
 If[Head[$DistributedContexts]=!=List,$DistributedContexts={}];
-$DistributedContexts=$DistributedContexts\[Union]{$Context,"TensorBases`Private`","TensorBases`","FormTracer`","FormTracer`Private`"}
+$DistributedContexts=$DistributedContexts\[Union]{"FormTracer`","FormTracer`Private`"}
 
 
 Print["To see all (user-defined and package-defined) FormTracer definitions, call \!\(\*
-StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"FormTracer\"].
-Furthermore, \!\(\*
+StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"FormTracer\"]."];
+Print["Furthermore, \!\(\*
 StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\" \",\nFontWeight->\"Bold\"]\)extends \!\(\*
 StyleBox[\"FormTracer\",\nFontWeight->\"Bold\"]\). To see all extensions, call \!\(\*
@@ -3022,6 +3021,13 @@ Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a
 Return[
 (#//.rules)&
 ];
+];
+
+
+(*Distribute only the TensorBases symbols needed on parallel subkernels*)DistributeDefinitions[
+(*Public symbols*)
+TBEvaluateBasisElement,TBEvaluateVertex,TBFormTrace,TBInternal,TBVertexBasis,TBGetBasisSize,Tensor,Tensor1,Tensor2,(*Output naming symbols with their DownValues*)
+TBsp,TBsps,TBvec,TBvecs,(*Private helpers used inside parallel lambdas*)TensorBases`Private`InsertOutputNaming,TensorBases`Private`GlobalContext,TensorBases`Private`MakeIndexList,TensorBases`Private`TBUnique,TensorBases`Private`AlreadyUnique,TensorBases`Private`UniqueStem,TensorBases`Private`TBPrint,TensorBases`Private`chooseMap,TensorBases`Private`chooseTable
 ];
 
 
