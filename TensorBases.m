@@ -19,7 +19,7 @@
 
 
 
-If["AllowInternetUse" /. SystemInformation["Network"]&&$FrontEnd=!=Null,
+If[("AllowInternetUse" /. SystemInformation["Network"]) && $FrontEnd=!=Null,
 Module[{TBCurPacletAddr,TBCurPaclet,TBCurVersion,
 TBInstalledPaclet,TBInstalledVersion},
 
