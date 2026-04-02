@@ -19,12 +19,15 @@
 
 
 
-If["AllowInternetUse" /. SystemInformation["Network"],
+If["AllowInternetUse" /. SystemInformation["Network"]&&$FrontEnd=!=Null,
 Module[{TBCurPacletAddr,TBCurPaclet,TBCurVersion,
 TBInstalledPaclet,TBInstalledVersion},
 
 TBCurPacletAddr="https://github.com/satfra/TensorBases/raw/refs/heads/main/PacletInfo.m";
-TBCurPaclet=(List@@Import[TBCurPacletAddr])[[1]];
+TBCurPaclet=Import[TBCurPacletAddr];
+
+If[TBCurPaclet=!=$Failed,
+TBCurPaclet=(List@@TBCurPaclet)[[1]];
 TBCurVersion=TBCurPaclet["Version"];
 
 TBInstalledPaclet=(List@@Import[FileNameJoin[{$UserBaseDirectory,"Applications","TensorBases","PacletInfo.m"}]])[[1]];
@@ -38,6 +41,7 @@ The installed version is `a`, whereas `b` is available. Do you want to install i
 Import["https://raw.githubusercontent.com/satfra/TensorBases/main/TensorBasesInstaller.m"];
 Echo["Please restart your Kernel."];Exit[],
 Print["Consider updating the TensorBases package for bugfixes and new features!"];
+];
 ];
 ];
 ];
