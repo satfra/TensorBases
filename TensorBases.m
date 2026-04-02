@@ -109,12 +109,15 @@ If[Head[FTDirectory]=!=String,Return[False]];
 Return[True];
 ];
 
-If[Not@FormTracerInstalled[],If[ChoiceDialog["FormTracer does not seem to be installed. Do you want to install it?",WindowTitle->"Install FormTracer",WindowSize->{Medium,All}],If[$VersionNumber>=11.2,Import["https://raw.githubusercontent.com/FormTracer/FormTracer/master/src/FormTracerInstaller.m"],Module[{formTracerZipURL,formTracerArchive,formTracerInstallDir,data},formTracerZipURL="https://raw.githubusercontent.com/FormTracer/FormTracer/master/FormTracer.zip";
+If[Not@FormTracerInstalled[],If[ChoiceDialog["FormTracer does not seem to be installed. Do you want to install it?",WindowTitle->"Install FormTracer",WindowSize->{Medium,All}],If[$VersionNumber>=11.2,
+Import["https://raw.githubusercontent.com/FormTracer/FormTracer/master/src/FormTracerInstaller.m"],Module[{formTracerZipURL,formTracerArchive,formTracerInstallDir,data},formTracerZipURL="https://raw.githubusercontent.com/FormTracer/FormTracer/master/FormTracer.zip";
 formTracerArchive=FileNameJoin[{$TemporaryDirectory,"FormTracer.zip"}];
 formTracerInstallDir=FileNameJoin[{$UserBaseDirectory,"Applications"}];
 Print["Downloading FormTracer ..."];
 data=Quiet[Import[formTracerZipURL,"Byte"]];
-If[!ListQ[data]||Length[data]===0,+Print["Download of FormTracer failed."];Abort[]+];
+If[!ListQ[data]||Length[data]===0,
+Print["Download of FormTracer failed."];Abort[]
+];
 Close[BinaryWrite[OpenWrite[formTracerArchive,BinaryFormat->True],data]];
 ExtractArchive[formTracerArchive,formTracerInstallDir];
 Quiet[DeleteFile[formTracerArchive]];
