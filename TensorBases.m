@@ -446,6 +446,13 @@ StyleBox[\"default\",\nFontSize->10]\)\!\(\*
 StyleBox[\" \",\nFontSize->10]\)\!\(\*
 StyleBox[\"names\",\nFontSize->10]\)\!\(\*
 StyleBox[\".\",\nFontSize->10]\)"];
+Module[{dirty},
+dirty=Select[{"Global`p","Global`mu","Global`q","Global`nu","Global`i","Global`j","Global`k"},
+(NameQ[#]&&(OwnValues[#]=!={}||DownValues[#]=!={}))&];
+If[dirty=!={},
+Print["TensorBases: cleared prior Global definitions on ",dirty," so the Lorentz-group fallback can register them as FORM vectors/indices. Restart the kernel and load TensorBases first if this surprises you."];
+Quiet[Unprotect@@dirty];
+ClearAll@@dirty;];];
 DefineLorentzTensors[deltaLorentz[mu, nu], vec[p, mu], sp[p, q], epsLorentz[i, j, k], deltaDirac[i, j], gamma[mu, i, j], gamma5[i, j], vecs[p, mu], sps[p, q]];
 ];
 
