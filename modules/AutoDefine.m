@@ -50,11 +50,19 @@ Return[True];
 ];
 
 
-chooseMap[obj_]:=If[ByteCount[obj]>30000,ParallelMap,Map];
-chooseMap[size_Integer]:=If[size>8,ParallelMap,Map];
+(* Serial on purpose. These maps wrap TBFormTrace, and FormTracer names its FORM
+   scratch files from Date[] plus ToString[Unique["f"]] (FormTracer.m:2470).
+   Unique counters are per-kernel, so two subkernels starting in the same second
+   produce the same filename and one deletes the other's file. The result is a
+   DeleteFile::fdnfnd / ImportFormResult::noformoutput pair and, worse, matrix
+   entries that come back unreduced -- silently, at the API level. Until
+   FormTracer makes those names per-kernel unique, FORM calls must not run
+   concurrently. *)
+chooseMap[obj_]:=Map;
+chooseMap[size_Integer]:=Map;
 
-chooseTable[obj_]:=If[ByteCount[obj]>30000,ParallelTable,Table];
-chooseTable[size_Integer]:=If[size>8,ParallelTable,Table];
+chooseTable[obj_]:=Table;
+chooseTable[size_Integer]:=Table;
 
 
 TBMakeBasis[BasisName_String]:=Module[

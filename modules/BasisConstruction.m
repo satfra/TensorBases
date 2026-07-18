@@ -342,5 +342,11 @@ EndPackage[];
 TBUnregister[BasisName_String]:=Module[{},
 If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
 
+(* Drop the per-basis accessor DownValues and the cached TBInternal data before
+   the name itself, so the basis is fully gone rather than merely rejected by
+   the guards. Without this the unregister-then-reimport workflow advertised in
+   Usage.m and TBImportBasis silently kept serving the old definition. *)
+TBRemoveBasisDownValues[BasisName];
+TBBasisDocs=DeleteCases[TBBasisDocs,doc_/;doc["Name"]===BasisName];
 TBAvailableBasisNames=DeleteCases[TBAvailableBasisNames,BasisName];
 ]

@@ -79,6 +79,27 @@ Print["TBGetProjector[...] requires at least two arguments! Aborting"];Abort[]
 ];
 
 
+(* These two had no unknown-basis fallback at all, so an unregistered name came
+   back unevaluated rather than aborting -- the only accessors in the family
+   that failed silently. TBInfo deliberately gets no such default: its string
+   argument may be a documentation topic ("Extensions", ...) rather than a
+   basis name. *)
+TBGetCanonicalProduct[name_String]:=Module[{},
+Print["Unknown basis "~~name~~". Aborting"];Abort[]
+];
+TBGetCanonicalProduct[]:=Module[{},
+Print["TBGetCanonicalProduct[...] requires an argument. Aborting"];Abort[]
+];
+
+
+TBGetInnerProduct[name_String]:=Module[{},
+Print["Unknown basis "~~name~~". Aborting"];Abort[]
+];
+TBGetInnerProduct[]:=Module[{},
+Print["TBGetInnerProduct[...] requires an argument. Aborting"];Abort[]
+];
+
+
 GetBasisName[BasisDefinitionFile_String]:=Module[{},
 If[StringPart[BasisDefinitionFile,-2;;]=!={".","m"},Print["File "~~BasisDefinitionFile~~" is not a Mathematica script!"];Abort[]];
 Return[StringSplit[StringJoin[StringPart[BasisDefinitionFile,;;-3]],"/"][[-1]]]

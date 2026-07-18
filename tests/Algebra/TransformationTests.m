@@ -84,10 +84,16 @@ AppendTo[tests, VerificationTest[
      AqbqOpt  Tensor1[1,2,3] Tensor2[1,3,2]
      AAA      Tensor1[1,2,3] Tensor2[1,2,3]
    are silently combined into a meaningless transformation matrix instead.
-   Fix: the second term should be TBCanonicalProduct[BasisName2]. *)
+   Fix: the second term should be TBCanonicalProduct[BasisName2].
+
+   Note on the message name: TBMakeCanonicalProduct is an *internal* symbol, so
+   its messages live on TensorBases`Private`TBMakeCanonicalProduct. This test
+   originally named TensorBases`TBMakeCanonicalProduct, which is a different
+   (and otherwise unused) symbol in the public context, so the message could
+   never match no matter what the source did. *)
 AppendTo[tests, VerificationTest[
     TBTestMessage[TensorBases`TBVertexTransformation["AqbqOpt", "AAA"],
-                  TensorBases`TBMakeCanonicalProduct::canonical],
+                  TensorBases`Private`TBMakeCanonicalProduct::canonical],
     True,
     TestID -> "BUG: mismatched canonical products are rejected (AutoDefine.m:120)"]];
 

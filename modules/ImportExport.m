@@ -48,12 +48,29 @@ EndPackage[];
 TBExportCache[BasisName_String,CacheFolder_String:"./TBCache"]:=Module[{},
 If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
 
-If[TBVertexBasis[BasisName],
+(* TrueQ, and an explicit guard: a bare If[TBVertexBasis[name],..] returns
+   Null when the trait is unset, so neither branch would run and the call
+   would silently do nothing. *)
+If[Head[Evaluate[TBVertexBasis[BasisName]]]===TBVertexBasis,
+Print["Basis \""~~BasisName~~"\" does not declare TBVertexBasis!"];Abort[]];
+If[TrueQ[TBVertexBasis[BasisName]],
 TBExportVertexCache[BasisName,CacheFolder],
 TBExportTensorCache[BasisName,CacheFolder]
 ]
 ];
 
+
+(* Emit "TBTrait["name"]=value;" for a trait that may legitimately be unset, and
+   nothing at all when it is. Writing it unconditionally would put the literal
+   unevaluated TBTrait["name"] into the exported file. Traits that used to be
+   dropped entirely here (TBCanonicalProduct, TBReplacements, TBVertexStructure,
+   TBInnerProduct) made the export lossy in a way that only surfaced much later,
+   when a re-imported basis aborted with TBMakeCanonicalProduct::noProduct. *)
+TBExportTrait[BasisName_String,trait_,traitName_String]:=If[
+Head[Evaluate[trait[BasisName]]]===trait,
+"",
+"\n"<>traitName<>"[\""<>BasisName<>"\"]="<>ToString[trait[BasisName],FormatType->InputForm]<>";\n"
+];
 
 TBExportTensorBasis[BasisName_String,folder_String:"./"]:=Module[{outputCode},
 If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
@@ -73,7 +90,7 @@ TBVertexBasis[\""<>BasisName<>"\"]=False;
 TBVertexStructure[\""<>BasisName<>"\"]="<>ToString[TBVertexStructure[BasisName],FormatType->InputForm]<>";
 
 TBInnerProduct[\""<>BasisName<>"\"]="<>ToString[TBInnerProduct[BasisName],FormatType->InputForm]<>";
-
+"<>TBExportTrait[BasisName,TBCanonicalProduct,"TBCanonicalProduct"]<>TBExportTrait[BasisName,TBReplacements,"TBReplacements"]<>"
 TBComment[\""<>BasisName<>"\"]="<>ToString[TBComment[BasisName],FormatType->InputForm]<>";
 
 TBAuthor[\""<>BasisName<>"\"]="<>ToString[TBAuthor[BasisName],FormatType->InputForm]<>";
@@ -86,7 +103,7 @@ TBMomentumConservation[\""<>BasisName<>"\"]="<>ToString[TBMomentumConservation[B
 
 TBBasis[\""<>BasisName<>"\"]="<>ToString[TBBasis[BasisName],FormatType->InputForm]<>";
 ";
-Export[folder~~"/"~~BasisName~~".m",outputCode,"Text"];
+Export[FileNameJoin[{folder,BasisName<>".m"}],outputCode,"Text"];
 
 End[];
 EndPackage[];
@@ -108,7 +125,7 @@ TBVertex[\""<>BasisName<>"\"]="<>ToString[TBVertex[BasisName],FormatType->InputF
 TBVertexBasis[\""<>BasisName<>"\"]="<>ToString[TBVertexBasis[BasisName],FormatType->InputForm]<>";
 
 TBCanonicalProduct[\""<>BasisName<>"\"]="<>ToString[TBCanonicalProduct[BasisName],FormatType->InputForm]<>";
-
+"<>TBExportTrait[BasisName,TBVertexStructure,"TBVertexStructure"]<>TBExportTrait[BasisName,TBInnerProduct,"TBInnerProduct"]<>TBExportTrait[BasisName,TBReplacements,"TBReplacements"]<>"
 TBComment[\""<>BasisName<>"\"]="<>ToString[TBComment[BasisName],FormatType->InputForm]<>";
 
 TBAuthor[\""<>BasisName<>"\"]="<>ToString[TBAuthor[BasisName],FormatType->InputForm]<>";
@@ -121,7 +138,7 @@ TBMomentumConservation[\""<>BasisName<>"\"]="<>ToString[TBMomentumConservation[B
 
 TBBasis[\""<>BasisName<>"\"]="<>ToString[TBBasis[BasisName],FormatType->InputForm]<>";
 ";
-Export[folder~~"/"~~BasisName~~".m",outputCode,"Text"];
+Export[FileNameJoin[{folder,BasisName<>".m"}],outputCode,"Text"];
 End[];
 EndPackage[];
 ];
@@ -129,7 +146,9 @@ EndPackage[];
 TBExportBasis[BasisName_String,folder_String:"./"]:=Module[{outputCode},
 If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
 
-If[TBVertexBasis[BasisName],
+If[Head[Evaluate[TBVertexBasis[BasisName]]]===TBVertexBasis,
+Print["Basis \""~~BasisName~~"\" does not declare TBVertexBasis!"];Abort[]];
+If[TrueQ[TBVertexBasis[BasisName]],
 TBExportVertexBasis[BasisName,folder],
 TBExportTensorBasis[BasisName,folder]
 ]

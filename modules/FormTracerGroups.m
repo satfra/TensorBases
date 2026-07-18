@@ -332,54 +332,61 @@ Return[Evaluate[expr//.outputNameRulesLorentzTensors]];
 Unprotect[UseLorentzLinearity,UseLorentzLinearitySP,UseLorentzLinearityVec];
 
 
+(* The linearity rules are attached to the *user-facing* Global`sp / Global`vec
+   symbols. They used to be removed again with ClearAll, which cannot tell the
+   rules just installed from definitions the user set up beforehand -- so every
+   call silently wiped those, and an Abort partway through leaked the linearity
+   rules into the global symbol instead. Internal`InheritedBlock gives each call
+   a private copy of the symbol's DownValues *and* Attributes, restored on exit
+   including on abort, which also makes these functions reentrant -- Kinematics
+   nests them. *)
+
 UseLorentzLinearitySP[expr_]:=Module[{eval,conv=TBInsertLorentzNames},
-SetAttributes[Evaluate[conv[TBsps]],Orderless];
-SetAttributes[Evaluate[conv[TBsp]],Orderless];
+With[{spSym=conv[TBsp],spsSym=conv[TBsps]},
+Internal`InheritedBlock[{spSym,spsSym},
+SetAttributes[spsSym,Orderless];
+SetAttributes[spSym,Orderless];
 
-conv[TBsp][0,a_]=0;
-conv[TBsp][a_,0]=0;
-conv[TBsp][0,0]=0;
+spSym[0,a_]=0;
+spSym[a_,0]=0;
+spSym[0,0]=0;
 
-conv[TBsps][0,a_]=0;
-conv[TBsps][a_,0]=0;
-conv[TBsps][0,0]=0;
+spsSym[0,a_]=0;
+spsSym[a_,0]=0;
+spsSym[0,0]=0;
 
-conv[TBsp][a_,b_+c_]:= conv[TBsp][a,b]+conv[TBsp][a,c];
-conv[TBsp][a_,-1b_]:= -conv[TBsp][a,b];
-conv[TBsp][b_,a_?NumericQ c_]:= a conv[TBsp][b,c];
+spSym[a_,b_+c_]:= spSym[a,b]+spSym[a,c];
+spSym[a_,-1b_]:= -spSym[a,b];
+spSym[b_,a_?NumericQ c_]:= a spSym[b,c];
 
-conv[TBsps][a_,b_+c_]:= conv[TBsps][a,b]+conv[TBsps][a,c];
-conv[TBsps][a_,-1b_]:= -conv[TBsps][a,b];
-conv[TBsps][b_,a_?NumericQ c_]:= a conv[TBsps][b,c];
+spsSym[a_,b_+c_]:= spsSym[a,b]+spsSym[a,c];
+spsSym[a_,-1b_]:= -spsSym[a,b];
+spsSym[b_,a_?NumericQ c_]:= a spsSym[b,c];
 
-eval=Evaluate[expr];
-ClearAll[
-Evaluate[conv[TBsps]],
-Evaluate[conv[TBsp]]
-];
+eval=expr;
+]];
 Return[eval];
 ];
 
 
 UseLorentzLinearityVec[expr_]:=Module[{eval,conv=TBInsertLorentzNames},
-conv[TBvec][0,mu_]=0;
+With[{vecSym=conv[TBvec],vecsSym=conv[TBvecs]},
+Internal`InheritedBlock[{vecSym,vecsSym},
+vecSym[0,mu_]=0;
 
-conv[TBvecs][0,mu_]=0;
-conv[TBvecs][p_,0]=0;
+vecsSym[0,mu_]=0;
+vecsSym[p_,0]=0;
 
-conv[TBvec][p_+q_,mu_]:=conv[TBvec][p,mu]+conv[TBvec][q,mu];
-conv[TBvec][-1 p_,mu_]:= -conv[TBvec][p,mu];
-conv[TBvec][n_?NumericQ a_,mu_]:=n conv[TBvec][a,mu];
+vecSym[p_+q_,mu_]:=vecSym[p,mu]+vecSym[q,mu];
+vecSym[-1 p_,mu_]:= -vecSym[p,mu];
+vecSym[n_?NumericQ a_,mu_]:=n vecSym[a,mu];
 
-conv[TBvecs][p_+q_,mu_]:=conv[TBvecs][p,mu]+conv[TBvecs][q,mu];
-conv[TBvecs][-1 p_,mu_]:= -conv[TBvecs][p,mu];
-conv[TBvecs][n_?NumericQ a_,mu_]:=n conv[TBvecs][a,mu];
+vecsSym[p_+q_,mu_]:=vecsSym[p,mu]+vecsSym[q,mu];
+vecsSym[-1 p_,mu_]:= -vecsSym[p,mu];
+vecsSym[n_?NumericQ a_,mu_]:=n vecsSym[a,mu];
 
-eval=Evaluate[expr];
-ClearAll[
-Evaluate[conv[TBvec]],
-Evaluate[conv[TBvecs]]
-];
+eval=expr;
+]];
 Return[eval];
 ];
 

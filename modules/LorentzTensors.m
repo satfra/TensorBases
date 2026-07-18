@@ -66,7 +66,12 @@ removeObj/@{transProj[_,_,_],transProj[_,_,_,_],longProj[_,_,_],transProjMagneti
 ClearAll[removeObj];
 
 
-DefineLorentzTensorIdentities[Union[TensorBases`Private`LTCache,{
+(* The single source of truth for how two projectors contract. Both the
+   FormTracer-side identities and the Mathematica-side rewrite rules
+   (TBReplacementsLorentzTensors, below) are built from this list; they used to
+   be maintained separately and had drifted apart -- the finite-temperature
+   entries existed here but had no rewrite-rule counterpart at all. *)
+TBLorentzTensorIdentities={
 (*zero temperature*)
 {transProj[p,mu,rho]transProj[p,rho,nu],transProj[p,mu,nu]},
 {transProj[p,mu,rho]transProj[p,nu,rho],transProj[p,mu,nu]},
@@ -100,24 +105,45 @@ DefineLorentzTensorIdentities[Union[TensorBases`Private`LTCache,{
 {transProjElectric[p,mu,rho]longProj[p,rho,nu],0},
 {transProjElectric[p,mu,rho]longProj[p,nu,rho],0},
 {transProjElectric[p,rho,mu]longProj[p,rho,nu],0}
-}]
+};
+
+DefineLorentzTensorIdentities[Union[TensorBases`Private`LTCache,TBLorentzTensorIdentities]];
+
+
+(* Turn the identity table into rewrite rules.
+
+   Every projector above is symmetric in its two Lorentz indices, so a
+   contraction over one shared index reduces no matter which slot that index
+   occupies in either factor. The table lists only some of those placements, so
+   generate the remaining ones here by swapping each factor's index pair. Times
+   is Orderless, so the two *factor* orders need no separate rules once all four
+   index placements are present -- that gap is what made
+   longProj[p,mu,rho] transProj[p,rho,nu] fail to reduce while the same product
+   written the other way round reduced to 0.
+
+   Caveat, pre-existing and unchanged: these rules match a plain Times without
+   checking that the shared index is genuinely contracted, so a product whose
+   shared index is *open* also collapses. *)
+TBSwapLorentzIndices[h_[q_,a_,b_]]:=h[q,b,a];
+TBLorentzIndexPlacements[lhs_]:=DeleteDuplicates[
+Times@@@Tuples[Map[{#,TBSwapLorentzIndices[#]}&,List@@lhs]]
 ];
-
-
-TBReplacementsLorentzTensors=Flatten[{
-(*zero temperature*)
-{transProj[p_,mu_,rho_]transProj[p_,rho_,nu_]:>transProj[p,mu,nu]},
-{transProj[p_,mu_,rho_]transProj[p_,nu_,rho_]:>transProj[p,mu,nu]},
-{transProj[p_,rho_,mu_]transProj[p_,rho_,nu_]:>transProj[p,mu,nu]},
-
-{longProj[p_,mu_,rho_]longProj[p_,rho_,nu_]:>longProj[p,mu,nu]},
-{longProj[p_,mu_,rho_]longProj[p_,nu_,rho_]:>longProj[p,mu,nu]},
-{longProj[p_,rho_,mu_]longProj[p_,rho_,nu_]:>longProj[p,mu,nu]},
-
-{transProj[p_,mu_,rho_]longProj[p_,rho_,nu_]:>0},
-{transProj[p_,rho_,mu_]longProj[p_,rho_,nu_]:>0},
-{transProj[p_,mu_,rho_]longProj[p_,nu_,rho_]:>0}
-}];
+(* Built with Apply, not With[...]/RuleDelayed[...]: RuleDelayed is HoldRest, so
+   wrapping it in a scoping construct renames the *pattern* variables on the
+   left (p -> p$) while leaving the right-hand side referring to bare p. The
+   rule then matches and rewrites to unbound globals -- silently, and only for
+   the entries whose result is a tensor rather than 0. Applying RuleDelayed to
+   an already-evaluated {lhs, rhs} pair sidesteps the renaming entirely. *)
+TBMakeLorentzContractionRule[lhs_,reduced_]:=RuleDelayed@@{
+lhs/.{p->Pattern[p,Blank[]],mu->Pattern[mu,Blank[]],nu->Pattern[nu,Blank[]],rho->Pattern[rho,Blank[]]},
+reduced
+};
+TBReplacementsLorentzTensors=DeleteDuplicates@Flatten@Map[
+Function[entry,
+Map[TBMakeLorentzContractionRule[#,entry[[2]]]&,TBLorentzIndexPlacements[entry[[1]]]]
+],
+TBLorentzTensorIdentities
+];
 TBCombinedLorentzTensorsList={
 transProj[p_,mu_,nu_]:>TBInsertOutputNaming[TBdeltaLorentz[mu,nu]-TBvec[p,mu]TBvec[p,nu]/TBsp[p,p]],
 transProj[p_,q_,mu_,nu_]:>TBInsertOutputNaming[TBdeltaLorentz[mu,nu]-TBvec[p,mu]TBvec[q,nu]/TBsp[p,q]],

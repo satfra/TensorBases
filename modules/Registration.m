@@ -143,6 +143,36 @@ Print@@TBUsage[BasisName];
 ];
 
 
+(* Remove every per-basis DownValue the TBDefineTBGet* factories above installed,
+   plus the basis's TBInternal data. The getters dispatch on the literal basis
+   name, so dropping the name from TBAvailableBasisNames does not stop them
+   answering -- TBUnregister used to do only that, which left the basis half
+   removed: the guards rejected it while the accessors kept serving stale
+   results. That in turn broke the unregister-then-reimport workflow, since
+   re-registration appends its DownValues *after* the stale ones.
+
+   The heads are held: they are Protected, and evaluating them here would be
+   pointless anyway. Matching is on the whole rule pattern rather than a fixed
+   argument position, because the element-style getters carry the name in
+   several different slots. *)
+TBRemoveBasisDownValues[BasisName_String]:=Module[{publicHeads,wasProtected,strip},
+publicHeads=Hold[TBGetBasisElement,TBGetVertex,TBGetProjector,TBGetMetric,
+TBGetInverseMetric,TBGetInnerProduct,TBGetCanonicalProduct,TBInfo];
+strip=Function[head,
+DownValues[head]=DeleteCases[DownValues[head],rule_/;Not@FreeQ[First[rule],BasisName]]
+];
+(* Restore exactly the protection that was in place: TBUnregister may be called
+   from inside TBImportBasis's own Unprotect block, where re-Protecting would
+   break the registration that follows. *)
+wasProtected=Unprotect@@publicHeads;
+Scan[strip,publicHeads];
+Protect@@wasProtected;
+(* TBInternal is private and deliberately left unprotected -- the registration
+   path writes to it. *)
+strip[TBInternal];
+];
+
+
 TBAvailableBasisNames={};
 TBBasisDocs={};
 TBAddBasisDocumentation[BasisName_String]:=Module[{toString},

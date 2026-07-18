@@ -58,7 +58,9 @@ cMetric12=Table[
 ,
 {i,1,TBGetBasisSize[BasisName1]},{j,1,TBGetBasisSize[BasisName2]}];
 
-cMetric12=ParallelMap[
+(* Map, not ParallelMap: TBFormTrace shells out to FORM, whose scratch-file
+   names collide across subkernels (see chooseMap in AutoDefine.m). *)
+cMetric12=Map[
 Simplify[Global`UseLorentzLinearity[TBFormTrace[#]]]&
 ,
 cMetric12,{2}];
@@ -67,7 +69,7 @@ cMetric11=Table[
 (cProd1[TBGetVertex,i,TBGetVertex,j])//.momentumConservation
 ,
 {i,1,TBGetBasisSize[BasisName1]},{j,1,TBGetBasisSize[BasisName1]}];
-cMetric11=ParallelMap[
+cMetric11=Map[
 Simplify[Global`UseLorentzLinearity[TBFormTrace[#]]]&
 ,
 cMetric11,{2}];
