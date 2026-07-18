@@ -20,7 +20,7 @@ StyleBox[\" \",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\"functions\",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\":\",\nFontWeight->\"Bold\"]\)\n\!\(\*
 StyleBox[\"TB3PToS0S1SPhi\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
-StyleBox[\"TB3PToS0S1SPhi\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
+StyleBox[\"TB3PFromS0S1SPhi\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
 StyleBox[\",\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
 StyleBox[\"TB3PFromS0as\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
 StyleBox[\",\",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
@@ -33,11 +33,17 @@ StyleBox[\"TB3PToS0S1SPhiQk\",\nFontColor->RGBColor[1, 0.5, 0]]\)
 Protect@TBInfo;
 
 
+(* The momentum-conservation rule below reads
+     momentaList[[n]] -> -Total[momentaList[[1;;n-1]]]
+   which with a single momentum sums over an empty list and so reads p1 -> 0,
+   silently annihilating the expression. A symmetric point is not defined for
+   fewer than two momenta, so say so instead. *)
 TBProjectToSymmetricPoint[expr_,q_Symbol,p_Symbol,momenta___Symbol]:=Module[
 {momentaList,nMomenta,rules,qf,
 conv=InsertOutputNaming},
 momentaList={momenta};
 nMomenta=Length[momentaList];
+If[nMomenta<2,Print["TBProjectToSymmetricPoint: a symmetric point requires at least two momenta, but "~~ToString[nMomenta]~~" were given!"];Abort[]];
 qf=Symbol[ToString[q]<>"f"];
 rules=Map[conv@TBsp[#[[1]],#[[2]]]->-(1/(nMomenta-1))conv@TBsp[p,p]&,Subsets[momentaList,{2}]]
 \[Union]Map[conv@TBsp[#,#]->conv@TBsp[p,p]&,momentaList]
@@ -62,6 +68,7 @@ TBProjectToSymmetricPointSpatial[expr_,q_Symbol,p_Symbol,momenta___Symbol]:=Modu
 conv=InsertOutputNaming},
 momentaList={momenta};
 nMomenta=Length[momentaList];
+If[nMomenta<2,Print["TBProjectToSymmetricPointSpatial: a symmetric point requires at least two momenta, but "~~ToString[nMomenta]~~" were given!"];Abort[]];
 qf=Symbol[ToString[q]<>"f"];
 rules=Map[conv@TBsps[#[[1]],#[[2]]]->-(1/(nMomenta-1))conv@TBsps[p,p]&,Subsets[momentaList,{2}]]
 \[Union]Map[conv@TBsps[#,#]->conv@TBsps[p,p]&,momentaList]
@@ -73,21 +80,33 @@ Global`UseLorentzLinearity[out]//.rules
 ]
 
 
+(* Assumptions are built into a local `assumptions` and passed via
+   FullSimplify[..., Assumptions -> ...]. They used to be appended to
+   System`$Assumptions instead, which mutated the caller's global state
+   permanently, accumulated across calls -- often on Module-renamed locals like
+   a$1234 -- and made every later FullSimplify in the session pay for them.
+
+   The positivity conditions are written in TBsp (via conv), not a bare `sp`.
+   Inside the package a bare `sp` resolves to TensorBases`Private`sp, an inert
+   symbol unrelated to the TBsp/Global`sp the rules are actually expressed in,
+   so the assumptions constrained nothing at all and the parametrisation could
+   not close its own round trip. The Qk variants below constrain Q and k rather
+   than p1,p2,p3, which are not even their arguments. *)
 TB3PToS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,q_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]:=Module[
-{change,rules,conv=InsertOutputNaming,
+{assumptions,change,rules,conv=InsertOutputNaming,
 vec4,Qvec,kvec,qvec,ruleqk,ruleqQ,
 t,xi,a,s,z,Q,k},
 
-System`$Assumptions=System`$Assumptions&&S0>0&&1>=S1>0&&-\[Pi]<SPhi<=\[Pi];
+assumptions=System`$Assumptions&&S0>0&&1>=S1>0&&-\[Pi]<SPhi<=\[Pi]&&conv@TBsp[p1,p1]>0&&conv@TBsp[p2,p2]>0&&conv@TBsp[p3,p3]>0;
 
 
 vec4[\[CapitalTheta]1_,\[CapitalTheta]2_,\[Phi]_]:={Cos[\[CapitalTheta]1],Sin[\[CapitalTheta]1]Cos[\[CapitalTheta]2],Sin[\[CapitalTheta]1]Sin[\[CapitalTheta]2]Cos[\[Phi]],Sin[\[CapitalTheta]1]Sin[\[CapitalTheta]2]Sin[\[Phi]]};
-Qvec=Sqrt[sp[Q,Q]]{1,0,0,0};
-kvec=Sqrt[sp[k,k]]{sp[k,Q]/(\[Sqrt](sp[Q,Q]sp[k,k])),\[Sqrt](1-(sp[k,Q]/(\[Sqrt](sp[Q,Q]sp[k,k])))^2),0,0};
+Qvec=Sqrt[conv@TBsp[Q,Q]]{1,0,0,0};
+kvec=Sqrt[conv@TBsp[k,k]]{conv@TBsp[k,Q]/(\[Sqrt](conv@TBsp[Q,Q]conv@TBsp[k,k])),\[Sqrt](1-(conv@TBsp[k,Q]/(\[Sqrt](conv@TBsp[Q,Q]conv@TBsp[k,k])))^2),0,0};
 qvec=q vec4[ArcCos[Symbol["cos1"]],ArcCos[Symbol["cos2"]],Symbol["phi"]];
 
-ruleqk=FullSimplify[(kvec . qvec),Assumptions->$Assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
-ruleqQ=FullSimplify[(Qvec . qvec),Assumptions->$Assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
+ruleqk=FullSimplify[(kvec . qvec),Assumptions->assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
+ruleqQ=FullSimplify[(Qvec . qvec),Assumptions->assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
 
 change[expr_]:=Global`UseLorentzLinearity[conv[Evaluate[expr//.{
 p1->Q,
@@ -119,7 +138,7 @@ s->S1 Sin[SPhi]
 }
 ]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
 ]
 ];
 Return[
@@ -129,9 +148,9 @@ Return[
 
 
 TB3PToS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]:=Module[
-{change,rules,conv=InsertOutputNaming,
+{assumptions,change,rules,conv=InsertOutputNaming,
 t,xi,a,s,z,Q,k},
-System`$Assumptions=System`$Assumptions&&S0>0&&1>=S1>0&&-\[Pi]<SPhi<=\[Pi];
+assumptions=System`$Assumptions&&S0>0&&1>=S1>0&&-\[Pi]<SPhi<=\[Pi]&&conv@TBsp[p1,p1]>0&&conv@TBsp[p2,p2]>0&&conv@TBsp[p3,p3]>0;
 change[expr_]:=Global`UseLorentzLinearity[conv[Evaluate[expr//.{
 p1->Q,
 p2->-k-Q/2,
@@ -156,7 +175,7 @@ s->S1 Sin[SPhi]
 }
 ]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
 ]
 ];
 Return[
@@ -164,8 +183,9 @@ Return[
 ];
 ];
 TB3PFromS0S1SPhi[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]:=Module[
-{rules,conv=InsertOutputNaming,
+{assumptions,rules,conv=InsertOutputNaming,
 t,xi,a,s,z,Q,k},
+assumptions=System`$Assumptions&&conv@TBsp[p1,p1]>0&&conv@TBsp[p2,p2]>0&&conv@TBsp[p3,p3]>0;
 rules=Dispatch[
 FullSimplify[
 Global`UseLorentzLinearity[
@@ -186,7 +206,7 @@ Q->p1,
 k->(p3-p2)/2
 }]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
 ]
 ];
 Return[
@@ -196,20 +216,20 @@ Return[
 
 
 TB3PToS0S1SPhiQk[Q_Symbol,k_Symbol,q_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]:=Module[
-{rules,conv=InsertOutputNaming,
+{assumptions,rules,conv=InsertOutputNaming,
 vec4,Qvec,kvec,qvec,ruleqk,ruleqQ,
 t,xi,a,s,z},
 
-System`$Assumptions=System`$Assumptions&&S0>0&&1>=S1>0&&-\[Pi]<SPhi<=\[Pi];
+assumptions=System`$Assumptions&&S0>0&&1>=S1>0&&-\[Pi]<SPhi<=\[Pi]&&conv@TBsp[Q,Q]>0&&conv@TBsp[k,k]>0;
 
 
 vec4[\[CapitalTheta]1_,\[CapitalTheta]2_,\[Phi]_]:={Cos[\[CapitalTheta]1],Sin[\[CapitalTheta]1]Cos[\[CapitalTheta]2],Sin[\[CapitalTheta]1]Sin[\[CapitalTheta]2]Cos[\[Phi]],Sin[\[CapitalTheta]1]Sin[\[CapitalTheta]2]Sin[\[Phi]]};
-Qvec=Sqrt[sp[Q,Q]]{1,0,0,0};
-kvec=Sqrt[sp[k,k]]{sp[k,Q]/(\[Sqrt](sp[Q,Q]sp[k,k])),\[Sqrt](1-(sp[k,Q]/(\[Sqrt](sp[Q,Q]sp[k,k])))^2),0,0};
+Qvec=Sqrt[conv@TBsp[Q,Q]]{1,0,0,0};
+kvec=Sqrt[conv@TBsp[k,k]]{conv@TBsp[k,Q]/(\[Sqrt](conv@TBsp[Q,Q]conv@TBsp[k,k])),\[Sqrt](1-(conv@TBsp[k,Q]/(\[Sqrt](conv@TBsp[Q,Q]conv@TBsp[k,k])))^2),0,0};
 qvec=q vec4[ArcCos[Symbol["cos1"]],ArcCos[Symbol["cos2"]],Symbol["phi"]];
 
-ruleqk=FullSimplify[(kvec . qvec),Assumptions->$Assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
-ruleqQ=FullSimplify[(Qvec . qvec),Assumptions->$Assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
+ruleqk=FullSimplify[(kvec . qvec),Assumptions->assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
+ruleqQ=FullSimplify[(Qvec . qvec),Assumptions->assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
 
 rules=Dispatch[
 FullSimplify[
@@ -235,7 +255,7 @@ s->S1 Sin[SPhi]
 }
 ]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
 ]
 ];
 Return[
@@ -245,9 +265,9 @@ Return[
 
 
 TB3PToS0S1SPhiQk[Q_Symbol,k_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]:=Module[
-{rules,conv=InsertOutputNaming,
+{assumptions,rules,conv=InsertOutputNaming,
 t,xi,a,s,z},
-System`$Assumptions=System`$Assumptions&&S0>0&&1>=S1>0&&-\[Pi]<SPhi<=\[Pi];
+assumptions=System`$Assumptions&&S0>0&&1>=S1>0&&-\[Pi]<SPhi<=\[Pi]&&conv@TBsp[Q,Q]>0&&conv@TBsp[k,k]>0;
 
 rules=Dispatch[
 FullSimplify[
@@ -268,7 +288,7 @@ s->S1 Sin[SPhi]
 }
 ]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
 ]
 ];
 Return[
@@ -276,8 +296,9 @@ Return[
 ];
 ];
 TB3PFromS0S1SPhiQk[Q_Symbol,k_Symbol,S0_Symbol,S1_Symbol,SPhi_Symbol]:=Module[
-{rules,conv=InsertOutputNaming,
+{assumptions,rules,conv=InsertOutputNaming,
 t,xi,a,s,z},
+assumptions=System`$Assumptions&&conv@TBsp[Q,Q]>0&&conv@TBsp[k,k]>0;
 rules=Dispatch[
 FullSimplify[
 Global`UseLorentzLinearity[
@@ -295,7 +316,7 @@ xi->(4TBsp[k,k])/(3TBsp[Q,Q]),
 z->TBsp[Q,k]/(\[Sqrt](TBsp[k,k]TBsp[Q,Q]))
 }]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&1>=S1>=0&&-\[Pi]<SPhi<=\[Pi]&&xi>=0
 ]
 ];
 Return[
@@ -305,18 +326,18 @@ Return[
 
 
 TB3PToS0as[p1_Symbol,p2_Symbol,p3_Symbol,q_Symbol,S0_Symbol,a_Symbol,s_Symbol]:=Module[
-{change,rules,conv=InsertOutputNaming,
+{assumptions,change,rules,conv=InsertOutputNaming,
 vec4,Qvec,kvec,qvec,ruleqk,ruleqQ,
 t,xi,z,Q,k},
-System`$Assumptions=System`$Assumptions&&S0>0&&1>=a>=0&&0<=s<=1;
+assumptions=System`$Assumptions&&S0>0&&1>=a>=0&&0<=s<=1&&conv@TBsp[p1,p1]>0&&conv@TBsp[p2,p2]>0&&conv@TBsp[p3,p3]>0;
 
 vec4[\[CapitalTheta]1_,\[CapitalTheta]2_,\[Phi]_]:={Cos[\[CapitalTheta]1],Sin[\[CapitalTheta]1]Cos[\[CapitalTheta]2],Sin[\[CapitalTheta]1]Sin[\[CapitalTheta]2]Cos[\[Phi]],Sin[\[CapitalTheta]1]Sin[\[CapitalTheta]2]Sin[\[Phi]]};
-Qvec=Sqrt[sp[Q,Q]]{1,0,0,0};
-kvec=Sqrt[sp[k,k]]{sp[k,Q]/Sqrt[sp[Q,Q]sp[k,k]],Sqrt[1-(sp[k,Q]/Sqrt[sp[Q,Q]sp[k,k]])^2],0,0};
+Qvec=Sqrt[conv@TBsp[Q,Q]]{1,0,0,0};
+kvec=Sqrt[conv@TBsp[k,k]]{conv@TBsp[k,Q]/Sqrt[conv@TBsp[Q,Q]conv@TBsp[k,k]],Sqrt[1-(conv@TBsp[k,Q]/Sqrt[conv@TBsp[Q,Q]conv@TBsp[k,k]])^2],0,0};
 qvec=q vec4[ArcCos[Symbol["cos1"]],ArcCos[Symbol["cos2"]],Symbol["phi"]];
 
-ruleqk=FullSimplify[(kvec . qvec),Assumptions->$Assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
-ruleqQ=FullSimplify[(Qvec . qvec),Assumptions->$Assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
+ruleqk=FullSimplify[(kvec . qvec),Assumptions->assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
+ruleqQ=FullSimplify[(Qvec . qvec),Assumptions->assumptions&&-1<Symbol["cos1"]<=1&&-1<Symbol["cos2"]<=1&&0<=Symbol["phi"]<2\[Pi]];
 
 change[expr_]:=Global`UseLorentzLinearity[conv[Evaluate[expr//.{
 p1->Q,
@@ -345,7 +366,7 @@ z->a/Sqrt[1-s^2]
 }
 ]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&xi>=0
 ]
 ];
 Return[
@@ -355,9 +376,9 @@ Return[
 
 
 TB3PToS0as[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,a_Symbol,s_Symbol]:=Module[
-{change,rules,conv=InsertOutputNaming,
+{assumptions,change,rules,conv=InsertOutputNaming,
 t,xi,z,Q,k},
-System`$Assumptions=System`$Assumptions&&S0>0&&1>=a>=0&&0<=s<=1;
+assumptions=System`$Assumptions&&S0>0&&1>=a>=0&&0<=s<=1&&conv@TBsp[p1,p1]>0&&conv@TBsp[p2,p2]>0&&conv@TBsp[p3,p3]>0;
 
 change[expr_]:=Global`UseLorentzLinearity[conv[Evaluate[expr//.{
 p1->Q,
@@ -380,7 +401,7 @@ z->a/Sqrt[1-s^2]
 }
 ]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&xi>=0
 ]
 ];
 Return[
@@ -389,8 +410,9 @@ Return[
 ];
 
 TB3PFromS0as[p1_Symbol,p2_Symbol,p3_Symbol,S0_Symbol,a_Symbol,s_Symbol]:=Module[
-{rules,conv=InsertOutputNaming,
+{assumptions,rules,conv=InsertOutputNaming,
 t,xi,z,Q,k},
+assumptions=System`$Assumptions&&conv@TBsp[p1,p1]>0&&conv@TBsp[p2,p2]>0&&conv@TBsp[p3,p3]>0;
 rules=Dispatch[
 FullSimplify[
 Global`UseLorentzLinearity[
@@ -407,7 +429,7 @@ Q->p1,
 k->(p3-p2)/2
 }]]
 ],
-Assumptions->System`$Assumptions&&sp[p1,p1]>=0&&sp[p2,p2]>=0&&sp[p3,p3]>=0&&0<=a<=1&&0<=s<=1&&S0>=0&&xi>=0
+Assumptions->assumptions&&0<=a<=1&&0<=s<=1&&S0>=0&&xi>=0
 ]
 ];
 Return[

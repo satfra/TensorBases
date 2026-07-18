@@ -68,10 +68,20 @@ AppendTo[tests, VerificationTest[
    No error, no warning -- the expression is simply annihilated. A symmetric
    point is not defined for fewer than two momenta.
    Fix: guard with If[Length[{momenta}] < 2, Print[...]; Abort[]] at the top of
-   both TBProjectToSymmetricPoint and TBProjectToSymmetricPointSpatial. *)
+   both TBProjectToSymmetricPoint and TBProjectToSymmetricPointSpatial.
+
+   Asserted as an abort, not as FreeQ[..., vec[0,_]]: the fix prescribed just
+   above aborts, so the FreeQ this test originally used never gets a value to
+   inspect. Both spellings rule out the silent annihilation; only this one is
+   consistent with the guard actually being there. *)
 AppendTo[tests, VerificationTest[
-    FreeQ[TensorBases`TBProjectToSymmetricPoint[Global`vec[Global`p1, Global`mu],
-              Global`q, Global`p, Global`p1],
-          Global`vec[0, _]],
+    TBTestAborts[TensorBases`TBProjectToSymmetricPoint[Global`vec[Global`p1, Global`mu],
+              Global`q, Global`p, Global`p1]],
     True,
     TestID -> "BUG: a one-momentum symmetric point does not zero the momentum (Kinematics.m:46)"]];
+
+AppendTo[tests, VerificationTest[
+    TBTestAborts[TensorBases`TBProjectToSymmetricPointSpatial[Global`vec[Global`p1, Global`mu],
+              Global`q, Global`p, Global`p1]],
+    True,
+    TestID -> "SymmetricPoint: the spatial variant also rejects a single momentum"]];
