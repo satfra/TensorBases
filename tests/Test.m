@@ -37,17 +37,31 @@ Print["Initialization complete.\n"];
 (* Function to run and report tests *)
 
 RunAndReportTests[exprText_String, testFileName_String] :=
-    Module[{result, successCount, failureCount, succeededKeys, failedKeys, mGreen = RGBColor[0.0235294, 0.235294, 0.0235294], mRed = RGBColor[0.435294, 0, 0]},
+    Module[{result, successCount, failureCount, succeededKeys, failedKeys, key, mGreen = RGBColor[0.0235294, 0.235294, 0.0235294], mRed = RGBColor[0.435294, 0, 0]},
         ToExpression[exprText];
         result = If[$VersionNumber >= 12.0,
             TestReport[tests, ProgressReporting -> False],
             TestReport[tests]
         ];
         (* Key names changed between versions *)
-        succeededKeys = If[$VersionNumber >= 12.0, result["TestsSucceededKeys"], result["TestsSucceededIndices"]];
-        failedKeys = If[$VersionNumber >= 12.0, result["TestsFailedWrongResultsKeys"], result["TestsFailedWrongResultsIndices"]];
+        key[name_] := If[$VersionNumber >= 12.0, result[name <> "Keys"], result[name <> "Indices"]];
+        succeededKeys = key["TestsSucceeded"];
+        (* A test can fail in three distinct ways, and all three must count.
+           Previously only WrongResults was reported, so a test that threw an
+           error or emitted an unexpected message vanished from *both* counts --
+           the summary said "10 passed, 0 failed" for a file defining 12 tests.
+           Silent test loss is worse than a red build. *)
+        failedKeys = Join[
+            key["TestsFailedWrongResults"],
+            key["TestsFailedWithMessages"],
+            key["TestsFailedWithErrors"]
+        ];
         successCount = Length[succeededKeys];
         failureCount = Length[failedKeys];
+        If[successCount + failureCount =!= Length[tests],
+            Print["  WARNING: ", Length[tests], " tests defined but ",
+                  successCount + failureCount, " accounted for."]
+        ];
         Print[Style["  \[Checkmark] " <> ToString[successCount] <> " passed", mGreen], "    ", Style["x " <> ToString[failureCount] <> " failed", mRed]];
         If[successCount > 0,
             Print["\n", Style["  Successful Tests Details:", mGreen, Bold]];
@@ -58,8 +72,12 @@ RunAndReportTests[exprText_String, testFileName_String] :=
             Scan[
                 (
                     Print["\n", Style["  Test:", mRed, Bold], " ", #["TestID"]];
+                    Print["    Outcome:  ", #["Outcome"]];
                     Print["    Expected: ", #["ExpectedOutput"]];
                     Print["    Actual:   ", #["ActualOutput"]];
+                    If[#["ActualMessages"] =!= {},
+                        Print["    Messages: ", #["ActualMessages"]]
+                    ];
                 )&
                 ,
                 Values[KeyTake[result["TestResults"], failedKeys]]
