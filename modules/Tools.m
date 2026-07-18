@@ -14,11 +14,15 @@ Return[
 
 TBGetIndexSet[BasisName_String,id_Integer,p_]:=Module[{indices},
 If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
-If[id>Length[TBInternal[BasisName,"Indices"]],Print["Basis \""~~BasisName~~"\" has only "~~ToString[Length[TBInternal[BasisName,"Indices"]]]~~" elements!";]Abort[]];
+If[id<1||id>Length[TBInternal[BasisName,"Indices"]],Print["Basis \""~~BasisName~~"\" has only "~~ToString[Length[TBInternal[BasisName,"Indices"]]]~~" index sets!"];Abort[]];
 indices=TBInternal[BasisName,"Indices"][[id]];
 Return[
 Join[{p},
-Map[Unique[SymbolName[#]]&,indices[[2;;]]]
+(* TBUnique, not Unique: Unique on a *string* appends the counter with no
+   separator, so the declared index d1 comes back as d174 -- ambiguous
+   (d1+74 or d17+4) and stripped of its context. TBUnique (Helpers.m)
+   emits Context<>stem<>"$"<>counter instead. *)
+Map[TBUnique,indices[[2;;]]]
 ]
 ];
 ];
@@ -96,10 +100,10 @@ exclusions[a_]:=And@@{a=!=List,a=!=Complex,a=!=Plus,a=!=Power}
 GetAllSymbols[expr_]:=DeleteDuplicates@Cases[Flatten[{expr}//.Times[a_,b__]:>{a,b}/.a_Symbol[b__]/;exclusions[a]:>{a,b}],_Symbol,Infinity]
 
 
-TBGetProjector[BasisName,i,idxSet2,idxSet1]
-
-
 GetIdentityVector[BasisName_,p_]:=Module[{idxSet1,idxSet2},
+(* Both sets are drawn from index set 1 on purpose: TBGetIndexSet uniquifies
+   every index it returns, so the two calls yield independent symbols of the
+   right types. Using set 2 would only change the stems, not the structure. *)
 idxSet1=TBGetIndexSet[BasisName,1,p];
 idxSet2=TBGetIndexSet[BasisName,1,p];
 
@@ -113,6 +117,7 @@ TBGetProjector[BasisName,i,idxSet2,idxSet1]TBGetIdentityMatrix[BasisName,idxSet1
 
 
 TBGetBasis[BasisName_String]:=Module[{},
+If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
 Return[
 TBGetBasis[BasisName,##]&@@TBInternal[BasisName,"Indices"]
 ];
@@ -122,10 +127,13 @@ TBGetBasis[BasisName_String,indices___]:=Module[{
 idxList,originalIndices,newIndices,replacements,
 rawBasis,fixIndices
 },
+If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
 
 fixIndices[expr_]:=Module[{closedIndices,IndexReplacements},
 closedIndices=FormTracer`GetClosedIndices[InsertOutputNaming@expr];
-IndexReplacements:=Thread[closedIndices->Map[TBUnique,closedIndices]];
+(* Set, not SetDelayed: under //. a delayed definition would be re-evaluated
+   on every rewrite pass and mint fresh TBUnique symbols each time. *)
+IndexReplacements=Thread[closedIndices->Map[TBUnique,closedIndices]];
 Return[expr//.IndexReplacements];
 ];
 
@@ -144,8 +152,11 @@ TBMakePropagator[BasisName_String,InvProp_List]:=Module[{
 idxSet1,idxSet2,idxSet3,invPropR,
 Prop,T2,T3,
 projections,idvec,identities,solution,
-makeList,b,A,p
+b,A,p
 },
+If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisName~~"\"!"];Abort[]];
+If[Length[InvProp]=!=TBGetBasisSize[BasisName],
+Print["The inverse propagator for the basis \""~~BasisName~~"\" must have "~~ToString[TBGetBasisSize[BasisName]]~~" entries, but "~~ToString[Length[InvProp]]~~" were given!"];Abort[]];
 
 p=TBInternal[BasisName,"Indices"][[1,1]];
 
@@ -169,8 +180,6 @@ TBGetProjector[BasisName,i,{p,idxSet1[[2;;]]},{-p,idxSet2[[2;;]]}](Prop . T2) (i
 ]//FullSimplify
 ,{i,1,TBGetBasisSize[BasisName]}
 ];
-
-makeList[expr_]:=If[Head[expr]===Plus,List@@expr,{expr}];
 
 identities=Map[(#[[1]]==#[[2]])&,Transpose[{projections,idvec}]];
 {b,A}=CoefficientArrays[identities,Prop];

@@ -309,7 +309,11 @@ If[Not@MemberQ[TBAvailableBasisNames,inBasisName],Print["Unknown Basis \""~~inBa
 If[MemberQ[TBAvailableBasisNames,outBasisName],Print["Basis \""~~outBasisName~~"\" already exists!"];Abort[]];
 
 indexList={indices} ;
-If[Not@AllTrue[indexList,(#<=Length[TBInternal[inBasisName,"Basis"]])&],Print["Indices out of range!"];Abort[]];
+(* Both bounds, and measured against TBBasis -- that is the list actually
+   indexed below. A 0 index would otherwise slip through and TBBasis[in][[0]]
+   evaluates to the head List, which then reaches FORM as an undeclared
+   variable rather than raising an error here. *)
+If[Not@AllTrue[indexList,(1<=#<=Length[TBBasis[inBasisName]])&],Print["Indices out of range!"];Abort[]];
 
 BeginPackage["TensorBases`"];
 Begin["`Private`"];

@@ -117,7 +117,9 @@ Indices2=TBInternal[BasisName2,"Indices"];
 
 If[(Head[Evaluate[TBCanonicalProduct[BasisName1]]]===TBCanonicalProduct)||(TBCanonicalProduct[BasisName1]===Null),
 Message[TBMakeCanonicalProduct::noProduct,BasisName1];Abort[]];
-If[TBCanonicalProduct[BasisName1]=!=TBCanonicalProduct[BasisName1],
+If[(Head[Evaluate[TBCanonicalProduct[BasisName2]]]===TBCanonicalProduct)||(TBCanonicalProduct[BasisName2]===Null),
+Message[TBMakeCanonicalProduct::noProduct,BasisName2];Abort[]];
+If[TBCanonicalProduct[BasisName1]=!=TBCanonicalProduct[BasisName2],
 Message[TBMakeCanonicalProduct::canonical,BasisName1,BasisName2];Abort[]];
 
 product=TBCanonicalProduct[BasisName1]/.Tensor1[a___]:>Tensor1@@Map[Indices1[[#]]&,{a}];

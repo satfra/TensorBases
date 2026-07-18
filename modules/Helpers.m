@@ -25,7 +25,10 @@ Unique[Context[x]<>UniqueStem[x]<>"$"]
 ]
 
 
-GetAllSymbols[expr_]:=DeleteDuplicates@Cases[{expr},_Symbol,Infinity]
+(* GetAllSymbols lives in Tools.m. It used to be defined here as well, with the
+   same argument pattern but different semantics; since Tools.m loads after this
+   file (TensorBases.m:91 vs :99) that definition silently replaced this one, so
+   the copy here was dead code. *)
 
 
 MakeIndexList[len_Integer,expr___]:=Module[{list},

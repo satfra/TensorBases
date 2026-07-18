@@ -6,7 +6,7 @@
 TBBasisTransformation::vertex="Either the basis \"`1`\" or \"`2`\" is a pure vertex basis. Cannot infer the basis elements from the vertices!"; 
 
 TBBasisTransformation[BasisName1_String,BasisName2_String]:=Module[
-{isVertex=TBVertexBasis[BasisName1]||TBVertexBasis[BasisName1],
+{isVertex=TrueQ[TBVertexBasis[BasisName1]]||TrueQ[TBVertexBasis[BasisName2]],
 cProd,cProd1,cMetric12,cMetric11,cMetric11Inv,momentumConservation},
 (*
    The projection operator to get Subscript[b, i] from a vector |v\[RightAngleBracket]=Subscript[\[CapitalSigma], i]Subscript[b, i]|i\[RightAngleBracket] reads (\[LeftAngleBracket]i'\[VerticalSeparator]i\[RightAngleBracket])^-1\[LeftAngleBracket]i'|.

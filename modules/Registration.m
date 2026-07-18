@@ -157,7 +157,12 @@ TBBasisDocs=Append[TBBasisDocs,
 "Vertex"->InsertOutputNaming@TBVertex[BasisName],
 "Indices"->TBInternal[BasisName,"Indices"],
 "Groups"->Map[toString,TBRequiredGroups[BasisName],{2}],
-"InnerProduct"->Style[GlobalContext[StringReplace[ToString[InsertOutputNaming[TBInnerProduct[BasisName]]],{a:DigitCharacter~~" "~~b:LetterCharacter:>a~~" "~~b," "->"","]"->"] "}]],FontSize->10],
+(* Vertex bases carry no inner product (TBCheckVertexBasisDefinitions never
+   requires one), so reading the symbol unconditionally would store the
+   unevaluated TBInnerProduct["name"] as the documented value. *)
+"InnerProduct"->If[Head[Evaluate[TBInnerProduct[BasisName]]]===TBInnerProduct,
+None,
+Style[GlobalContext[StringReplace[ToString[InsertOutputNaming[TBInnerProduct[BasisName]]],{a:DigitCharacter~~" "~~b:LetterCharacter:>a~~" "~~b," "->"","]"->"] "}]],FontSize->10]],
 "Comment"->TBComment[BasisName],
 "Author"->TBAuthor[BasisName]
 |>
