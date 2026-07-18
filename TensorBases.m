@@ -254,6 +254,12 @@ DeleteCases[alreadyPresent,obj[[1]]]
 ];
 
 
+(* ::Input::Initialization:: *)
+(* Silence the divergence message classes. They are emitted both on the master (when a Parallel* call serialises the symbolic basis data for distribution) and on the subkernels (which re-evaluate it with the numeric constant in scope) and relay them back; turning them Off on the master is the one lever that catches both. The entries are genuinely infinite and the user has accepted that, so we suppress only these three classes, and only while a group constant is set to a numeric value (TBOnDivergenceMessages[] restores them on returning to the symbolic constant). Set Global`TBQuietParallel=False to opt out entirely. *)
+TBOffDivergenceMessages[]:=If[!TrueQ[Global`TBQuietParallel===False],
+Off[Power::infy];Off[Power::indet];Off[Infinity::indet];]
+TBOnDivergenceMessages[]:=(On[Power::infy];On[Power::indet];On[Infinity::indet];)
+
 SetNf[3]:=Module[{},
 RemoveGroupTensor[flavor];
 
@@ -263,6 +269,8 @@ Nf=3;
 Protect[Nf];
 
 AddGroupTensors[{FormTracer`SU3fundexplicit, {flavor,3}, deltaAdjFlav[a, b], FFlav[a, b, c], deltaFundFlav[a, b], TFlav[a, b, c], epsAdjFlav[a, b, c],epsFundFlav[a, b, c]}];
+
+TBOffDivergenceMessages[];
 ]
 SetNf[2]:=Module[{},
 RemoveGroupTensor[flavor];
@@ -273,6 +281,8 @@ Nf=2;
 Protect[Nf];
 
 AddGroupTensors[{FormTracer`SU2fundexplicit, {flavor,2}, deltaAdjFlav[a, b], FFlav[a, b, c], deltaFundFlav[a, b], TFlav[a, b, c], epsAdjFlav[a, b, c],epsFundFlav[a, b, c]}];
+
+TBOffDivergenceMessages[];
 ]
 SetNf[]:=Module[{},
 RemoveGroupTensor[flavor];
@@ -280,10 +290,13 @@ RemoveGroupTensor[flavor];
 Unprotect[Nf];
 ClearAll[Nf];
 AddFormTracerGroup[{flavor,SUNfund,Nf}];
+
+TBOnDivergenceMessages[];
 ]
 SetNf[i_]:=Print["Can only set flavor group number to 2 or 3; to set it to Nf, use SetNf[]"]
 
 
+(* ::Input::Initialization:: *)
 SetNc[3]:=Module[{},
 RemoveGroupTensor[color];
 
@@ -293,6 +306,8 @@ Nc=3;
 Protect[Nc];
 
 AddGroupTensors[{FormTracer`SU3fundexplicit, {color,3}, deltaAdjCol[a, b], FCol[a, b, c], deltaFundCol[a, b], TCol[a, b, c],epsAdjCol[a, b, c], epsFundCol[a, b, c]}];
+
+TBOffDivergenceMessages[];
 ]
 SetNc[2]:=Module[{},
 RemoveGroupTensor[color];
@@ -303,6 +318,8 @@ Nc=2;
 Protect[Nc];
 
 AddGroupTensors[{FormTracer`SU2fundexplicit, {color,2}, deltaAdjCol[a, b], FCol[a, b, c], deltaFundCol[a, b], TCol[a, b, c],epsAdjCol[a, b, c], epsFundCol[a, b, c]}];
+
+TBOffDivergenceMessages[];
 ]
 SetNc[]:=Module[{},
 RemoveGroupTensor[color];
@@ -312,6 +329,8 @@ ClearAll[Nc];
 Protect[Nc];
 
 AddFormTracerGroup[{color,SUNfund,Nc}];
+
+TBOnDivergenceMessages[];
 ]
 SetNc[i_]:=Print["Can only set color group number to 2 or 3; to set it to Nc, use SetNc[]"]
 
@@ -1086,20 +1105,20 @@ TBPrint[thing_,level_Integer]:=If[IntegerQ[Global`TBVerbose]&&Global`TBVerbose>=
 
 
 AlreadyUnique[x_Symbol]:=Module[{split,tailNumbers},
-split=StringSplit[ToString[x],"$"];
+split=StringSplit[SymbolName[x],"$"];
 If[Length[split]==1,Return[False]];
 tailNumbers=DigitQ[split[[-1]]];
 Return[tailNumbers];
 ]
 UniqueStem[x_Symbol]:=Module[{split},
-split=StringSplit[ToString[x],"$"];
+split=StringSplit[SymbolName[x],"$"];
 Return[split[[1]]];
 ]
 
 
 TBUnique[x_Symbol]:=Module[{},
 Return[
-Unique[Symbol[UniqueStem[x]]]
+Unique[Context[x]<>UniqueStem[x]<>"$"]
 ];
 ]
 
