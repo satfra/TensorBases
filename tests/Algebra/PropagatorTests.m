@@ -32,6 +32,40 @@ AppendTo[tests, VerificationTest[
     TensorBases`TBGetBasisSize["AA"],
     TestID -> "Propagator: the result has one coefficient per basis element"]];
 
+(* Momentum routing (Tools.m:172-183). All momenta are incoming: both factors
+   are expanded with their first leg at +p, so the returned dressings belong to
+   the same basis elements, at the same momenta, as the supplied ones. The
+   inverse propagator used to be built at (-p,+p), which evaluated its tensors
+   at -p while re-using the given dressings unchanged -- consistent only for
+   dressings even under p -> -p.
+
+   For qbq that is the textbook S(p) = (-i Z pslash + M)/(Z^2 p^2 + M^2); the
+   momentum-odd pslash dressing is what pins the routing down. *)
+AppendTo[tests, VerificationTest[
+    Simplify @ TensorBases`TBMakePropagator["qbq", {Global`Z, Global`M}],
+    {-Global`Z, Global`M}/(Global`M^2 + Global`Z^2 Global`sp[Global`p1, Global`p1]),
+    TestID -> "Propagator: qbq inverts to the textbook (-i Z pslash + M)/D"]];
+
+(* qbqFT is the sharper probe: its temporal element is a bare gamma_0, so a
+   dressing that is *not* even in p -- omega-tilde = p_0 + I mu at finite
+   chemical potential -- passes through untouched, while the spatial element
+   I gamma.p is momentum-odd. Both dressings must come back negative relative
+   to the mass term, which is Inverse[i Cw gamma_0 + i Zperp gamma.p + mq];
+   checked independently against explicit Euclidean Dirac matrices. Under the
+   old routing the spatial one came back positive. *)
+AppendTo[tests, VerificationTest[
+    Module[{prop = TensorBases`TBMakePropagator["qbqFT",
+                     {Global`Cw, Global`Zperp, Global`mq}]},
+        Simplify[Global`mq prop/prop[[3]]]],
+    {-Global`Cw, -Global`Zperp, Global`mq},
+    TestID -> "Propagator: qbqFT dressings match Inverse[Gamma] at the same momentum"]];
+
+AppendTo[tests, VerificationTest[
+    Simplify[Global`mq / TensorBases`TBMakePropagator["qbqFT",
+                {Global`Cw, Global`Zperp, Global`mq}][[3]]],
+    Global`Cw^2 + Global`mq^2 + Global`Zperp^2 Global`sps[Global`p1, Global`p1],
+    TestID -> "Propagator: qbqFT denominator is Cw^2 + mq^2 + Zperp^2 p_spatial^2"]];
+
 (* The three-argument form only substitutes the basis' declared momentum
    (Tools.m:183-186). *)
 AppendTo[tests, VerificationTest[

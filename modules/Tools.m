@@ -169,8 +169,20 @@ invPropR=Map[Unique["a"]&,InvProp];
 Prop=Table[Unique["v"<>ToString[i]],{i,1,TBGetBasisSize[BasisName]}];
 FormTracer`AddExtraVars@@(GetAllSymbols[Prop]\[Union]GetAllSymbols[invPropR]);
 
+(* All momenta incoming: both factors are expanded with their first leg at +p.
+   Gluing two two-point functions joins legs whose momenta are opposite (one's
+   incoming is the other's outgoing), so the junction leg carries -p in the
+   propagator and +p in the inverse propagator -- the tensors themselves are
+   *not* reversed.
+
+   The inverse propagator used to be built at (-p,+p) instead, which evaluated
+   its tensors at -p while re-using the supplied dressings unchanged. That is
+   only consistent if every dressing is even under p -> -p (true in vacuum,
+   where dressings depend on p^2 alone) and silently wrong otherwise -- e.g.
+   at finite chemical potential, where the temporal dressing carries
+   omega-tilde = p_0 + I mu. *)
 T2=Table[TBGetVertex[BasisName,i,{p,idxSet2[[2;;]]},{-p,idxSet3[[2;;]]}],{i,1,TBGetBasisSize[BasisName]}];
-T3=Table[TBGetVertex[BasisName,i,{-p,idxSet3[[2;;]]},{p,idxSet1[[2;;]]}],{i,1,TBGetBasisSize[BasisName]}];
+T3=Table[TBGetVertex[BasisName,i,{p,idxSet3[[2;;]]},{-p,idxSet1[[2;;]]}],{i,1,TBGetBasisSize[BasisName]}];
 
 idvec=GetIdentityVector[BasisName,p];
 

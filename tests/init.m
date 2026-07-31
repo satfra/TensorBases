@@ -41,8 +41,11 @@ Global`TBVerbose = 0;
      AAAClass    second vertex basis with identical indices to AAA, so the two
                  form a TBVertexTransformation pair
      AqbqOpt     three-point tensor bases with identical TBIndices and identical
-     AqbqSimple  TBCanonicalProduct -- a TBBasisTransformation pair *)
-Global`TBBasisList = {"cbc", "qbq", "AA", "AAA", "AAAClass", "AqbqOpt", "AqbqSimple"};
+     AqbqSimple  TBCanonicalProduct -- a TBBasisTransformation pair
+     qbqFT       finite-T quark two-point basis; its temporal element is a bare
+                 gamma_0, which is what makes it the probe for momentum routing
+                 with dressings that are not even under p -> -p *)
+Global`TBBasisList = {"cbc", "qbq", "AA", "AAA", "AAAClass", "AqbqOpt", "AqbqSimple", "qbqFT"};
 
 Block[{Print}, Needs["TensorBases`"]];
 

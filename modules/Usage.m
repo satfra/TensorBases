@@ -126,6 +126,7 @@ TBMakePropagator::usage = "TBMakePropagator[BasisName_String,InvProp_List]
 For a two-point basis \"BasisName\", obtain a propagator for a given inverse propagator.
 InvProp should be a list of basis element coefficients making up the inverse propagator.
 For example, {\[ImaginaryI], Mq[p]} for the Basis \"qbq\" for the standard quark propagator in vacuum.
+All momenta are taken incoming, and the returned coefficients belong to the same basis elements, at the same momenta, as the ones supplied: given \[CapitalGamma](p) = \!\(\*SubscriptBox[\(a\), \(k\)]\)\!\(\*SubscriptBox[\(T\), \(k\)]\)(p) the result is the list of \!\(\*SubscriptBox[\(v\), \(k\)]\) with G(p) = \!\(\*SubscriptBox[\(v\), \(k\)]\)\!\(\*SubscriptBox[\(T\), \(k\)]\)(p) = \[CapitalGamma](p\!\(\*SuperscriptBox[\()\), \(-1\)]\). The dressings may be arbitrary functions, in particular ones that are not even under p -> -p, such as \!\(\*OverscriptBox[\(\[Omega]\), \(~\)]\) = \!\(\*SubscriptBox[\(p\), \(0\)]\) + \[ImaginaryI]\[Mu] at finite chemical potential.
 TBMakePropagator[BasisName_String,InvProp_List,p]
 Uses the momentum p in the output.";
 
