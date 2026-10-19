@@ -44,7 +44,8 @@ StyleBox[\"FormTracer\",\nFontWeight->\"Bold\"]\) to run."];Abort[];
 ];
 
 If[Not@FormTracerLoaded[],
-Block[{Print},Get["FormTracer`"]];
+(* FormTracer checks GitHub for updates on every load; only allow it when due (see SelfUpdate.m). *)
+Block[{Print,$AllowInternet=$AllowInternet&&TBOnlineChecksDue},Get["FormTracer`"]];
 If[FormTracerLoaded[],
 Print["\!\(\*
 StyleBox[\"FormTracer\",\nFontWeight->\"Bold\"]\) package loaded. "];,

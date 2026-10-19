@@ -127,6 +127,9 @@ TBIndices[BasisName]={Indices};
 TBMomentumConservation[BasisName]=MomentumConservation;
 TBVertex[BasisName]=Vertex;
 TBVertexBasis[BasisName]=False;
+(* See the note in TBConstructVertexBasis: without this the exported definition file carries the
+   self-referential TBAutoDefine["name"]=TBAutoDefine["name"] and cannot be re-imported. *)
+TBAutoDefine[BasisName]=True;
 TBAuthor[BasisName]=Author;
 TBComment[BasisName]=Comment;
 TBUsage[BasisName]=Usage;
@@ -186,7 +189,33 @@ Options[TBConstructVertexBasis]={
 "Comment"->"",
 "Author"->"User",
 "Usage"->"",
-"CacheDirectory"->"./TBCache"
+"CacheDirectory"->"./TBCache",
+(* Set False for a basis used ONLY as a Feynman rule -- one that is read through TBGetVertex and
+   never projected with. It then skips TBBuildMetric / TBBuildInverseMetric / TBBuildProjectors,
+   which dominate the cost of constructing a large vertex basis and are pure waste in that case:
+   FunKit's FMakeDiagrammaticRules inserts vertices through TBGetVertex alone.
+
+   Measured on the finite-T electric/magnetic gluon vertex bases (qcd-codes SP_EM): the three-point
+   Gram cost 125 s, and the four-point one had not finished after an hour at 13 GB -- for a quantity
+   nothing ever read.
+
+   The trait is exported with the basis and honoured by TBAutoDefineVertexBasis, so a cached import
+   does not silently recompute what construction skipped. TBGetMetric / TBGetInverseMetric /
+   TBGetProjector are deliberately left UNREGISTERED for such a basis, so calling one stays
+   unevaluated -- and thus fails loudly at the call site -- rather than returning something
+   plausible and wrong. *)
+"BuildProjectors"->True,
+(* Set False when the supplied tensors are already known to be linearly independent. ReduceTensorList
+   finds a maximal independent subset by building the FULL n x n table of TBFormTrace'd inner
+   products -- the same Gram that "BuildProjectors" avoids, computed a second time and for a
+   different reason. On a large vertex basis that search costs far more than the property it
+   establishes is worth, and for a hand-written two-element basis it establishes nothing at all.
+
+   With this False the tensors are taken verbatim, in the given order. That is the point and also
+   the risk: nothing then checks independence, so a dependent input yields an over-complete "basis"
+   whose element indices no longer mean what the caller thinks. Only set it when independence is
+   evident from the construction. *)
+"Reduce"->True
 };
 
 TBConstructVertexBasis::invalid="The argument \"`1`\" with value \"`2`\" is invalid."
@@ -196,7 +225,7 @@ TBConstructVertexBasis::InvalidArgument="TBConstructBasis takes only named argum
 TBConstructVertexBasis[___]:=(Message[TBConstructVertexBasis::InvalidArgument];Abort[]);
 
 TBConstructVertexBasis[OptionsPattern[]]:=Module[
-{BasisName,RequiredGroups,Vertex,VertexStructure,CanonicalProduct,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory},
+{BasisName,RequiredGroups,Vertex,VertexStructure,CanonicalProduct,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory,BuildProjectors,Reduce},
 
 BasisName=OptionValue["Name"];
 If[Head@BasisName=!=String||BasisName==="",Message[TBConstructVertexBasis::invalid,"Name",BasisName];Abort[]];
@@ -230,7 +259,13 @@ Usage=OptionValue["Usage"];
 Comment=OptionValue["Comment"];
 CacheDirectory=OptionValue["CacheDirectory"];
 
-TBConstructVertexBasis[BasisName,RequiredGroups,Vertex,VertexStructure,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory,CanonicalProduct]
+BuildProjectors=OptionValue["BuildProjectors"];
+If[Head@BuildProjectors=!=Symbol||!MemberQ[{True,False},BuildProjectors],Message[TBConstructVertexBasis::invalid,"BuildProjectors",BuildProjectors];Abort[]];
+
+Reduce=OptionValue["Reduce"];
+If[Head@Reduce=!=Symbol||!MemberQ[{True,False},Reduce],Message[TBConstructVertexBasis::invalid,"Reduce",Reduce];Abort[]];
+
+TBConstructVertexBasis[BasisName,RequiredGroups,Vertex,VertexStructure,Comment,Author,Usage,Indices,MomentumConservation,Tensors,Replacements,CacheDirectory,CanonicalProduct,BuildProjectors,Reduce]
 ];
 
 
@@ -247,7 +282,9 @@ TBConstructVertexBasis[
 	{Tensors__List},
 	Replacements_List,
 	CacheDirectory_String:"./TBCache",
-  CanonicalProduct_:Null
+  CanonicalProduct_:Null,
+  BuildProjectors_:True,
+  Reduce_:True
   ]:=Module[{reducedTensors,maximalSet,basis},
 BeginPackage["TensorBases`"];
 Begin["`Private`"];
@@ -259,6 +296,16 @@ TBIndices[BasisName]={Indices};
 TBMomentumConservation[BasisName]=MomentumConservation;
 TBVertex[BasisName]=Vertex;
 TBVertexBasis[BasisName]=True;
+(* Every shipped bases/*.m file opens with TBAutoDefine[name]=True, and TBRestrictBasis sets it, but
+   the two TBConstruct*Basis functions did not. The consequence was silent and only bit on the
+   round trip: TBExportBasis writes the trait unconditionally, so an unset one came out as the
+   self-referential TBAutoDefine["name"]=TBAutoDefine["name"], and TBImportBasis then declined to
+   register the basis at all -- leaving TBList[] unchanged and every accessor aborting with
+   "Unknown basis", i.e. a constructed basis could be exported but never usefully re-imported. *)
+TBAutoDefine[BasisName]=True;
+(* NB the trait is TBHasProjectors, not TBBuildProjectors: the latter is already the name of the
+   function that computes them, and a trait sharing it would shadow the call below. *)
+TBHasProjectors[BasisName]=BuildProjectors;
 TBAuthor[BasisName]=Author;
 TBComment[BasisName]=Comment;
 TBUsage[BasisName]=Usage;
@@ -271,7 +318,12 @@ TBCheckRequirements[BasisName];
 (*Build a maximal set by doing the tensor product*)
 maximalSet=Flatten[TensorProduct@@{Tensors}]//.MomentumConservation;
 (*If necessary, reduce it*)
+If[TrueQ[Reduce],
 TBBasis[BasisName]=ReduceTensorList[maximalSet,CanonicalProduct,{Indices}]//InsertInputNaming;
+,
+TBPrint[BasisName~~": \"Reduce\"->False -- taking the tensors verbatim, no independence check.",1];
+TBBasis[BasisName]=maximalSet//Global`UseLorentzLinearity//Simplify//InsertInputNaming;
+];
 
 TBInternal[BasisName,"Indices"]=InsertOutputNaming[{Indices}];
 TBInternal[BasisName,"Replacements"]=Replacements;
@@ -280,18 +332,26 @@ TBInternal[BasisName,"InnerProduct"]=TBMakeInnerProduct[BasisName];
 TBInternal[BasisName,"CanonicalProduct"]=TBMakeCanonicalProduct[BasisName];
 
 TBInternal[BasisName,"Vertices"]=TBMakeVertices[BasisName]//InsertInputNaming;
+If[TrueQ[BuildProjectors],
 TBInternal[BasisName,"Metric"]=TBBuildMetric[BasisName]//InsertInputNaming;
 TBInternal[BasisName,"InverseMetric"]=TBBuildInverseMetric[BasisName]//InsertInputNaming;
 TBInternal[BasisName,"Projectors"]=TBBuildProjectors[BasisName]//InsertInputNaming;
+,
+TBPrint[BasisName~~": Feynman-rule only (\"BuildProjectors\"->False) -- skipping Metric, InverseMetric, Projectors.",1];
+];
 
 Unprotect[TBGetBasisElement,TBGetMetric,TBGetInverseMetric,TBGetProjector,TBInfo,TBGetVertex,TBGetInnerProduct,TBGetCanonicalProduct];
 TBUnDefineTBGetBasisElement[BasisName];
 TBDefineTBGetVertex[BasisName];
-TBDefineTBGetMetric[BasisName];
 TBUnDefineTBGetInnerProduct[BasisName];
 TBDefineTBGetCanonicalProduct[BasisName];
+If[TrueQ[BuildProjectors],
+TBDefineTBGetMetric[BasisName];
 TBDefineTBGetInverseMetric[BasisName];
 TBDefineTBGetProjector[BasisName];
+,
+TBDefineFeynmanRuleOnlyAccessors[BasisName];
+];
 TBDefineTBInfo[BasisName];
 TBAddBasisDocumentation[BasisName];
 

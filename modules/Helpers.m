@@ -58,7 +58,7 @@ If[StringTake[mdir,{-1}]!="/",mdir=StringJoin[mdir,"/"]];
 file=mdir<>fileName<>".m";
 
 If[FileExistsQ[file],
-ret=Import[file];
+ret=Get[file];
 ,
 ret=ReleaseHold[expr];
 Export[file,ret];

@@ -63,6 +63,8 @@ ClearAll["TensorBases`*"];
 ClearAll["TensorBases`Private`*"];
 
 
+(* Subkernels receive TensorBases definitions on demand through these contexts.
+   An explicit DistributeDefinitions here would cost ~1 s per load: it walks all cached basis data. *)
 If[Head[$DistributedContexts]=!=List,$DistributedContexts={}];
 $DistributedContexts=$DistributedContexts\[Union]{$Context,"TensorBases`Private`","TensorBases`","FormTracer`","FormTracer`Private`"}
 
@@ -111,13 +113,6 @@ ProcessBases[]
 
 (* ::Section:: *)
 (*End package*)
-
-
-(*Distribute only the TensorBases symbols needed on parallel subkernels*)DistributeDefinitions[
-(*Public symbols*)
-TBEvaluateBasisElement,TBEvaluateVertex,TBFormTrace,TBInternal,TBVertexBasis,TBGetBasisSize,Tensor,Tensor1,Tensor2,(*Output naming symbols with their DownValues*)
-TBsp,TBsps,TBvec,TBvecs,(*Private helpers used inside parallel lambdas*)TensorBases`Private`InsertOutputNaming,TensorBases`Private`GlobalContext,TensorBases`Private`MakeIndexList,TensorBases`Private`TBUnique,TensorBases`Private`AlreadyUnique,TensorBases`Private`UniqueStem,TensorBases`Private`TBPrint,TensorBases`Private`chooseMap,TensorBases`Private`chooseTable
-];
 
 
 Protect["TensorBases`*"];

@@ -38,9 +38,14 @@ If[Not@MemberQ[TBAvailableBasisNames,BasisName],Print["Unknown Basis \""~~BasisN
 BeginPackage["TensorBases`"];
 Begin["`Private`"];
 Export[CacheFolder~~"/"~~BasisName~~"/vertices.m",TBInternal[BasisName,"Vertices"]];
+(* A Feynman-rule-only basis has no metric/inverseMetric/projectors: TBInternal is unset for those,
+   and exporting it would write the literal unevaluated TBInternal[...] into the cache, which a
+   later import would restore as a plausible-looking expression that is not a matrix. *)
+If[TBHasProjectors[BasisName]=!=False,
 Export[CacheFolder~~"/"~~BasisName~~"/metric.m",TBInternal[BasisName,"Metric"]];
 Export[CacheFolder~~"/"~~BasisName~~"/inverseMetric.m",TBInternal[BasisName,"InverseMetric"]];
 Export[CacheFolder~~"/"~~BasisName~~"/projectors.m",TBInternal[BasisName,"Projectors"]];
+];
 End[];
 EndPackage[];
 ];
@@ -125,7 +130,7 @@ TBVertex[\""<>BasisName<>"\"]="<>ToString[TBVertex[BasisName],FormatType->InputF
 TBVertexBasis[\""<>BasisName<>"\"]="<>ToString[TBVertexBasis[BasisName],FormatType->InputForm]<>";
 
 TBCanonicalProduct[\""<>BasisName<>"\"]="<>ToString[TBCanonicalProduct[BasisName],FormatType->InputForm]<>";
-"<>TBExportTrait[BasisName,TBVertexStructure,"TBVertexStructure"]<>TBExportTrait[BasisName,TBInnerProduct,"TBInnerProduct"]<>TBExportTrait[BasisName,TBReplacements,"TBReplacements"]<>"
+"<>TBExportTrait[BasisName,TBVertexStructure,"TBVertexStructure"]<>TBExportTrait[BasisName,TBInnerProduct,"TBInnerProduct"]<>TBExportTrait[BasisName,TBReplacements,"TBReplacements"]<>TBExportTrait[BasisName,TBHasProjectors,"TBHasProjectors"]<>"
 TBComment[\""<>BasisName<>"\"]="<>ToString[TBComment[BasisName],FormatType->InputForm]<>";
 
 TBAuthor[\""<>BasisName<>"\"]="<>ToString[TBAuthor[BasisName],FormatType->InputForm]<>";

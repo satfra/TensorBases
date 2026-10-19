@@ -108,6 +108,27 @@ TBInternal[BasisName,"InverseMetric"]
 ];
 ];
 ];
+(* Accessors for a basis built with "BuildProjectors"->False. Without these the calls would fall
+   through to the catch-all in Defaults.m and abort with "Unknown basis <name>", which is both wrong
+   -- the basis IS registered -- and would send the reader looking for a registration bug instead of
+   at the flag they set. Aborting is still the right behaviour; only the message changes. *)
+TBDefineFeynmanRuleOnlyAccessors[BasisName_String]:=Module[{msg},
+msg="Basis \""~~BasisName~~"\" was built with \"BuildProjectors\"->False: it is a Feynman rule only "~~
+    "(TBGetVertex), and has no metric, inverse metric or projectors. Rebuild it without that option "~~
+    "if you need to project with it. Aborting";
+(* The arities must MIRROR TBDefineTBGetProjector's exactly. A single catch-all
+   TBGetProjector[BasisName,___] loses the ordering race against Defaults.m's
+   TBGetProjector[name_String,n_Integer,indices___]: the two patterns are incomparable, so Mathematica
+   falls back to definition order and the pre-loaded default wins -- reinstating the misleading
+   "Unknown basis" message this exists to replace. *)
+TBGetMetric[BasisName]:=(Print[msg];Abort[]);
+TBGetInverseMetric[BasisName]:=(Print[msg];Abort[]);
+TBGetProjector[BasisName,n_Integer,indices___]:=(Print[msg];Abort[]);
+TBGetProjector[BasisName,n_Integer]:=(Print[msg];Abort[]);
+TBGetProjector[BasisName,All,indices___]:=(Print[msg];Abort[]);
+TBGetProjector[BasisName,All]:=(Print[msg];Abort[]);
+];
+
 TBDefineTBGetProjector[BasisName_String]:=Module[{},
 TBGetProjector[BasisName,n_Integer,indices___]:=Module[{},
 Return[
@@ -280,6 +301,12 @@ TBPrint[BasisName~~": Calculating Vertices...",2];
 TBMakeVertices[BasisName]//InsertInputNaming,
 folderPrefix
 ];
+(* A basis exported with "BuildProjectors"->False carries TBHasProjectors[name]=False and has no
+   metric/inverseMetric/projectors in its cache. Without this guard AutoSaveRestore would find no
+   cache file and cheerfully COMPUTE them here -- silently reinstating exactly the cost the flag was
+   set to avoid, on the import path where it is least expected. Unset trait means True, so every
+   pre-existing basis is unaffected. *)
+If[TBHasProjectors[BasisName]=!=False,
 TBInternal[BasisName,"Metric"]=AutoSaveRestore[BasisName~~"/metric",
 TBPrint[BasisName~~": Calculating Metric...",2];
 TBBuildMetric[BasisName]//InsertInputNaming,
@@ -295,14 +322,23 @@ TBPrint[BasisName~~": Calculating Projectors...",2];
 TBBuildProjectors[BasisName]//InsertInputNaming,
 folderPrefix
 ];
+,
+TBPrint[BasisName~~": Feynman-rule only (TBHasProjectors->False) -- skipping Metric, InverseMetric, Projectors.",1];
+];
 
 TBUnDefineTBGetBasisElement[BasisName];
 TBDefineTBGetVertex[BasisName];
-TBDefineTBGetMetric[BasisName];
 TBUnDefineTBGetInnerProduct[BasisName];
 TBDefineTBGetCanonicalProduct[BasisName];
+(* A Feynman-rule-only basis gets accessors that abort with an accurate message instead of the real
+   ones, so projecting with it fails at the call site rather than returning something plausible. *)
+If[TBHasProjectors[BasisName]=!=False,
+TBDefineTBGetMetric[BasisName];
 TBDefineTBGetInverseMetric[BasisName];
 TBDefineTBGetProjector[BasisName];
+,
+TBDefineFeynmanRuleOnlyAccessors[BasisName];
+];
 TBDefineTBInfo[BasisName];
 
 TBAddBasisDocumentation[BasisName];
@@ -316,7 +352,7 @@ TBAutoDefineBasis[BasisDefinitionFile_String,folderPrefix_String:TBDirectory<>"c
 
 oldDirectory=Directory[];
 SetDirectory[DirectoryName[BasisDefinitionFile]];
-Import[FileNameTake[BasisDefinitionFile,-1]];
+Get[FileNameJoin[{Directory[],FileNameTake[BasisDefinitionFile,-1]}]];
 SetDirectory[oldDirectory];
 
 If[TBVertexBasis[BasisName]===True,

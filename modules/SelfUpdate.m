@@ -3,7 +3,17 @@
 (* ::Title:: *)
 (*Self-update check and welcome banner*)
 
-If[("AllowInternetUse" /. SystemInformation["Network"]) && $FrontEnd=!=Null,
+(* The online update checks of TensorBases and FormTracer cost ~1 s per load, most of it
+   Wolfram's one-time HTTP setup. Run them at most once a day, tracked by the
+   modification time of a per-user file in the system temporary directory. *)
+TBOnlineChecksDue=Module[{stampFile=FileNameJoin[{$TemporaryDirectory,"TensorBases-update-check-"<>$UserName}],due},
+due=("AllowInternetUse" /. SystemInformation["Network"]) &&
+  (!FileExistsQ[stampFile] || AbsoluteTime[]-AbsoluteTime[FileDate[stampFile,"Modification"]]>24*3600);
+If[due,Quiet[Close[OpenWrite[stampFile]]]];
+due
+];
+
+If[TBOnlineChecksDue && $FrontEnd=!=Null,
 Module[{TBCurPacletAddr,TBCurPaclet,TBCurVersion,
 TBInstalledPaclet,TBInstalledVersion},
 
