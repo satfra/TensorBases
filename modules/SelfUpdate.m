@@ -3,6 +3,7 @@
 (* ::Title:: *)
 (*Self-update check and welcome banner*)
 
+
 (* The online update checks of TensorBases and FormTracer cost ~1 s per load, most of it
    Wolfram's one-time HTTP setup. Run them at most once a day, tracked by the
    modification time of a per-user file in the system temporary directory. *)
@@ -42,30 +43,35 @@ Print["Consider updating the TensorBases package for bugfixes and new features!"
 ];
 
 
+$TBVersion=(List@@Import[FileNameJoin[{$UserBaseDirectory,"Applications","TensorBases","PacletInfo.m"}]])[[1]]["Version"];
+
+
 Print["Mathematica package \!\(\*
 StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\" \",\nFontWeight->\"Bold\"]\)loaded"]
 Print["\!\(\*
 StyleBox[\"Authors\",\nFontWeight->\"Bold\"]\): Andreas Gei\[SZ]el, Franz Richard Sattler"]
 Print["\!\(\*
-StyleBox[\"Version\",\nFontWeight->\"Bold\"]\): 1.0"]
+StyleBox[\"Version\",\nFontWeight->\"Bold\"]\): ", $TBVersion]
 Print["\!\(\*
-StyleBox[\"Year\",\nFontWeight->\"Bold\"]\): 2025"]
+StyleBox[\"Year\",\nFontWeight->\"Bold\"]\): 2026"]
+
+If[$FrontEnd=!=Null,
 Print["For a list of available bases, call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[]. For further information on a particular basis, call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"\!\(\*
-StyleBox[\"BasisName\",\nFontColor->GrayLevel[0.5]]\)\"]."]
-Print[""]
+StyleBox[\"BasisName\",\nFontColor->GrayLevel[0.5]]\)\"]."];
+Print[""];
 Print["This package provides the methods \!\(\*
 StyleBox[\"TBGetBasisElement\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBGetInnerProduct\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBGetMetric\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBGetInverseMetric\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
-StyleBox[\"TBGetProjector\",\nFontColor->RGBColor[1, 0.5, 0]]\) for every tensor basis available."]
+StyleBox[\"TBGetProjector\",\nFontColor->RGBColor[1, 0.5, 0]]\) for every tensor basis available."];
 Print["For closer explanations, please call their usage messages, e.g. \!\(\*
 StyleBox[\"TBGetProjector\",\nFontColor->RGBColor[1, 0.5, 0]]\)::\!\(\*
-StyleBox[\"usage\",\nFontColor->RGBColor[0, 0, 1]]\)."]
-Print[""]
+StyleBox[\"usage\",\nFontColor->RGBColor[0, 0, 1]]\)."];
+Print[""];
 Print["Other useful tools include \!\(\*
 StyleBox[\"TBBasisTransformation\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
 StyleBox[\"TBVertexTransformation\",\nFontColor->RGBColor[1, 0.5, 0]]\), \!\(\*
@@ -74,11 +80,12 @@ StyleBox[\"TBGetBasisSize\",\nFontColor->RGBColor[1, 0.5, 0]]\),\!\(\*
 StyleBox[\" \",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
 StyleBox[\"TBGetIndexSet\",\nFontColor->RGBColor[1, 0.5, 0]]\),\!\(\*
 StyleBox[\" \",\nFontColor->RGBColor[1, 0.5, 0]]\)\!\(\*
-StyleBox[\"TBMakePropagator\",\nFontColor->RGBColor[1, 0.5, 0]]\)."]
-Print[""]
+StyleBox[\"TBMakePropagator\",\nFontColor->RGBColor[1, 0.5, 0]]\)."];
+Print[""];
 Print["To build or manipulate bases, please call \!\(\*
-StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"BaseBuilder\"]."]
-Print[""]
+StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"BaseBuilder\"]."];
+Print[""];
 Print["To show information on the used notation, call \!\(\*
-StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Notation\"]."]
+StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Notation\"]."];
+];
 Print[""]

@@ -3,6 +3,7 @@
 (* ::Title:: *)
 (*Locating, installing and loading FormTracer*)
 
+
 FormTracerLoaded[]:=(Length[Select[$Packages,#=="FormTracer`"&]]>0);
 FormTracerInstalled[]:=Module[{FTDirectory},
 FTDirectory=SelectFirst[
@@ -66,6 +67,7 @@ If[Head[$DistributedContexts]=!=List,$DistributedContexts={}];
 $DistributedContexts=$DistributedContexts\[Union]{"FormTracer`","FormTracer`Private`"}
 
 
+If[$FrontEnd=!=Null,
 Print["To see all (user-defined and package-defined) FormTracer definitions, call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"FormTracer\"]."];
 Print["Furthermore, \!\(\*
@@ -73,8 +75,7 @@ StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\)\!\(\*
 StyleBox[\" \",\nFontWeight->\"Bold\"]\)extends \!\(\*
 StyleBox[\"FormTracer\",\nFontWeight->\"Bold\"]\). To see all extensions, call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Extensions\"]"];
-
-
 Print["\nTo see all momentum transformations that can be performed by \!\(\*
 StyleBox[\"TensorBases\",\nFontWeight->\"Bold\"]\), call \!\(\*
 StyleBox[\"TBInfo\",\nFontColor->RGBColor[1, 0.5, 0]]\)[\"Momenta\"].\n"];
+]
